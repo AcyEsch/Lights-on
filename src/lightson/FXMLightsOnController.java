@@ -33,4 +33,5 @@ public class FXMLightsOnController implements Initializable {
     }    
     
 }
-//Schauen obPull funktioniert
+//Schauen obPull funktioniert: Ok in Internet geändert, bei dre Frage ob rebase oder merge --> Rebase nehmen
+//Push auch?
