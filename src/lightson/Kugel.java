@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lightson;
+package basiseffekt1;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -29,6 +29,10 @@ import javafx.scene.shape.CircleBuilder;
     public double startX = 100;
     public double startY = 100;
     
+    public double a = 9.81; //Beschleunigung
+    public double Vk = 0;  //Geschwindigkeit
+    public double time = 0;
+    
     //Größe des Fensters
     public double fieldWidth;
     public double fieldHeight;
@@ -52,8 +56,8 @@ import javafx.scene.shape.CircleBuilder;
        super.setCenterY(startY);
        
        
-       this.x_speed=Math.random() * 5 + 1;
-       this.y_speed=Math.random() * 5 + 1;
+       this.x_speed = 0;
+       this.y_speed = 5;                //Geschwindigkeit mit der die Kugel fällt ( kann nicht unten verändert werden?)
        
        RadialGradient g;
         g = new RadialGradient(0,0,
@@ -70,9 +74,18 @@ import javafx.scene.shape.CircleBuilder;
     public void move()
     {
         
+        time += 0.1;
+        System.out.println("Time:  " + time);
+        
+        //this.y_speed = time * Vk + (1/2) * a * Math.pow(time, 2);               
+
+
+        
+
+        
         super.setCenterX(super.getCenterX()+this.x_speed);
         super.setCenterY(super.getCenterY()+this.y_speed);
-        
+       
         //Collision detecting with left edge
         if(super.getCenterX()<=this.radius)
         {
@@ -90,19 +103,25 @@ import javafx.scene.shape.CircleBuilder;
         }
         
         //detect collision with top edge
-        if(super.getCenterY()<=this.radius)
+        if(super.getCenterY()<= this.radius)
         {
             super.setCenterY(this.radius);
             this.y_speed= -this.y_speed;
         }
         
+        
         //detect collision with bottom edge
         if(super.getCenterY() >=this.fieldHeight-this.radius)
         {
+            /*
             super.setCenterY(this.fieldHeight-this.radius);
             this.y_speed= -this.y_speed;
+            */
             
+            super.setCenterY(this.fieldHeight - this.radius);
+            this.y_speed = 0;
         }
+        
         
         //detect collision with other balls
         /*
