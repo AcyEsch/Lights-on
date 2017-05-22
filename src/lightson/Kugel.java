@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package basiseffekt1;
+package basiseffekt;
+
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -12,8 +13,7 @@ import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CircleBuilder;
-
-/**
+/***
  *
  * @author Jasmin
  */
@@ -22,8 +22,10 @@ import javafx.scene.shape.CircleBuilder;
     {
 
     
+        
     public double x_speed;
     public double y_speed;
+        
     public double radius;
     
     public double startX = 100;
@@ -31,6 +33,7 @@ import javafx.scene.shape.CircleBuilder;
     
     public double a = 9.81; //Beschleunigung
     public double Vk = 0;  //Geschwindigkeit
+    public double t0 = System.currentTimeMillis();  //Aktuelle Zeit
     public double time = 0;
     
     //Größe des Fensters
@@ -56,9 +59,8 @@ import javafx.scene.shape.CircleBuilder;
        super.setCenterY(startY);
        
        
-       this.x_speed = 0;
-       this.y_speed = 5;                //Geschwindigkeit mit der die Kugel fällt ( kann nicht unten verändert werden?)
        
+       /*
        RadialGradient g;
         g = new RadialGradient(0,0,
                 0.35,0.35,
@@ -67,26 +69,22 @@ import javafx.scene.shape.CircleBuilder;
                 CycleMethod.NO_CYCLE,
                 new Stop(0.0,Color.WHITE),
                 new Stop(1.0, Color.RED));
-       
+       */
     }
     
     
     public void move()
     {
-        
-        time += 0.1;
-        System.out.println("Time:  " + time);
-        
-        //this.y_speed = time * Vk + (1/2) * a * Math.pow(time, 2);               
-
-
-        
-
-        
-        super.setCenterX(super.getCenterX()+this.x_speed);
-        super.setCenterY(super.getCenterY()+this.y_speed);
+        time = (System.currentTimeMillis() - t0) / 1000;
        
-        //Collision detecting with left edge
+        
+        y_speed = time * Vk + 0.5 * a * time * time;               
+
+        
+        super.setCenterX(super.getCenterX() + this.x_speed);
+        super.setCenterY(super.getCenterY() + this.y_speed);
+       
+        //Kollision Links
         if(super.getCenterX()<=this.radius)
         {
         
@@ -94,23 +92,24 @@ import javafx.scene.shape.CircleBuilder;
             this.x_speed= -this.x_speed;
         }
         
-        //detect collision with right Edge
+        //Kollison Rechts
         if(super.getCenterX() >=this.fieldWidth - this.radius)
         {
             super.setCenterX(this.fieldWidth - this.radius);
             this.x_speed= -this.x_speed;
             
         }
-        
-        //detect collision with top edge
+        /*
+        //Kollision Oben
         if(super.getCenterY()<= this.radius)
         {
             super.setCenterY(this.radius);
             this.y_speed= -this.y_speed;
         }
+        */
         
         
-        //detect collision with bottom edge
+        //Kollision Unten
         if(super.getCenterY() >=this.fieldHeight-this.radius)
         {
             /*
