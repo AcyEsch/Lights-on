@@ -84,62 +84,7 @@ import javafx.scene.shape.CircleBuilder;
         super.setCenterX(super.getCenterX() + this.x_speed);
         super.setCenterY(super.getCenterY() + this.y_speed);
        
-        //Kollision Links
-        if(super.getCenterX()<=this.radius)
-        {
-        
-            super.setCenterX(this.radius);
-            this.x_speed= -this.x_speed;
-        }
-        
-        //Kollison Rechts
-        if(super.getCenterX() >=this.fieldWidth - this.radius)
-        {
-            super.setCenterX(this.fieldWidth - this.radius);
-            this.x_speed= -this.x_speed;
-            
-        }
-        /*
-        //Kollision Oben
-        if(super.getCenterY()<= this.radius)
-        {
-            super.setCenterY(this.radius);
-            this.y_speed= -this.y_speed;
-        }
-        */
-        
-        
-        //Kollision Unten
-        if(super.getCenterY() >=this.fieldHeight-this.radius)
-        {
-            /*
-            super.setCenterY(this.fieldHeight-this.radius);
-            this.y_speed= -this.y_speed;
-            */
-            
-            super.setCenterY(this.fieldHeight - this.radius);                   //Kugel bleibt auf dem Boden
-            this.y_speed = 0;
-        }
-        
-        
-        //detect collision with other balls
-        /*
-        for (Ball b : balls){
-            if(b != this && b.intersects(super.getLayoutBounds()))
-            {
-                
-                double tempx=this.x_speed;
-                double tempy=this.y_speed;
-                this.x_speed=b.x_speed;
-                this.y_speed=b.y_speed;
-                b.x_speed=tempx;
-                b.y_speed=tempy;
-                break;
-            }
-                
-        }
-        */
-        
+           
     }
     
     public void kollisionBahn(Bahn bahn)
@@ -154,30 +99,47 @@ import javafx.scene.shape.CircleBuilder;
             {
                 //System.out.println("XXXXXXXXXXX");
                 
+                System.out.println((int)super.getCenterY() + "  "  + (int)bahn.getFunktionNachX(super.getCenterX())); // Y Wert der Kugel macht zu große sprünge (148, 154, 160 ...)
+                                                                                                                        //Puffer einbauen
                 //Berührt die Kugel die Bahn?
-                
+                if((int)(super.getCenterY() + radius) >= (int)bahn.getFunktionNachX(super.getCenterX()))
+                {
+                    super.setCenterY(bahn.getFunktionNachX(super.getCenterX()) - radius);                   //Kugel bleibt auf der Bahn
+                    //System.out.println("Berührt die Bahn");
+                }
                 
             }
-            else
-            {                       
-                //System.out.println("-----------");
-            }
-
-        } 
-        
-        /*
-        for(int i = 0; i <= bahn.getDeltaY() ; i++)         //????
-        {
-           
-            
-            if(super.getCenterY() >= bahn.getX1() - this.radius)
-            {
-                
-            
-               this.y_speed = 0;
-             }
-
         }
-        */
+        
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+        
+        //Kollision Links
+        if(super.getCenterX()<=this.radius)
+        {
+        
+            super.setCenterX(this.radius);
+            this.x_speed= -this.x_speed;
+        }
+        
+        //Kollison Rechts
+        if(super.getCenterX() >=this.fieldWidth - this.radius)
+        {
+            super.setCenterX(this.fieldWidth - this.radius);
+            this.x_speed= -this.x_speed;
+            
+        }        
+        
+        //Kollision mit Boden
+        if(super.getCenterY() >=this.fieldHeight-this.radius)
+        {
+            /*
+            super.setCenterY(this.fieldHeight-this.radius);
+            this.y_speed= -this.y_speed;
+            */
+            
+            super.setCenterY(this.fieldHeight - this.radius);                   //Kugel bleibt auf dem Boden
+            this.y_speed = 0;
+        }  
     }
 }
