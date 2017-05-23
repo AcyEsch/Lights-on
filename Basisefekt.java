@@ -36,6 +36,8 @@ public class Basisefekt extends Application
        
       
         
+        Bahn bahn = new Bahn();
+       bahn.draw(50, 150, 400, 200);
 
       
        
@@ -71,7 +73,7 @@ public class Basisefekt extends Application
        
        
        
-       
+       root.getChildren().add(bahn);
         root.getChildren().add(kugel);
         root.getChildren().add(btnStart);
         Scene scene = new Scene(root, height, width);
