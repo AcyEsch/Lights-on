@@ -117,7 +117,7 @@ import javafx.scene.shape.CircleBuilder;
             this.y_speed= -this.y_speed;
             */
             
-            super.setCenterY(this.fieldHeight - this.radius);
+            super.setCenterY(this.fieldHeight - this.radius);                   //Kugel bleibt auf dem Boden
             this.y_speed = 0;
         }
         
@@ -140,5 +140,44 @@ import javafx.scene.shape.CircleBuilder;
         }
         */
         
+    }
+    
+    public void kollisionBahn(Bahn bahn)
+    {
+         //Abfrage ob die Kugel über der Bahn ist (X Position)
+        if(super.getCenterX() > bahn.getX1() - radius && super.getCenterX() < bahn.getX2() + radius)
+        {
+           // System.out.println("Die Kugel ist über der Bahn");
+            
+            //Abfrage ob die Kugel im Bereich der Bahn ist (Y Position)
+            if(super.getCenterY() > bahn.getY1() - radius && super.getCenterY() < bahn.getY2() + radius)
+            {
+                //System.out.println("XXXXXXXXXXX");
+                
+                //Berührt die Kugel die Bahn?
+                
+                
+            }
+            else
+            {                       
+                //System.out.println("-----------");
+            }
+
+        } 
+        
+        /*
+        for(int i = 0; i <= bahn.getDeltaY() ; i++)         //????
+        {
+           
+            
+            if(super.getCenterY() >= bahn.getX1() - this.radius)
+            {
+                
+            
+               this.y_speed = 0;
+             }
+
+        }
+        */
     }
 }
