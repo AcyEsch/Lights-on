@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="900.0" prefWidth="1400.0" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLGameController">
+    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+    <gridLinesVisible>true</gridLinesVisible>
+    
+    <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="20.0" prefWidth="1000.0">
+      <children>
+        <HBox alignment="center">
+            <Button id="simButton" fx:id="simButton" onAction="#handleSimButtonAction"  text="Play"/>
+            <Label prefHeight="38.0" prefWidth="69.0" text="Time">
+                <font>
+                 <Font name="Gill Sans Ultra Bold" size="15.0" />
+                </font>
+            </Label>          
+            <Label fx:id="timer" prefHeight="38.0" prefWidth="91.0" textAlignment="CENTER" />
+            <HBox alignment="center_right">
+                <Label prefHeight="38.0" prefWidth="69.0" text="Name des Levels">
+                    <font>
+                         <Font name="Gill Sans Ultra Bold" size="15.0" />
+                    </font>
+                </Label>
+            </HBox>
+        </HBox>    
+      </children>
+    </AnchorPane>
+    
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="0"  prefHeight="38.0" prefWidth="69.0" text="Elements">
+        <font>
+            <Font name="Gill Sans Ultra Bold" size="15.0" />
+        </font>
+    </Label>
+    
+    <!--SimulationsPane!!-->
+    <ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="880.0" prefWidth="1000.0">
+        <content>
+            <Pane fx:id="simPane" prefHeight="382.0" prefWidth="386.0"/> 
+        </content>
+    </ScrollPane>    
+    
+    <!-- ControllPane -->    
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="880.0" prefWidth="400.0">
+        <VBox spacing="10" alignment="top_right">
+            <VBox fx:id="elementsBox" spacing="10">
+                <Line endX="300.0" startX="100.0" stroke="#504646" strokeWidth="5.0" />
+            </VBox>    
+            <VBox fx:id="controllsBox" spacing="10">
+                <HBox fx:id="drehen" spacing="10">
+                    <Button fx:id="left" text="leftTurn"/>
+                    <Button fx:id="right" text="rightTurn"/>
+                </HBox>
+            </VBox>
+            <HBox spacing="10"  alignment="bottom_right">
+                <Button fx:id="home" text="Home" />
+                <Button fx:id="save" text="Save"/>
+                <Button fx:id="tipps" text="Tipps"/>  
+            </HBox>
+        </VBox>      
+    </ScrollPane>
+</GridPane>
