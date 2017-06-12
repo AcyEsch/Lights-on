@@ -57,7 +57,14 @@ public class Bahn extends Line
     }
     
     public void werteBerechnen()
-    {
+    {    
+        //Änderung für DragAndDrop Bug
+      x1 = this.getStartX();
+      x2 = this.getEndX();
+      y1 = this.getStartY();
+      y2 = this.getEndY();
+      //~~~~~~~~~~~~~
+      
         deltaY = y2 - y1;
         deltaX = x2 - x1;
         
