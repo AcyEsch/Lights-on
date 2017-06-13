@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="navigation" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLLevelsController">
+   <children>
+      <Button id="level1" depthTest="DISABLE" layoutX="-63.0" layoutY="200.0" mnemonicParsing="false" onAction="#level1" prefHeight="150.0" prefWidth="150.0" translateX="100.0" translateY="100.0" />
+      <Separator blendMode="EXCLUSION" cacheHint="SPEED" layoutX="998.0" orientation="VERTICAL" prefHeight="921.0" prefWidth="30.0" />
+      <Button id="level2" layoutX="237.0" layoutY="300.0" mnemonicParsing="false" onAction="#level2" prefHeight="150.0" prefWidth="150.0" />
+      <Button id="level3" layoutX="431.0" layoutY="300.0" mnemonicParsing="false" onAction="#level3" prefHeight="150.0" prefWidth="150.0" />
+      <Label alignment="CENTER" layoutX="252.0" layoutY="69.0" prefHeight="161.0" prefWidth="488.0" text="Light  ON" textAlignment="JUSTIFY" textFill="#b2ac3b">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="112.0" />
+         </font>
+         <effect>
+            <Lighting bumpInput="$null" diffuseConstant="2.0" specularConstant="2.0" specularExponent="10.23" surfaceScale="2.31">
+               <light>
+                  <Light.Distant azimuth="271.05" color="#fbff00" elevation="53.37" />
+               </light>
+            </Lighting>
+         </effect>
+      </Label>
+      <Button id="newLevel" layoutX="1098.0" layoutY="69.0" mnemonicParsing="false" onAction="#newLevel" prefHeight="150.0" prefWidth="150.0" />
+      <Label alignment="CENTER" layoutX="415.0" layoutY="849.0" prefHeight="37.0" prefWidth="359.0" text="Challenge">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1121.0" layoutY="843.0" prefHeight="50.0" prefWidth="179.0" text="Edit">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="29.0" />
+         </font>
+      </Label>
+      <Button id="level4" layoutX="625.0" layoutY="300.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
+      <Button id="level5" layoutX="821.0" layoutY="300.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
+      <Button id="level6" layoutX="37.0" layoutY="520.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
