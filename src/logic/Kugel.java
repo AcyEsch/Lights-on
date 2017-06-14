@@ -17,8 +17,8 @@ import javafx.scene.shape.CircleBuilder;
         private double startY = 100;
         private boolean canBeDraged;
         
-        private double x_speed;
-        private double y_speed; 
+        private double x_delta;
+        private double y_delta; 
     
         private double radius;
         private double masse = 25;      //Realistischer Wert?
@@ -99,24 +99,24 @@ import javafx.scene.shape.CircleBuilder;
         a = newA;
     }
     
-    public double getXSpeed()
+    public double getXDelta()
     {
-        return x_speed;        
+        return x_delta;        
     }
     
-    public void setXSpeed(double newX)
+    public void setXDelta(double newX)
     {
-        x_speed = newX;
+        x_delta = newX;
     }
     
-    public double getYSpeed()
+    public double getYDelta()
     {
-        return y_speed;
+        return y_delta;
     }
     
-    public void setYSpeed(double newY)
+    public void setYDelta(double newY)
     {
-        y_speed = newY;
+        y_delta = newY;
     }
     
     public double getWinkel()
