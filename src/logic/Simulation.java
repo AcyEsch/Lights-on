@@ -31,7 +31,7 @@ import javafx.scene.shape.CircleBuilder;
     
         public double Vn;
         public double s;
-        public int steig;
+        public int steig = -1;
         //public double winkel = 90;
         public double winkelBeta;
         public double strecke;
@@ -69,21 +69,21 @@ import javafx.scene.shape.CircleBuilder;
       for (int i = 0; i < kugeln.size(); i++)
         {
             k = kugeln.get(i);  
-         
+            
             s = time * k.getVk() + 0.5 * k.getA() * time * time;                                  //Auf der Bahn
-            k.setXSpeed(steig * (s / Math.sin((90 * Math.PI) / 180)) * Math.sin(((90 - k.getWinkel()) * Math.PI) / 180));
-            k.setYSpeed(steig * (s / Math.sin((90 * Math.PI) / 180)) * Math.sin((k.getWinkel() * Math.PI) / 180));
+            k.setXSpeed((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(90 - k.getWinkel())));
+            k.setYSpeed((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(k.getWinkel())));
             
             
-            System.out.println("Winkel: " + k.getWinkel()+ " Vk: " + k.getVk() + " A " + k.getA() + " time " + time);
+            System.out.println("Strecke s: " + s + "Winkel: " + k.getWinkel()+ " Vk: " + k.getVk() + " A: " + k.getA() + " time " + time);
             System.out.println(k.getXSpeed() + "  " + k.getYSpeed());
             /*
             s = g * Math.cos((k.getWinkel() * Math.PI) / 180);
             Vn = k.getVk() + s * time;
           */
             
-            k.setXSpeed(k.getVk() + (Math.sin((k.getWinkel() * Math.PI) / 180) * time));
-            k.setYSpeed(k.getVk() + (g * time));
+//            k.setXSpeed(k.getXSpeed() + (Math.sin((k.getWinkel() * Math.PI) / 180) * time));
+//            k.setYSpeed(k.getYSpeed() + (g * time));
             
             
             //checkForEnd(kolBahn); 
@@ -107,7 +107,7 @@ import javafx.scene.shape.CircleBuilder;
                        
             if (b.getOldDistanz() > 0 && b.getDistanz() <= 0 && k.getCenterX() < b.getGroeseresX() + k.getRadius() && k.getCenterX() > b.getKleineresX() - k.getRadius())
             {
-               // System.out.println("Kollision mit Bahn " + i);
+               System.out.println("Kollision mit Bahn " + i);
 
                 if(merker != i)//&& formelTyp != 2)
                 {
@@ -136,7 +136,7 @@ import javafx.scene.shape.CircleBuilder;
     {
         double ybp = k.getCenterY() + (b.getNVektorY() * k.getRadius() * (-1));
         
-        //System.out.println("Check for End");
+        System.out.println("Check for End");
 
         if((ybp > b.getGroeseresY() && (k.getCenterX() > b.getGroeseresX() || k.getCenterX() < b.getKleineresX())) || 
                 (ybp < b.getKleineresY() && (k.getCenterX() > b.getGroeseresX() || k.getCenterX() < b.getKleineresX())))
