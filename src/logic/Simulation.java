@@ -71,28 +71,21 @@ import javafx.scene.shape.CircleBuilder;
             k = kugeln.get(i);  
             
             s = time * k.getVk() + 0.5 * k.getA() * time * time;                                  //Auf der Bahn
-            k.setXSpeed((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(90 - k.getWinkel())));
-            k.setYSpeed((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(k.getWinkel())));
+            k.setXDelta((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(90 - k.getWinkel())));
+            k.setYDelta((s / Math.toDegrees(Math.sin(90)) )* Math.toDegrees(Math.sin(k.getWinkel())));
             
             
             System.out.println("Strecke s: " + s + "Winkel: " + k.getWinkel()+ " Vk: " + k.getVk() + " A: " + k.getA() + " time " + time);
-            System.out.println(k.getXSpeed() + "  " + k.getYSpeed());
-            /*
-            s = g * Math.cos((k.getWinkel() * Math.PI) / 180);
-            Vn = k.getVk() + s * time;
-          */
-            
-//            k.setXSpeed(k.getXSpeed() + (Math.sin((k.getWinkel() * Math.PI) / 180) * time));
-//            k.setYSpeed(k.getYSpeed() + (g * time));
-            
+            System.out.println(k.getXDelta() + "  " + k.getYDelta());
+
             
             //checkForEnd(kolBahn); 
             Bahn b = kollisionBahnen(bahnen);
             kolBahn = b;
       
             //System.out.println("xSpeed  " + k.getXSpeed() + "  ySpeed   " + k.getYSpeed() + "  " + s);
-            k.setCenterX(k.getCenterX() + k.getXSpeed());
-            k.setCenterY(k.getCenterY() + k.getYSpeed());      
+            k.setCenterX(k.getCenterX() + k.getXDelta());
+            k.setCenterY(k.getCenterY() + k.getYDelta());      
         }
     }
     
