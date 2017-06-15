@@ -25,7 +25,8 @@ import logic.*;
 
 
 
-public class FXMLGameController implements Initializable {
+public class FXMLGameController implements Initializable 
+{
     @FXML   
     private GridPane mainPane;
     private Button simButton;
@@ -51,9 +52,8 @@ public class FXMLGameController implements Initializable {
         
     
     @FXML
-    private void handleSimButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        //
+    private void handleSimButtonAction(ActionEvent event) 
+    {      
         KeyFrame k = new KeyFrame(Duration.millis(10),
             e->
             {
@@ -66,9 +66,15 @@ public class FXMLGameController implements Initializable {
  
     }
    
-    private void load () {
-    Bahn bahn = new Bahn(50, 150, 250, 250, true);//Negative Steigung   x1 y1 x2 y2   
-    Bahn bahn1 = new Bahn(300, 50, 450, 250, false);//Negative Steigung   x1 y1 x2 y2  
+    private void load () 
+    { 
+   //Bahn bahn = new Bahn(50, 150, 250, 250, true);//Negative Steigung   x1 y1 x2 y2   
+    //Bahn bahn1 = new Bahn(300, 50, 450, 250, false);//Negative Steigung   x1 y1 x2 y2  
+    //Unterschied?
+    Bahn bahn = new Bahn(250, 250, 50, 150, true);//Negative Steigung   x1 y1 x2 y2   
+    Bahn bahn1 = new Bahn(450, 250, 300, 50, false);//Negative Steigung   x1 y1 x2 y2 
+    //Bahn bahn = new Bahn(400, 250, 150, 350, true);
+    
     Kugel kugel = new Kugel(radius, 100, 100, false);
     Kugel kugel1 = new Kugel(radius, 300, 100, true);
     sim = new Simulation();   
@@ -110,14 +116,100 @@ public class FXMLGameController implements Initializable {
     //Drag And Drop END
     }
     
+    //~~~~~~~~~NEW~~~~~~~~
+    /*
+        Änderungen in
+        FMXLGameController.java
+        DragDrop.java
+        Bahn.java
+        FXMLGame.fxml
+        */
+    
+    @FXML
+    private void handlePlus(ActionEvent event)
+    {
+        Bahn b = drag.getBahn();
+        
+        if(b.getDeltaX() < 500 && b.getDeltaX() > -500)
+        {
+        if(b.getKleineresX() == b.getStartX())
+        {
+            b.setStartX(b.getStartX() - 5);            
+            b.setEndX(b.getEndX() + 5);            
+        }
+        else
+        {
+            b.setStartX(b.getStartX() + 5);
+            b.setEndX(b.getEndX() - 5);
+        }
+        
+        b.setStartY(b.getFunktionNachX(b.getStartX()));
+        b.setEndY(b.getFunktionNachX(b.getEndX()));
+        
+        b.werteBerechnen();       
+        }
+    }
+    
+    @FXML
+    private void handleMinus(ActionEvent event)
+    {
+        Bahn b = drag.getBahn();
+        
+        if(b.getDeltaX() > 50 || b.getDeltaX() < -50)
+        {
+        if(b.getKleineresX() == b.getStartX())
+        {
+            b.setStartX(b.getStartX() + 5);            
+            b.setEndX(b.getEndX() - 5);            
+        }
+        else
+        {
+            b.setStartX(b.getStartX() - 5);
+            b.setEndX(b.getEndX() + 5);
+        }
+        
+        b.setStartY(b.getFunktionNachX(b.getStartX()));
+        b.setEndY(b.getFunktionNachX(b.getEndX()));
+        
+        b.werteBerechnen();
+        }        
+    }
+    
+    @FXML
+    private void handleLeft(ActionEvent event) 
+    {                   
+        Bahn b = drag.getBahn();
+       
+       //Routieren
+       b.setRot(b.getRot() - 5);
+       b.setRotate(b.getRot());
+            
+
+       b.werteBerechnen();       
+    }
+    
+    @FXML
+    private void handleRight(ActionEvent event)
+    {
+        Bahn b = drag.getBahn();
+       
+       //Routieren
+       b.setRot(b.getRot() + 5);
+       b.setRotate(b.getRot());
+            
+
+       b.werteBerechnen();  
+    }
+    //~~~~~~~~~~~END~~~~~~~~~~~~~
+    
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
        //timer();
        load();
        
-    }    
-    
+    }                
 }
 
         
