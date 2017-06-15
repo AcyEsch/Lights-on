@@ -54,6 +54,7 @@ public class FXMLGameController implements Initializable
     @FXML
     private void handleSimButtonAction(ActionEvent event) 
     {      
+     drag.setDrag(false);
         KeyFrame k = new KeyFrame(Duration.millis(10),
             e->
             {
