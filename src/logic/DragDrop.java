@@ -4,11 +4,14 @@ import javafx.scene.paint.Color;
 
 public class DragDrop 
 {
+    private boolean bol_drag = true;
     private double orgSceneX, orgSceneY;
     private Bahn lastBahn = new Bahn();
     
     public void dragKugel(Kugel kugel)
     {
+        if(bol_drag)
+        {
         kugel.setCursor(Cursor.HAND);
 
     kugel.setOnMousePressed((t) -> {
@@ -31,10 +34,13 @@ public class DragDrop
       orgSceneX = t.getSceneX();
       orgSceneY = t.getSceneY();      
     });
+        }
     }
     
     public void dragBahn(Bahn bahn)
     {
+        if(bol_drag)
+        {
         bahn.setCursor(Cursor.HAND);
 
     bahn.setOnMousePressed((t) -> {
@@ -70,9 +76,16 @@ public class DragDrop
       orgSceneX = t.getSceneX();
       orgSceneY = t.getSceneY();              
     });   
+        }
     }
     public Bahn getBahn()
     {
         return lastBahn;
-    }   
+    }
+    
+    public void setDrag(boolean bol)
+    {
+        bol_drag = bol;
+    }
 }
+
