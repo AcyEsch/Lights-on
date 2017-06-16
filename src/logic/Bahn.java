@@ -87,7 +87,7 @@ public class Bahn extends Line
             
             if(winkel < 0)
             {
-                winkel = 360 - winkel;
+                winkel = 360 + winkel;
             }
         }
         else
