@@ -84,6 +84,11 @@ public class Bahn extends Line
         {        
             winkel = Math.atan(steigung);           //Rechnet gerade nach Rad muss aber nach Deg
             winkel = winkel * (180 / Math.PI);      //Radiant in Degree umrechnen
+            
+            if(winkel < 0)
+            {
+                winkel = 360 - winkel;
+            }
         }
         else
         {
