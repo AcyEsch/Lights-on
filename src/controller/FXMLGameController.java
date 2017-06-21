@@ -9,19 +9,34 @@ import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.AQUAMARINE;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.*;
+
 
 
 
@@ -31,6 +46,9 @@ public class FXMLGameController implements Initializable
     private GridPane mainPane;
     private Button simButton;
     private Label timer;
+    public Line line;
+    private Button home;
+    private Button schalter;
      
     @FXML private Pane simPane;
     private VBox elementsBox, controllsBox;
@@ -49,12 +67,16 @@ public class FXMLGameController implements Initializable
     private final double radius = 20;    
     
     private Simulation sim;
+    double orgSceneX, orgSceneY;
+    double orgTranslateX, orgTranslateY;
         
     
     @FXML
     private void handleSimButtonAction(ActionEvent event) 
-    {              
+    {   
+        // Jasmin
         drag.setCanDrag(false);
+        //
         KeyFrame k = new KeyFrame(Duration.millis(10),
             e->
             {                
@@ -66,6 +88,30 @@ public class FXMLGameController implements Initializable
             t.play();
     }
    
+     
+   @FXML
+   private void schalter(ActionEvent event) throws IOException{
+       
+      simPane.getStyleClass().add("light");
+       simPane.setId("light");
+   }
+    
+    
+   
+   
+    @FXML
+    
+  private void home(ActionEvent event) throws IOException, Exception{
+
+       //Main main=new Main();
+       //main.start(stage);
+       
+//        stage.setScene(scene);
+//        stage.show();
+ //  System.out.println("gogogogogoogogogg" );
+    }
+  
+  
     private void load () 
     { 
    //Bahn bahn = new Bahn(50, 150, 250, 250, true);//Negative Steigung   x1 y1 x2 y2   
@@ -75,10 +121,14 @@ public class FXMLGameController implements Initializable
     Bahn bahn1 = new Bahn(450, 250, 300, 50, true);//Negative Steigung   x1 y1 x2 y2 
     //Bahn bahn = new Bahn(400, 250, 150, 350, true);    
 
+    bahn.setStrokeWidth(5.0);
+    bahn1.setStrokeWidth(5.0);
     
     Kugel kugel = new Kugel(radius, 100, 100, true);
    // Kugel kugel1 = new Kugel(radius, 300, 100, true);
     sim = new Simulation();   
+    //     line.setOnMousePressed(circleOnMousePressedEventHandler);
+    //   line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
        
   
     ArrayList<Bahn> bahnen = Bahn.getBahnen();
