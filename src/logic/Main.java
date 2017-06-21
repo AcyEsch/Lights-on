@@ -11,10 +11,12 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Main  extends Application {
+public class Main  extends Application 
+{
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception 
+    {
         
        Parent root = FXMLLoader.load(getClass().getResource("/gui/LevelsFXML.fxml"));
       
@@ -35,7 +37,8 @@ public class Main  extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         launch(args);
     }
 

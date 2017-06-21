@@ -18,6 +18,7 @@ public class Bahn extends Line
     private double deltaY;
     private double deltaX;
     private double b;
+    private double rot = 0;
     
     private boolean canBeDraged;
     
@@ -27,6 +28,11 @@ public class Bahn extends Line
     private double d;
     private double oldDistanz;
     private double distanz;
+    
+    public Bahn()
+    {
+    
+    }
     
     public Bahn(int px1, int py1, int px2, int py2, boolean draged)
     {
@@ -57,28 +63,43 @@ public class Bahn extends Line
     }
     
     public void werteBerechnen()
-    {    
+    {
+        
         //Änderung für DragAndDrop Bug
       x1 = this.getStartX();
       x2 = this.getEndX();
       y1 = this.getStartY();
       y2 = this.getEndY();
-      //~~~~~~~~~~~~~
-      
+      //~~~~~~~~~~~~~        
+        // deltaY = this.getGroeseresY() - this.getKleineresY();     
+       // deltaX = this.getGroeseresY() - this.getKleineresX();
+       
         deltaY = y2 - y1;
         deltaX = x2 - x1;
         
         steigung = deltaY / deltaX;
         
+        
         if(deltaX != 0)
         {        
             winkel = Math.atan(steigung);           //Rechnet gerade nach Rad muss aber nach Deg
             winkel = winkel * (180 / Math.PI);      //Radiant in Degree umrechnen
+            
+            if(winkel < 0)
+            {
+                winkel = 360 + winkel;
+            }
+            
+            if(winkel >= 180)
+            {
+                winkel = winkel - 180;          //Winkel hat werte von 0 - 180;
+            }
         }
         else
         {
-            winkel = 90;
+            winkel = 90;                            //Oder 180
         }
+        
         b = y2 - steigung * x2;
 
         
@@ -93,11 +114,16 @@ public class Bahn extends Line
             n_vektor_y = -n_vektor_y;
         }
         d = x1*n_vektor_x + y1*n_vektor_y;
-    }
+    }    
     
     public double getFunktionNachX(double x)
     {
         return steigung * x + b;
+    }
+    
+    public double getSteigung()
+    {
+        return steigung;
     }
     
     public boolean getCanBeDraged()
@@ -234,5 +260,14 @@ public class Bahn extends Line
     public double getD()
     {
         return d;
+    }
+    
+    public double getRot()
+    {
+        return rot;
+    }
+    public void setRot(double r)
+    {
+        rot = r;
     }
 }

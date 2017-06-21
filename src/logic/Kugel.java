@@ -16,9 +16,12 @@ import javafx.scene.shape.CircleBuilder;
         private double startX = 100;
         private double startY = 100;
         private boolean canBeDraged;
+        private boolean kollision = false;
+        private int merker = -1;
+        private boolean bounce = false;
         
-        private double x_delta;
-        private double y_delta; 
+        private double x_speed;
+        private double y_speed; 
     
         private double radius;
         private double masse = 25;      //Realistischer Wert?
@@ -26,10 +29,9 @@ import javafx.scene.shape.CircleBuilder;
         private double g = 9.81; //Schwerkraft
         private double Vk = 0;
         private double a = masse * g;
-        private double winkel = 90;
+        private double winkel = 90;        
     
     public Bahn kolBahn;
- 
         
     public Kugel(double radius, double x, double y, boolean draged) 
     {        
@@ -99,24 +101,24 @@ import javafx.scene.shape.CircleBuilder;
         a = newA;
     }
     
-    public double getXDelta()
+    public double getXSpeed()
     {
-        return x_delta;        
+        return x_speed;        
     }
     
-    public void setXDelta(double newX)
+    public void setXSpeed(double newX)
     {
-        x_delta = newX;
+        x_speed = newX;
     }
     
-    public double getYDelta()
+    public double getYSpeed()
     {
-        return y_delta;
+        return y_speed;
     }
     
-    public void setYDelta(double newY)
+    public void setYSpeed(double newY)
     {
-        y_delta = newY;
+        y_speed = newY;
     }
     
     public double getWinkel()
@@ -132,5 +134,34 @@ import javafx.scene.shape.CircleBuilder;
     public double getMasse()
     {
         return masse;
+    }        
+    
+    public boolean getKollision()
+    {
+        return kollision;
+    }
+    
+    public void setKollision(boolean k)
+    {
+        kollision = k;
+    }
+    
+    public void setMerker(int m)
+    {
+        merker = m;
+    }
+    public int getMerker()
+    {
+        return merker;
+    }
+    
+    public void setBounce(boolean bol)
+    {
+        bounce = bol;
+    }
+    
+    public boolean getBounce()
+    {
+        return bounce;
     }
   }
