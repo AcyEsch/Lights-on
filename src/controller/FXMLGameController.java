@@ -36,7 +36,9 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.*;
-
+//import static logic.Main.root;
+//import static logic.Main.scene;
+//import static logic.Main.stage;
 
 
 
@@ -44,51 +46,56 @@ public class FXMLGameController implements Initializable
 {
     @FXML   
     private GridPane mainPane;
-    private Button simButton;
-    private Label timer;
+    private GridPane gridPane;                  //Lyu
+    public Button simButton;                    //Lyu
+    public Label timer;                         //Lyu
     public Line line;
     private Button home;
     private Button schalter;
-     
-    @FXML private Pane simPane;
+
+    @FXML
+    private Pane simPane;
     private VBox elementsBox, controllsBox;
+    private HBox hBox;                          //Lyu
     private final Integer startTime=60;
-    private Integer seconds=startTime;
+    public Integer seconds=startTime;
     @FXML 
     private AnchorPane rootPane;
+ 
     @FXML
     public Button level1;
+ 
+    public ArrayList<Object> dragList = new ArrayList<Object>();
+    public DragDrop drag = new DragDrop();
 
-
-
-    private ArrayList<Object> dragList = new ArrayList<Object>();
-    private DragDrop drag = new DragDrop();
-
-    private final double radius = 20;    
+    private final double radius = 20;
     
     private Simulation sim;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
+
+   
         
     
     @FXML
     private void handleSimButtonAction(ActionEvent event) 
-    {   
-        // Jasmin
-        drag.setCanDrag(false);
-        //
+    {      
+        
+        drag.setCanDrag(false);             // Jasmin
+        
         KeyFrame k = new KeyFrame(Duration.millis(10),
             e->
-            {                
+            {
                 sim.move();                                   
             });
        
        Timeline t= new Timeline(k);
             t.setCycleCount(Timeline.INDEFINITE);
             t.play();
+ 
     }
-   
-     
+    
+    
    @FXML
    private void schalter(ActionEvent event) throws IOException{
        
@@ -99,53 +106,101 @@ public class FXMLGameController implements Initializable
     
    
    
-    @FXML
-    
-  private void home(ActionEvent event) throws IOException, Exception{
-
-       //Main main=new Main();
-       //main.start(stage);
-       
-//        stage.setScene(scene);
-//        stage.show();
- //  System.out.println("gogogogogoogogogg" );
+    @FXML  
+    private void home(ActionEvent event) throws IOException, Exception{
+//        AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/LevelsFXML.fxml"));
+//        gridPane.getChildren().setAll(pane);
     }
-  
-  
+    
+    
+    
+    
+    
+    
+    
+    
     private void load () 
     { 
-   //Bahn bahn = new Bahn(50, 150, 250, 250, true);//Negative Steigung   x1 y1 x2 y2   
-    //Bahn bahn1 = new Bahn(300, 50, 450, 250, false);//Negative Steigung   x1 y1 x2 y2  
+   Bahn bahn4 = new Bahn(300, 450, 450, 650, true);//Negative Steigung   x1 y1 x2 y2   
+   // Bahn bahn3= new Bahn(700, 50, 1100, 250, false);//Negative Steigung   x1 y1 x2 y2  
     //Unterschied?
     Bahn bahn = new Bahn(250, 250, 50, 150, true);//Negative Steigung   x1 y1 x2 y2   
-    Bahn bahn1 = new Bahn(450, 250, 300, 50, true);//Negative Steigung   x1 y1 x2 y2 
-    //Bahn bahn = new Bahn(400, 250, 150, 350, true);    
-
+   // Bahn bahn1 = new Bahn(450, 250, 300, 50, false);//Negative Steigung   x1 y1 x2 y2 
+    Bahn bahn2 = new Bahn(400, 250, 150, 350, true);
     bahn.setStrokeWidth(5.0);
-    bahn1.setStrokeWidth(5.0);
-    
-    Kugel kugel = new Kugel(radius, 100, 100, true);
+  //  bahn1.setStrokeWidth(5.0);
+    bahn2.setStrokeWidth(5.0);
+     bahn4.setStrokeWidth(5.0);
+  //  bahn3.setStrokeWidth(5.0);
+            
+   
+            
+            
+            
+            
+      Kugel kugel = new Kugel(radius, 100, 100, true);
    // Kugel kugel1 = new Kugel(radius, 300, 100, true);
+    
+    
     sim = new Simulation();   
-    //     line.setOnMousePressed(circleOnMousePressedEventHandler);
-    //   line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-       
+//       line.setOnMousePressed(circleOnMousePressedEventHandler);
+//       line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
   
     ArrayList<Bahn> bahnen = Bahn.getBahnen();
     ArrayList<Kugel> kugeln = Kugel.getKugeln();
-        
+      
+    
+    
+//    
+//    hBox.setOnDragDetected(e -> {
+//            Dragboard db = bahn.startDragAndDrop(TransferMode.ANY);
+//            db.setDragView(new Bahn().snapshot(null, null), e.getX(), e.getY());
+//            ClipboardContent cc = new ClipboardContent();
+//           cc.clone();
+//            db.setContent(cc);
+//            e.consume();
+//        });
+//    
+//    
+//        hBox.setOnDragDetected(e -> {
+//            Dragboard dbk = kugel.startDragAndDrop(TransferMode.ANY);
+//            dbk.setDragView(new Kugel().snapshot(null, null), e.getX(), e.getY());
+//            ClipboardContent cck = new ClipboardContent();
+//            dbk.setContent(cck);
+//            e.consume();
+//        });
+//   
+//         
+//        hBox.setOnDragEntered(new EventHandler<DragEvent>() {
+//    @Override
+//    public void handle(DragEvent event) {
+//    /* the drag-and-drop gesture entered the target */
+//         System.out.println("onDragEntered");
+//    /* show to the user that it is an actual gesture target */
+//         if (event.getGestureSource() != hBox &&
+//                 event.getDragboard().hasString()) {
+//           
+//         }
+//                
+//         event.consume();
+//    }
+//});
+//    
+//    
+    
+    
+    
         for(int i = 0; i < bahnen.size(); i++)
                 {
-                    simPane.getChildren().add(bahnen.get(i));
+                   simPane.getChildren().add(bahnen.get(i));
                 }
                 
                 for(int i = 0; i < kugeln.size(); i++)
                 {
-                    simPane.getChildren().add(kugeln.get(i));
+                   simPane.getChildren().add(kugeln.get(i));
                 }
         //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
-
        for(int i = 0; i < kugeln.size(); i++)
        {          
            Kugel k = kugeln.get(i);
@@ -158,13 +213,15 @@ public class FXMLGameController implements Initializable
        
        for(int i = 0; i < bahnen.size(); i++)
        {
+  
            Bahn b = bahnen.get(i);
            
            if(b.getCanBeDraged())
            {
             drag.dragBahn(b);
            }
-       }        
+       }     
+    //Drag And Drop END
     }
     
     //~~~~~~~~~NEW~~~~~~~~
@@ -176,12 +233,52 @@ public class FXMLGameController implements Initializable
         FXMLGame.fxml
         */
     
+    
+    
+    
+//     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
+//        new EventHandler<MouseEvent>() {
+// 
+//        @Override
+//        public void handle(MouseEvent t) {
+//            orgSceneX = t.getSceneX();
+//            orgSceneY = t.getSceneY();
+//            orgTranslateX = ((Line)(t.getSource())).getTranslateX();
+//            orgTranslateY = ((Line)(t.getSource())).getTranslateY();
+//        }
+//    };
+//     
+//    EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = 
+//        new EventHandler<MouseEvent>() {
+// 
+//        @Override
+//        public void handle(MouseEvent t) {
+//            double offsetX = t.getSceneX() - orgSceneX;
+//            double offsetY = t.getSceneY() - orgSceneY;
+//            double newTranslateX = orgTranslateX + offsetX;
+//            double newTranslateY = orgTranslateY + offsetY;
+//             
+//            ((Line)(t.getSource())).setTranslateX(newTranslateX);
+//            ((Line)(t.getSource())).setTranslateY(newTranslateY);
+//        }
+//    };
+//    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
     @FXML
     private void handlePlus(ActionEvent event)
     {
-        Bahn b = drag.getBahn();                
+        Bahn b = drag.getBahn();
         
-        if(b.getStrecke() < 500)
+        if(b.getStrecke() < 500)  //Jas
         {
         if(b.getKleineresX() == b.getStartX())
         {
@@ -199,7 +296,6 @@ public class FXMLGameController implements Initializable
         
         b.werteBerechnen();       
         }
-        System.out.println("Winkel :  " + b.getWinkel());
     }
     
     @FXML
@@ -207,7 +303,7 @@ public class FXMLGameController implements Initializable
     {
         Bahn b = drag.getBahn();
         
-        if(b.getStrecke() > 100)
+        if(b.getStrecke() > 100)   //Jas
         {
         if(b.getKleineresX() == b.getStartX())
         {
@@ -224,35 +320,25 @@ public class FXMLGameController implements Initializable
         b.setEndY(b.getFunktionNachX(b.getEndX()));
         
         b.werteBerechnen();
-        }             
+        }        
     }
     
     @FXML
     private void handleLeft(ActionEvent event) 
-    {         
+    {                   
         Bahn b = drag.getBahn();
-        
-       this.rotateLeft(true);
        
-       System.out.println(b.getWinkel());
+        this.rotateLeft(true);       
     }
     
     @FXML
     private void handleRight(ActionEvent event)
     {
         Bahn b = drag.getBahn();
-       
-       //Routieren
-       /*
-       b.setRot(b.getRot() + 5);
-       b.setRotate(b.getRot());
-         */
-       
-       this.rotateLeft(false);
-       
-       System.out.println(b.getWinkel());
+        this.rotateLeft(false); 
     }
     
+    //JAS
     public void rotateLeft(boolean rotLeft)
     {
         Bahn b = drag.getBahn();
@@ -384,15 +470,11 @@ public class FXMLGameController implements Initializable
        b.werteBerechnen();      
     }
     
-    
-    
-    
+  
     //~~~~~~~~~~~END~~~~~~~~~~~~~
     
-    
-    
-    
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
@@ -420,4 +502,3 @@ public class FXMLGameController implements Initializable
 //    time.playFromStart();
 //    
 //}
-

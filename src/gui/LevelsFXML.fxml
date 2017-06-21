@@ -41,7 +41,7 @@
             <Font name="Berlin Sans FB Demi Bold" size="29.0" />
          </font>
       </Label>
-      <Button id="level4" layoutX="625.0" layoutY="300.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
+      <Button id="level4" layoutX="625.0" layoutY="300.0" mnemonicParsing="false" onAction="#level4" prefHeight="150.0" prefWidth="150.0" />
       <Button id="level5" layoutX="821.0" layoutY="300.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
       <Button id="level6" layoutX="37.0" layoutY="520.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" />
    </children>

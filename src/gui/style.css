@@ -14,14 +14,26 @@
         
     }
     
-    #simPane{
-        -fx-background-size: 1220 910;
+  
+    #light{
+        -fx-background-image: url("Pics/light.jpg"); 
+        -fx-background-size: 1055 830;
+    }
+    
+    #elements{
+        -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
         
-        
+    }
+    
+    #scene{
+        -fx-background-image: url("Pics/Dunkel.jpg"); 
+        -fx-background-size: 1055 830;
+       
     }
     
      #newAnchorPane{
         -fx-background-image: url("Pics/DunkelmitGlühbirne.jpg"); 
+        -fx-background-position: 52 -93; 
        -fx-background-size: 1180 910;
      }
     

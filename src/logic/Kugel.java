@@ -20,18 +20,19 @@ import javafx.scene.shape.CircleBuilder;
         private int merker = -1;
         private boolean bounce = false;
         
-        private double x_speed;
-        private double y_speed; 
-    
+        private double x_delta;
+        private double y_delta; 
+   
         private double radius;
         private double masse = 25;      //Realistischer Wert?
    
         private double g = 9.81; //Schwerkraft
         private double Vk = 0;
         private double a = masse * g;
-        private double winkel = 90;        
-    
-    public Bahn kolBahn;
+        private double winkel =90 ;
+          
+        public Bahn kolBahn;
+ 
         
     public Kugel(double radius, double x, double y, boolean draged) 
     {        
@@ -57,13 +58,19 @@ import javafx.scene.shape.CircleBuilder;
        //Start Position der Kugel
        super.setCenterX(startX);                                            
        super.setCenterY(startY);          
-       
+
        kugeln.add(this);
+       System.out.println("kugel   "+this);
+
     }    
 
     public static ArrayList<Kugel> getKugeln()
     {
         return kugeln;
+    }
+//Not at 'Jas
+    public Kugel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public boolean getCanBeDraged()
@@ -101,24 +108,24 @@ import javafx.scene.shape.CircleBuilder;
         a = newA;
     }
     
-    public double getXSpeed()
+    public double getXDelta()
     {
-        return x_speed;        
+        return x_delta;        
     }
     
-    public void setXSpeed(double newX)
+    public void setXDelta(double newX)
     {
-        x_speed = newX;
+        x_delta = newX;
     }
     
-    public double getYSpeed()
+    public double getYDelta()
     {
-        return y_speed;
+        return y_delta;
     }
     
-    public void setYSpeed(double newY)
+    public void setYDelta(double newY)
     {
-        y_speed = newY;
+        y_delta = newY;
     }
     
     public double getWinkel()
@@ -134,7 +141,7 @@ import javafx.scene.shape.CircleBuilder;
     public double getMasse()
     {
         return masse;
-    }        
+    }
     
     public boolean getKollision()
     {

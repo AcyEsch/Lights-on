@@ -39,7 +39,7 @@ public class FXMLLevelsController implements Initializable {
     
     @FXML
     private void level2(ActionEvent event) throws IOException{
-        GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml"));
+        GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml"));
         rootPane.getChildren().setAll(pane);
         
       
@@ -47,7 +47,12 @@ public class FXMLLevelsController implements Initializable {
     
     @FXML
     private void level3(ActionEvent event) throws IOException{
-        GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml"));
+        GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel3.fxml"));
+        rootPane.getChildren().setAll(pane);
+    }
+    @FXML
+    private void level4(ActionEvent event) throws IOException{
+        GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel4.fxml"));
         rootPane.getChildren().setAll(pane);
     }
     @FXML

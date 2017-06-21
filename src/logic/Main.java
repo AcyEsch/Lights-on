@@ -1,5 +1,6 @@
 package logic;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Root;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -9,14 +10,20 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import controller.*;
 
-public class Main  extends Application 
-{
+
+public class Main  extends Application {
     
+   public static Stage  stage;
+   public static Scene scene;
+   public static Parent root;
+   
+   
     @Override
-    public void start(Stage stage) throws Exception 
-    {
+    
+    public void start(Stage stage) throws Exception {
+        
         
        Parent root = FXMLLoader.load(getClass().getResource("/gui/LevelsFXML.fxml"));
       
@@ -29,7 +36,7 @@ public class Main  extends Application
          
        
          
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
@@ -37,8 +44,7 @@ public class Main  extends Application
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
         launch(args);
     }
 

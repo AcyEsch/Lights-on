@@ -14,7 +14,7 @@ public class Bahn extends Line
     private double y2;
     private double steigung;
     private double winkel;
-    private double reibung = 100;     //Realer Wert?
+    private final double reibung = 100;     //Realer Wert?
     private double deltaY;
     private double deltaX;
     private double b;
@@ -60,6 +60,7 @@ public class Bahn extends Line
         werteBerechnen();
         
         bahnen.add(this);
+       
     }
     
     public void werteBerechnen()
@@ -88,11 +89,6 @@ public class Bahn extends Line
             if(winkel < 0)
             {
                 winkel = 360 + winkel;
-            }
-            
-            if(winkel >= 180)
-            {
-                winkel = winkel - 180;          //Winkel hat werte von 0 - 180;
             }
         }
         else
@@ -162,49 +158,49 @@ public class Bahn extends Line
     
     public double getGroeseresX()
     {
-        if(x1 > x2)
+        if(x2 > x1)
         {
-            return x1;
+            return x2;
         }
         else
         {
-            return x2;
+            return x1;
         }            
     }
     
     public double getKleineresX()
     {
-        if(x1 < x2)
+        if(x2 < x1)
         {
-            return x1;
+            return x2;
         }
         else
         {
-            return x2;
+            return x1;
         }
     }
     
      public double getGroeseresY()
     {
-        if(y1 > y2)
-        {
-            return y1;
-        }
-        else
+        if(y2 > y1)
         {
             return y2;
+        
+        }else
+        {
+            return y1;
         }            
     }
     
     public double getKleineresY()
     {
-        if(y1 < y2)
+        if(y2 < y1)
         {
-            return y1;
+            return y2;
         }
         else
         {
-            return y2;
+            return y1;
         }
     }
     
@@ -224,7 +220,7 @@ public class Bahn extends Line
     
     public double getStrecke()
     {
-        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
     }
     
     public double getOldDistanz()
