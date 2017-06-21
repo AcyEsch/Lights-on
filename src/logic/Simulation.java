@@ -146,7 +146,7 @@ import javafx.scene.shape.CircleBuilder;
     {
         //winkelBeta = 180 - 90 - winkel;
         
-        k.setVk(k.getYSpeed());
+        k.setVk(k.getYDelta());
        // t0 = System.currentTimeMillis();
         
         
