@@ -135,7 +135,7 @@ import javafx.scene.shape.CircleBuilder;
                     
                     k.setWinkel(b.getWinkel()); //Übernimmt den Winkel der Bahn
                     
-                    k.setVk(k.getVk() * 0.4);   //Die Kugel verliert beim aufprall Energie
+                    k.setVk(k.getVk() * 0.1);   //Die Kugel verliert beim aufprall Energie
                                        
                    
                     //k.setKollision(true);
