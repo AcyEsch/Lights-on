@@ -90,6 +90,12 @@ public class Bahn extends Line
             {
                 winkel = 360 + winkel;
             }
+            //~~~~~NEU~~~~~22.06.2017~~~~~~
+            if(winkel >= 180)
+            {
+                winkel = winkel - 180;          //Winkel hat werte von 0 - 180;
+            }
+            //~~~~END~~~~~~
         }
         else
         {
