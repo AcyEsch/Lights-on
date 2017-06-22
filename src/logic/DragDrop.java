@@ -15,22 +15,20 @@ public class DragDrop
     {
         kugel.setCursor(Cursor.HAND);
 
-    kugel.setOnMousePressed((t) -> {
-      if(canDrag)
-        {
-      double offsetX = t.getSceneX() - orgSceneX;
-      double offsetY = t.getSceneY() - orgSceneY;
+   
+        //~~~~New~~~~22.06.2017~~~~~
 
-      Kugel k = (Kugel) (t.getSource());
-      
-      k.setCenterX(k.getCenterX() + offsetX);
-      k.setCenterY(k.getCenterY() + offsetY);
-      
+    kugel.setOnMousePressed((t) -> {
+        if(canDrag)
+        {
       orgSceneX = t.getSceneX();
       orgSceneY = t.getSceneY();
+
+      Kugel k = (Kugel) (t.getSource());
+      k.toFront();
         }
-    });  
-        //~~~~New~~~~22.06.2017~~~~~
+    });
+        
         kugel.setOnMouseDragged((t) -> {
         if(canDrag)
         {
