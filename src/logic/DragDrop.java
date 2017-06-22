@@ -29,7 +29,25 @@ public class DragDrop
       orgSceneX = t.getSceneX();
       orgSceneY = t.getSceneY();
         }
-    });      
+    });  
+        //~~~~New~~~~22.06.2017~~~~~
+        kugel.setOnMouseDragged((t) -> {
+        if(canDrag)
+        {
+      double offsetX = t.getSceneX() - orgSceneX;
+      double offsetY = t.getSceneY() - orgSceneY;
+
+      Kugel k = (Kugel) (t.getSource());
+
+      k.setCenterX(k.getCenterX() + offsetX);
+      k.setCenterY(k.getCenterY() + offsetY);
+
+      
+      orgSceneX = t.getSceneX();
+      orgSceneY = t.getSceneY();     
+        }
+    });
+       //~~~~~End~~~~~
     }
     
     
