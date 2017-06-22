@@ -22,7 +22,7 @@ import javafx.scene.layout.GridPane;
 public class FXMLLevelsController implements Initializable {
 
     @FXML
-    private AnchorPane rootPane;
+    private GridPane rootPane;
    
     
     

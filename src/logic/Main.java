@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import controller.*;
+import javafx.scene.image.Image;
 
 
 public class Main  extends Application {
@@ -34,9 +35,10 @@ public class Main  extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().addAll(this.getClass().getResource("/gui/style.css").toExternalForm());
          
-       
-         
-        stage.setResizable(false);
+        stage.setTitle("Lights On");
+        stage.getIcons().add(new Image("/gui/Pics/Favicon.png"));
+        stage.setFullScreen(true);
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.show();
     }

@@ -105,5 +105,9 @@
          -fx-background-repeat: stretch;
     
         -fx-background-size: 840 900;
-       
       }
+ /*     //Um Scrollpane unsichtbar zumachen
+    #scroll-pane .viewport {
+        -fx-background-color: transparent;
+    }
+    */
