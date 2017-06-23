@@ -9,10 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import logic.Main;
 
 /**
  * FXML Controller class
@@ -23,12 +28,29 @@ public class FXMLLevelsController implements Initializable {
 
     @FXML
     private GridPane rootPane;
-   
+    @FXML
+    private Button level1, level2, level3, level4, level5, level6, newLevel;
+    @FXML
+    private Label uberschrift;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Effekt der Überschrift und Buttons  
+        Light.Distant light = new Light.Distant() ;
+        light.setAzimuth(271.05) ; 
+        light.setElevation(53.37) ; 
+        light.setColor(Color.web("#ffffff"));
+        Lighting lighting = new Lighting() ; 
+        lighting.setLight(light) ;  
+        uberschrift.setEffect(lighting);  
+        level1.setEffect(lighting);
+        level2.setEffect(lighting);
+        level3.setEffect(lighting);
+        level4.setEffect(lighting);
+        level5.setEffect(lighting);
+        level6.setEffect(lighting);
+        newLevel.setEffect(lighting);
     }    
     
     @FXML

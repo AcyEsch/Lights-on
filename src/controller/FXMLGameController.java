@@ -108,8 +108,8 @@ public class FXMLGameController implements Initializable
    
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
-//        AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/LevelsFXML.fxml"));
-//        gridPane.getChildren().setAll(pane);
+        Scene scene = simPane.getScene();
+        scene.setRoot(FXMLLoader.load(Main.class.getResource("/gui/LevelsFXML.fxml")));
     }
     
     

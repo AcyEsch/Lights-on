@@ -12,46 +12,63 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" hgap="10.0" prefHeight="900.0" prefWidth="1400.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLGameController">
-  <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-  </padding>
-   <children>
-     <AnchorPane fx:id="anchorPane" prefHeight="20.0" prefWidth="1000.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-       <children>
-         <HBox alignment="CENTER">
-            <children>
-              <Button fx:id="simButton" onAction="#handleSimButtonAction" text="Play" />
-              <Label fx:id="timer" prefHeight="38.0" prefWidth="91.0" textAlignment="CENTER" />
-              <Label prefHeight="38.0" prefWidth="69.0" text="Time">
-                <font>
-                  <Font size="23.0" fx:id="x1" />
-                </font>
-              </Label>
-              <HBox alignment="CENTER_RIGHT" />
-            </children>
-         </HBox>
+<GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" hgap="10.0" vgap="10.0" prefHeight="900.0" prefWidth="1400.0"  
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLGameController">
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+        <children>
+            <!-- TopPane-->
+            <BorderPane fx:id="anchorPane" prefHeight="20.0" prefWidth="1000.0" GridPane.columnIndex="0" GridPane.rowIndex="0" >
+                <left>
+                    <HBox alignment="CENTER" spacing="15">                       
+                        <Button fx:id="simButton" onAction="#handleSimButtonAction" text="Play" prefHeight="80.0" prefWidth="80.0" />
+                        <Label prefHeight="38.0" prefWidth="69.0" text="Time">
+                            <font>
+                                <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="timer" prefHeight="38.0" prefWidth="91.0">
+                            <font>
+                                <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" fx:id="x1" />
+                            </font>
+                        </Label>
+                    </HBox>
+                </left>
+                <center>
+                    <HBox alignment="CENTER" spacing="15">                       
+                        <Label prefHeight="38.0" prefWidth="145.0" text="Level 1">
+                            <font>
+                                <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+                </center>
+                <right>
+                    <HBox alignment="CENTER" spacing="15"> 
+                        <Button id="tipps" fx:id="btn_tipps" prefHeight="80.0" prefWidth="80.0" text="Tipps">
+                            <font>
+                                <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
+                            </font>
+                        </Button>
+                        <Button id="home" fx:id="btn_home" onAction="#home" prefHeight="80.0" prefWidth="80.0" text="Home">
+                            <font>
+                                <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
+                            </font>
+                        </Button>
+                    </HBox>
+                </right>
+                    
+            
+                   
          <!--
-         Position noch klären & Save Button raus, weil Zeit nicht reicht
+         Position noch klären 
          -->
-        <Button id="tipps" fx:id="btn_tipps" layoutX="830.0" layoutY="7.0" prefHeight="25.0" prefWidth="77.0" text="Tipps">
-               <font>
-                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
-               </font></Button>
-        <Button id="home" fx:id="btn_home" layoutX="949.0" layoutY="7.0" onAction="#home" prefHeight="25.0" prefWidth="77.0" text="Home">
-               <font>
-                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
-               </font></Button>
-        <Button id="save" fx:id="btn_save" layoutX="715.0" layoutY="7.0" prefHeight="25.0" prefWidth="77.0" text="Save">
-               <font>
-                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
-               </font></Button>
-       <Label alignment="CENTER" layoutX="273.0" prefHeight="38.0" prefWidth="145.0" text="Level 1">
-               <font>
-                  <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
-               </font></Label>
-       </children>
-     </AnchorPane>
+        
+        
+       
+      
+     </BorderPane>
      <Label alignment="CENTER" prefHeight="38.0" prefWidth="316.0" text="Elements  and  Controll" GridPane.columnIndex="1" GridPane.rowIndex="0">
          <font>
             <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />

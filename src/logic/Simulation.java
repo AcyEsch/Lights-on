@@ -140,7 +140,7 @@ import javafx.scene.shape.CircleBuilder;
                     
                     winkelBeta = winkelMerker - k.getWinkel();                
                     winkelBeta = winkelMerker + winkelBeta;
-                    k.setBounce(true);
+                   // k.setBounce(true);
                 }
                 //Wenn Ball bounct gibt es trotzdem kollisionen
                 if(k.getBounce() == false)
