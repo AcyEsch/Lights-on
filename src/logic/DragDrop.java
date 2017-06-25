@@ -15,9 +15,6 @@ public class DragDrop
     {
         kugel.setCursor(Cursor.HAND);
 
-   
-        //~~~~New~~~~22.06.2017~~~~~
-
     kugel.setOnMousePressed((t) -> {
         if(canDrag)
         {
@@ -45,7 +42,6 @@ public class DragDrop
       orgSceneY = t.getSceneY();     
         }
     });
-       //~~~~~End~~~~~
     }
     
     
@@ -90,6 +86,8 @@ public class DragDrop
     
      
     bahn.setOnDragDone(e -> {
+        if(canDrag)
+        {
         Dragboard db = e.getDragboard();
       double offsetX = e.getSceneX() - orgSceneX;
       double offsetY = e.getSceneY() - orgSceneY;
@@ -104,7 +102,8 @@ public class DragDrop
      b.werteBerechnen();
     
       orgSceneX = e.getSceneX();
-      orgSceneY = e.getSceneY();              
+      orgSceneY = e.getSceneY();     
+        }
     });           
     }
     
