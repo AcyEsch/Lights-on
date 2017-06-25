@@ -8,7 +8,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CircleBuilder;
 
-
     public class Kugel extends Circle 
     {          
         private static ArrayList<Kugel> kugeln = new ArrayList<Kugel>();
@@ -19,6 +18,7 @@ import javafx.scene.shape.CircleBuilder;
         private boolean kollision = false;
         private int merker = -1;
         private boolean bounce = false;
+        private boolean hRollen = false;
         
         private double x_delta;
         private double y_delta; 
@@ -60,7 +60,7 @@ import javafx.scene.shape.CircleBuilder;
        super.setCenterY(startY);          
 
        kugeln.add(this);
-       System.out.println("kugel   "+this);
+       System.out.println("kugel   " + this);
 
     }    
 
@@ -135,6 +135,16 @@ import javafx.scene.shape.CircleBuilder;
     
     public void setWinkel(double newWinkel)
     {
+        //~~~~~~~~~~~~NEW~~~~~~25.06~~~~~
+        if(newWinkel < 0)
+        {
+            newWinkel = 360 + newWinkel;
+        }
+        if(newWinkel >= 180)
+        {
+            newWinkel = newWinkel - 180;          
+        }
+            
         winkel = newWinkel;
     }
     
@@ -170,5 +180,17 @@ import javafx.scene.shape.CircleBuilder;
     public boolean getBounce()
     {
         return bounce;
+    }
+    
+    
+    //~~~~NEW~~~~~25.06~~~~~~+
+    public void setHRollen(boolean bol)
+    {
+        hRollen = bol;
+    }
+    
+    public boolean getHRollen()
+    {
+        return hRollen;
     }
   }
