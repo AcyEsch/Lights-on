@@ -1,12 +1,15 @@
 package logic;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CircleBuilder;
+import javafx.scene.shape.Rectangle;
 
 
     public class Simulation 
@@ -46,15 +49,17 @@ import javafx.scene.shape.CircleBuilder;
        
         ArrayList<Bahn> bahnen = Bahn.getBahnen();
         ArrayList<Kugel> kugeln = Kugel.getKugeln();
+        ArrayList<Schalter> schalter = Schalter.getSchalter();
+         
+        Schalter skol;
         Kugel k;
-        
         Bahn kolBahn;
     
     //public int merker = -1;
         
     public Simulation() 
     {        
-                          
+   
     }    
     
     public void move()
@@ -95,19 +100,42 @@ import javafx.scene.shape.CircleBuilder;
             Bahn b = kollisionBahnen(bahnen, i);
             kolBahn = b;
             
+             Schalter slt= kollisionSchalter(schalter,i);
+             skol=slt;
+             
              if(k.getKollision())
             {
                // System.out.println("Kugel " + i);
                 checkForEnd(kolBahn);
             }
 
-       
+      
             k.setCenterX(k.getCenterX() + k.getXDelta());
             k.setCenterY(k.getCenterY() + k.getYDelta());  
            
-        }
+    }
     
     }
+
+    
+     public Schalter kollisionSchalter(ArrayList<Schalter> schalter, int j)
+    {
+        for (int i = 0; i < schalter.size(); i++)
+            
+        {
+            Schalter slt = schalter.get(i);
+            // normalenvektor * mittelpunkt kreis - d von der bahn - radius
+            slt.setDistanz(((k.getCenterX()* slt.getNVektorX()) + (k.getCenterY() * slt.getNVektorY()))- slt.getD() - k.getRadius());
+                   
+            if (slt.getOldDistanz() > 0 && slt.getDistanz() <= 0 && k.getCenterX() < slt.getGroeseresX() + k.getRadius() && k.getCenterX() > slt.getKleineresX() - k.getRadius())
+            {
+                System.out.println("Schalter " + i);
+            }
+        }
+            return null;
+    }
+    
+    
     
     //Kollisiondetector
     public Bahn kollisionBahnen(ArrayList<Bahn> bahnen, int j)
@@ -118,7 +146,7 @@ import javafx.scene.shape.CircleBuilder;
             Bahn b = bahnen.get(i);
             // normalenvektor * mittelpunkt kreis - d von der bahn - radius
             b.setDistanz(((k.getCenterX()* b.getNVektorX()) + (k.getCenterY() * b.getNVektorY()))- b.getD() - k.getRadius());
-                       
+                      
             if (b.getOldDistanz() > 0 && b.getDistanz() <= 0 && k.getCenterX() < b.getGroeseresX() + k.getRadius() && k.getCenterX() > b.getKleineresX() - k.getRadius())
             {
                
@@ -240,4 +268,15 @@ import javafx.scene.shape.CircleBuilder;
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+      public boolean getTimeMerker(){
+            return timeMerker;
+          
+      } 
+        public void setTimeMerker(boolean tM){
+            timeMerker=tM;
+          
+      } 
+       
+   
 }

@@ -58,14 +58,14 @@ public class DragDrop
     {
       bahn.setCursor(Cursor.HAND);
 
-     
-      bahn.setOnMousePressed((t) -> {
+     bahn.setOnDragDetected((e -> {
+      // bahn.setOnMousePressed((t) -> {
       if(canDrag)
         {
-      orgSceneX = t.getSceneX();
-      orgSceneY = t.getSceneY();
+      orgSceneX = e.getSceneX();
+      orgSceneY = e.getSceneY();
 
-      Bahn b = (Bahn) (t.getSource());
+      Bahn b = (Bahn) (e.getSource());
       
       if(lastBahn != b)
       {
@@ -77,14 +77,24 @@ public class DragDrop
       b.toFront();
       
       b.setStroke(Color.GREEN);   
-        }         
-    });
+        } 
+      
+      
+      Dragboard db = bahn.startDragAndDrop(TransferMode.COPY);
+            db.setDragView(new Bahn().snapshot(null, null), e.getX(), e.getY());
+            ClipboardContent cc = new ClipboardContent();
+            cc.getImage();
+            db.setContent(cc);
+           
+     }));
     
-    bahn.setOnMouseDragged((t) -> {
-      double offsetX = t.getSceneX() - orgSceneX;
-      double offsetY = t.getSceneY() - orgSceneY;
+     
+    bahn.setOnDragDone(e -> {
+        Dragboard db = e.getDragboard();
+      double offsetX = e.getSceneX() - orgSceneX;
+      double offsetY = e.getSceneY() - orgSceneY;
 
-      Bahn b = (Bahn) (t.getSource());
+      Bahn b = (Bahn) (e.getSource());
 
      b.setStartX(b.getStartX() + offsetX);
      b.setStartY(b.getStartY() + offsetY);
@@ -93,10 +103,11 @@ public class DragDrop
      
      b.werteBerechnen();
     
-      orgSceneX = t.getSceneX();
-      orgSceneY = t.getSceneY();              
+      orgSceneX = e.getSceneX();
+      orgSceneY = e.getSceneY();              
     });           
     }
+    
     public Bahn getBahn()
     {
         return lastBahn;

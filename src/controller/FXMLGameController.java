@@ -1,12 +1,17 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,9 +47,6 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.*;
-//import static logic.Main.root;
-//import static logic.Main.scene;
-//import static logic.Main.stage;
 
 
 
@@ -57,7 +59,11 @@ public class FXMLGameController implements Initializable
     public Line line;
     private Button home;
     private Button schalter;
-
+   
+    private Kugel kugel;
+    private Button handleSimButtonAction; 
+ 
+    
     @FXML
     private Pane simPane;
     private VBox elementsBox, controllsBox;
@@ -79,46 +85,61 @@ public class FXMLGameController implements Initializable
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
 
-    //new
+    private Timeline tl;
+ 
     private Group simGroup = new Group();
     private ArrayList<Bahn> bahnen = Bahn.getBahnen();
     private ArrayList<Kugel> kugeln = Kugel.getKugeln();
-        
-    //////////////////////////////////////////////////////////////////////////
-    ////////////////////Buttons//////////////////////////////////////////////7
+    
     @FXML
-    private void handleSimButtonAction(ActionEvent event) 
+    public void handleSimButtonAction(ActionEvent event)  throws IOException
     {      
-        
+       
         drag.setCanDrag(false);             // Jasmin
         
         KeyFrame k = new KeyFrame(Duration.millis(10),
             e->
-            {
-                sim.move();                                   
+            { 
+                sim.move();  
             });
        
-       Timeline t= new Timeline(k);
+            Timeline t= new Timeline(k);
+            t.getCurrentTime();
+            t.setAutoReverse(true);
             t.setCycleCount(Timeline.INDEFINITE);
-            t.play();
- 
+         
+            tl=t;
+            t.playFrom(Duration.millis(10));
     }
+  
     
+    @FXML
+    private void stop_btn(ActionEvent event) throws IOException
+    { 
+       tl.stop();
+       sim.setTimeMerker(true);
+        drag.setCanDrag(true);   
+        System.out.println("stop");
+    }  
+   
     
-   @FXML
-   private void schalter(ActionEvent event) throws IOException{
-       simPane.getStyleClass().add("light");
-       simPane.setId("light");
-   }
+//   @FXML
+//   private void schalter(ActionEvent event) throws IOException{
+//      
+//      simPane.getStyleClass().add("light");
+//      simPane.setId("light");
+//   }
+//    
     
- 
+   
+   
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
         Scene scene = simPane.getScene();
         scene.setRoot(FXMLLoader.load(Main.class.getResource("/gui/LevelsFXML.fxml")));
         deleteContent();
     }
-
+    
     
     private void load () 
     { 
@@ -133,15 +154,23 @@ public class FXMLGameController implements Initializable
     bahn2.setStrokeWidth(5.0);
      bahn4.setStrokeWidth(5.0);
   //  bahn3.setStrokeWidth(5.0);
-        
+            
       Kugel kugel = new Kugel(radius, 100, 100, true);
    // Kugel kugel1 = new Kugel(radius, 300, 100, true);
-    
-    
+   
+   
+   
+    Schalter schalt = new Schalter(650,820,730,820);
+    schalt.setFill(AQUAMARINE);
+  
     sim = new Simulation();   
 //       line.setOnMousePressed(circleOnMousePressedEventHandler);
 //       line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-     
+   
+    ArrayList<Bahn> bahnen = Bahn.getBahnen();
+    ArrayList<Kugel> kugeln = Kugel.getKugeln();
+   ArrayList<Schalter> schalter = Schalter.getSchalter();
+    
 //    
 //    hBox.setOnDragDetected(e -> {
 //            Dragboard db = bahn.startDragAndDrop(TransferMode.ANY);
@@ -179,22 +208,30 @@ public class FXMLGameController implements Initializable
 //    
 //    
         for(int i = 0; i < bahnen.size(); i++)
-        {
+                {
            //simPane.getChildren().add(bahnen.get(i));
            simGroup.getChildren().add(bahnen.get(i));
-        }
-
-        for(int i = 0; i < kugeln.size(); i++)
-        {
+                }
+                
+                for(int i = 0; i < kugeln.size(); i++)
+                {
            //simPane.getChildren().add(kugeln.get(i));
              simGroup.getChildren().add(kugeln.get(i));
-        }
+                }
+                 for(int i = 0; i < schalter.size(); i++)
+                {
+               simGroup.getChildren().add(schalt);
+                }
+                
+                
+                
+               
         //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
        {          
            Kugel k = kugeln.get(i);
-           
+          
            if(k.getCanBeDraged())
            {
                 drag.dragKugel(k);
@@ -210,10 +247,10 @@ public class FXMLGameController implements Initializable
            {
             drag.dragBahn(b);
            }
-       }     
+       }  
     //Drag And Drop END
-    
-    
+       
+ 
     simPane.getChildren().add(simGroup);
     //simPane.setPrefSize(4, gridPane.getHeight()); 
     gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
@@ -226,9 +263,9 @@ public class FXMLGameController implements Initializable
     });
     //makeZoomable(simPane); gridPane.getColumnConstraints()
     }
-    
+        
     //~~~~~~~~~NEW~~~~~~~~
-  
+       
     /*
         Änderungen in
         FMXLGameController.java
@@ -268,8 +305,44 @@ public class FXMLGameController implements Initializable
 //    };
 //    
     
-
     
+   
+    
+   
+    
+    
+    
+ 
+    
+    
+//    
+//  @FXML
+//   private void lichtAn(Kugel k, Label l){
+//       System.out.println("lichtAnlichtAnlichtAnlichtAnlichtAnlichtAn");
+//      
+//              k.getCenterX();
+//              k.getCenterY();
+//
+//    
+//    
+//      l.getLayoutX();
+//      l.getLayoutY();
+//      if (k.getCenterY()<=l.getLayoutY() || k.getCenterX()>=l.getLayoutX()){
+//          System.out.println("yes yes yes yes   lichtAnlichtAnlichtAnlichtAnlichtAn");
+//          simPane.getStyleClass().add("light");
+//           simPane.setId("light");
+//      }else{
+//          System.out.println("kein kein kein kein lichtAnlichtAnlichtAnlichtAnlichtAn");
+//      }
+//       
+//       
+//   }
+  
+   
+    
+    
+    
+           
     @FXML
     private void handlePlus(ActionEvent event)
     {
@@ -474,7 +547,7 @@ public class FXMLGameController implements Initializable
         bahnen.clear();
         kugeln.clear();
     }
-    
+
 //    public void makeZoomable(Pane simPane){
 //        final double SCALE_DELTA = 1.1;
 //        Group zoomContent = new Group(simPane);
@@ -501,9 +574,7 @@ public class FXMLGameController implements Initializable
        //timer();
        load();
        
-    }          
-    
-    
+    }                
 }
 
         

@@ -39,7 +39,7 @@
         -fx-font-size: 30px;
 }
   
-/*noch nicht sortiert*/
+/*noch nicht sortiert*/  
 #pane{
         -fx-background-image: url("Pics/SpeilSegmentMenu.png");  
          -fx-background-position: 52 -93; 
@@ -65,7 +65,6 @@
         -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
         -fx-background-repeat: no-repeat;
         -fx-background-size: auto;
-        
     }
     
     #scene{

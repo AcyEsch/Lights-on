@@ -38,16 +38,15 @@ public class Main  extends Application {
         stage.setTitle("Lights On");
         stage.getIcons().add(new Image("/gui/Pics/Favicon.png"));
         stage.setFullScreen(true);
-//        stage.setMaximized(true);
         stage.setResizable(true);
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     public static Stage getStage(){
         return stage;
     }

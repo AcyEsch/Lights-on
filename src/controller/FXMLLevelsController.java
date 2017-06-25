@@ -33,7 +33,7 @@ public class FXMLLevelsController implements Initializable {
     private Button level1, level2, level3, level4, level5, level6, newLevel;
     @FXML
     private Label uberschrift;
-    
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
