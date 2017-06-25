@@ -48,7 +48,7 @@ public class Main  extends Application {
         launch(args);
     }
     
-    public Stage getStage(){
+    public static Stage getStage(){
         return stage;
     }
 

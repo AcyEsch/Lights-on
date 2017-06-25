@@ -18,6 +18,7 @@
 
 .label{
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
+    -fx-font-size: 23px;
 }
 
 
@@ -62,12 +63,14 @@
     
     #elements{
         -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
+        -fx-background-repeat: no-repeat;
+        -fx-background-size: auto;
         
     }
     
     #scene{
         -fx-background-image: url("Pics/Dunkel.jpg"); 
-        -fx-background-size: 1055 830;
+        -fx-background-size: stretch;
        
     }
     
@@ -137,6 +140,8 @@
       
       #elementsPane{
           -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
+          -fx-background-repeat: no-repeat;
+          -fx-background-size: auto;
       }
       
       #auswahl{

@@ -8,16 +8,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -25,9 +29,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.AQUAMARINE;
@@ -45,7 +51,6 @@ import logic.*;
 public class FXMLGameController implements Initializable 
 {
     @FXML   
-    private GridPane mainPane;
     private GridPane gridPane;                  //Lyu
     public Button simButton;                    //Lyu
     public Label timer;                         //Lyu
@@ -60,7 +65,7 @@ public class FXMLGameController implements Initializable
     private final Integer startTime=60;
     public Integer seconds=startTime;
     @FXML 
-    private AnchorPane rootPane;
+    private ScrollPane zoomPane, controllPane;
  
     @FXML
     public Button level1;
@@ -74,9 +79,13 @@ public class FXMLGameController implements Initializable
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
 
-   
+    //new
+    private Group simGroup = new Group();
+    private ArrayList<Bahn> bahnen = Bahn.getBahnen();
+    private ArrayList<Kugel> kugeln = Kugel.getKugeln();
         
-    
+    //////////////////////////////////////////////////////////////////////////
+    ////////////////////Buttons//////////////////////////////////////////////7
     @FXML
     private void handleSimButtonAction(ActionEvent event) 
     {      
@@ -98,26 +107,18 @@ public class FXMLGameController implements Initializable
     
    @FXML
    private void schalter(ActionEvent event) throws IOException{
-       
-      simPane.getStyleClass().add("light");
+       simPane.getStyleClass().add("light");
        simPane.setId("light");
    }
     
-    
-   
-   
+ 
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
         Scene scene = simPane.getScene();
         scene.setRoot(FXMLLoader.load(Main.class.getResource("/gui/LevelsFXML.fxml")));
+        deleteContent();
     }
-    
-    
-    
-    
-    
-    
-    
+
     
     private void load () 
     { 
@@ -132,12 +133,7 @@ public class FXMLGameController implements Initializable
     bahn2.setStrokeWidth(5.0);
      bahn4.setStrokeWidth(5.0);
   //  bahn3.setStrokeWidth(5.0);
-            
-   
-            
-            
-            
-            
+        
       Kugel kugel = new Kugel(radius, 100, 100, true);
    // Kugel kugel1 = new Kugel(radius, 300, 100, true);
     
@@ -145,12 +141,7 @@ public class FXMLGameController implements Initializable
     sim = new Simulation();   
 //       line.setOnMousePressed(circleOnMousePressedEventHandler);
 //       line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-  
-    ArrayList<Bahn> bahnen = Bahn.getBahnen();
-    ArrayList<Kugel> kugeln = Kugel.getKugeln();
-      
-    
-    
+     
 //    
 //    hBox.setOnDragDetected(e -> {
 //            Dragboard db = bahn.startDragAndDrop(TransferMode.ANY);
@@ -187,18 +178,17 @@ public class FXMLGameController implements Initializable
 //});
 //    
 //    
-    
-    
-    
         for(int i = 0; i < bahnen.size(); i++)
-                {
-                   simPane.getChildren().add(bahnen.get(i));
-                }
-                
-                for(int i = 0; i < kugeln.size(); i++)
-                {
-                   simPane.getChildren().add(kugeln.get(i));
-                }
+        {
+           //simPane.getChildren().add(bahnen.get(i));
+           simGroup.getChildren().add(bahnen.get(i));
+        }
+
+        for(int i = 0; i < kugeln.size(); i++)
+        {
+           //simPane.getChildren().add(kugeln.get(i));
+             simGroup.getChildren().add(kugeln.get(i));
+        }
         //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
@@ -222,9 +212,23 @@ public class FXMLGameController implements Initializable
            }
        }     
     //Drag And Drop END
+    
+    
+    simPane.getChildren().add(simGroup);
+    //simPane.setPrefSize(4, gridPane.getHeight()); 
+    gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+      @Override
+      public void changed(ObservableValue<? extends Bounds> observable,
+          Bounds oldValue, Bounds newValue) {
+        simPane.setPrefSize(newValue.getWidth()*0.69, newValue.getHeight()*0.89);
+        controllPane.setPrefSize(newValue.getWidth()*0.29, newValue.getHeight()*0.89);
+      }
+    });
+    //makeZoomable(simPane); gridPane.getColumnConstraints()
     }
     
     //~~~~~~~~~NEW~~~~~~~~
+  
     /*
         Änderungen in
         FMXLGameController.java
@@ -264,14 +268,7 @@ public class FXMLGameController implements Initializable
 //    };
 //    
     
-    
-   
-    
-    
-    
-    
-    
-    
+
     
     @FXML
     private void handlePlus(ActionEvent event)
@@ -473,7 +470,30 @@ public class FXMLGameController implements Initializable
   
     //~~~~~~~~~~~END~~~~~~~~~~~~~
     
-
+    public void deleteContent(){
+        bahnen.clear();
+        kugeln.clear();
+    }
+    
+//    public void makeZoomable(Pane simPane){
+//        final double SCALE_DELTA = 1.1;
+//        Group zoomContent = new Group(simPane);
+//    // Create a pane for holding the content, when the content is smaller than the view port,
+//    // it will stay the view port size, make sure the content is centered
+//        StackPane stackPane = new StackPane();
+//        stackPane.getChildren().add(zoomContent);
+//        Group scrollContent = new Group(stackPane);
+//    // Scroll pane for scrolling
+//        ScrollPane scroller = new ScrollPane();
+//        scroller = zoomPane;
+//        scroller.setContent(zoomContent);
+//        
+//        scroller.viewportBoundsProperty().addListener((ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) -> {
+//            stackPane.setMaxSize(newValue.getWidth(), newValue.getHeight());
+//            //simPane.setMinSize(newValue.getWidth(), newValue.getHeight());
+//        });
+//        System.out.println("Inhalt simGroup" +simGroup.getChildren());
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -481,7 +501,9 @@ public class FXMLGameController implements Initializable
        //timer();
        load();
        
-    }                
+    }          
+    
+    
 }
 
         

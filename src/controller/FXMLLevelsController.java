@@ -8,6 +8,7 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -63,8 +64,6 @@ public class FXMLLevelsController implements Initializable {
     private void level2(ActionEvent event) throws IOException{
         GridPane pane = FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml"));
         rootPane.getChildren().setAll(pane);
-        
-      
     }
     
     @FXML
