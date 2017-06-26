@@ -92,6 +92,11 @@ public class FXMLGameController implements Initializable
     private ArrayList<Kugel> kugeln ;
     private ArrayList<Schalter> schalter;
     
+    private Bounds gridB, simB;
+    private final double PERCENT_WIDTH_SIM = 0.69;
+    private final double PERCENT_WIDTH_CON = 0.29;
+    private final double PERCENT_HEIGHT = 0.89;
+    
     @FXML
     public void handleSimButtonAction(ActionEvent event)  throws IOException
     {      
@@ -207,19 +212,18 @@ public class FXMLGameController implements Initializable
 //    }
 //});
 //    
-//    
+//    Schleifen um oben entstandene Elemente hinzuzufügen
+
         for(int i = 0; i < bahnen.size(); i++)
                 {
-           //simPane.getChildren().add(bahnen.get(i));
            simGroup.getChildren().add(bahnen.get(i));
                 }
                 
-                for(int i = 0; i < kugeln.size(); i++)
+        for(int i = 0; i < kugeln.size(); i++)
                 {
-           //simPane.getChildren().add(kugeln.get(i));
              simGroup.getChildren().add(kugeln.get(i));
                 }
-                 for(int i = 0; i < schalter.size(); i++)
+        for(int i = 0; i < schalter.size(); i++)
                 {
                simGroup.getChildren().add(schalter.get(i));
                 }
@@ -254,15 +258,30 @@ public class FXMLGameController implements Initializable
  
     simPane.getChildren().add(simGroup);
     //simPane.setPrefSize(4, gridPane.getHeight()); 
+    
+    //sorgt dafür, dass die SimulationPane sich der Größe des Gris anpasst
     gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
       @Override
       public void changed(ObservableValue<? extends Bounds> observable,
           Bounds oldValue, Bounds newValue) {
-        simPane.setPrefSize(newValue.getWidth()*0.69, newValue.getHeight()*0.89);
-        controllPane.setPrefSize(newValue.getWidth()*0.29, newValue.getHeight()*0.89);
+          //
+            gridB = newValue;
+            simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+        @Override
+        public void changed(ObservableValue<? extends Bounds> obser,
+            Bounds oldV , Bounds newV) {
+            //
+            simB = newV;
+            try{
+                setTheSizes();
+            }catch(Exception e){
+                System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
+            }
       }
     });
-    //makeZoomable(simPane); gridPane.getColumnConstraints()
+      }
+    });
+     
     }
         
     //~~~~~~~~~NEW~~~~~~~~
@@ -550,25 +569,6 @@ public class FXMLGameController implements Initializable
         schalter.clear();
     }
 
-//    public void makeZoomable(Pane simPane){
-//        final double SCALE_DELTA = 1.1;
-//        Group zoomContent = new Group(simPane);
-//    // Create a pane for holding the content, when the content is smaller than the view port,
-//    // it will stay the view port size, make sure the content is centered
-//        StackPane stackPane = new StackPane();
-//        stackPane.getChildren().add(zoomContent);
-//        Group scrollContent = new Group(stackPane);
-//    // Scroll pane for scrolling
-//        ScrollPane scroller = new ScrollPane();
-//        scroller = zoomPane;
-//        scroller.setContent(zoomContent);
-//        
-//        scroller.viewportBoundsProperty().addListener((ObservableValue<? extends Bounds> observable, Bounds oldValue, Bounds newValue) -> {
-//            stackPane.setMaxSize(newValue.getWidth(), newValue.getHeight());
-//            //simPane.setMinSize(newValue.getWidth(), newValue.getHeight());
-//        });
-//        System.out.println("Inhalt simGroup" +simGroup.getChildren());
-//    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -576,7 +576,21 @@ public class FXMLGameController implements Initializable
        //timer();
        load();
        
-    }                
+    }      
+    
+    public void setTheSizes() throws Exception{
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
+             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
+             simPane.setPrefSize(simB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
+             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, simB.getHeight()*PERCENT_HEIGHT);
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
+             simPane.setPrefSize(simB.getWidth()*PERCENT_WIDTH_SIM, simB.getHeight()*PERCENT_HEIGHT);
+        else
+            throw new Exception();
+        controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
+    }
 }
 
         
