@@ -1,4 +1,5 @@
 package logic;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Cursor;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -44,15 +45,11 @@ public class DragDrop
     });
     }
     
-    
-    
-    
-    
-    
+
     
     public void dragBahn(Bahn bahn)
     {
-       bahn.setCursor(Cursor.HAND);
+      bahn.setCursor(Cursor.HAND);
 
       bahn.setOnMousePressed((t) -> {
         if(canDrag)
@@ -64,14 +61,18 @@ public class DragDrop
       
       if(lastBahn != b)
       {
-        lastBahn.setStroke(Color.BLACK);      
+        lastBahn.setStroke(Color.AQUA);      
         lastBahn = b;
+        lastBahn.setIsSelected(false);
       }
       
       
       b.toFront();
       
-      b.setStroke(Color.GREEN);   
+      b.setStroke(Color.AQUAMARINE);
+      b.setIsSelected(true);
+      Bahn.getSelectedBahn();
+      controller.FXMLGameController.initValueProperty = new SimpleIntegerProperty(1);
         }
 });
       

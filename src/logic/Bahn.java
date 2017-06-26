@@ -21,6 +21,7 @@ public class Bahn extends Line
     private double rot = 0;
     
     private boolean canBeDraged;
+    private boolean isSelected = false;
     
      //Für Kollisionserechnung
     private double n_vektor_x;
@@ -50,11 +51,11 @@ public class Bahn extends Line
        
        if(canBeDraged)
        {
-           this.setStroke(Color.BLACK);
+           this.setStroke(Color.AQUA);
        }
        else
        {
-           this.setStroke(Color.RED);
+           this.setStroke(Color.CORNFLOWERBLUE);
        }
         
         werteBerechnen();
@@ -271,5 +272,24 @@ public class Bahn extends Line
     public void setRot(double r)
     {
         rot = r;
+    }
+    
+    public void setIsSelected(boolean b){
+        isSelected = b;
+    }
+    
+    public boolean getIsSelected(){
+        return isSelected;
+    }
+    
+    public static Bahn getSelectedBahn(){
+        for (int i = 0; i < bahnen.size(); i++ ){
+            if (bahnen.get(i).getIsSelected()){
+                System.out.println("Bahn ausgewählt!!!!");
+                return bahnen.get(i);
+            }
+            else
+                return null;
+        }       return null;
     }
 }
