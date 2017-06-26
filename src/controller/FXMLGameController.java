@@ -13,6 +13,11 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -67,11 +72,11 @@ public class FXMLGameController implements Initializable
     @FXML
     private Pane simPane;
     private VBox elementsBox, controllsBox;
-    private HBox hBox;                          //Lyu
+    private HBox drehen;                         
     private final Integer startTime=60;
     public Integer seconds=startTime;
     @FXML 
-    private ScrollPane zoomPane, controllPane;
+    private ScrollPane controllPane;
  
     @FXML
     public Button level1;
@@ -86,17 +91,21 @@ public class FXMLGameController implements Initializable
     double orgTranslateX, orgTranslateY;
 
     private Timeline tl;
- 
+    
     private Group simGroup = new Group();
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
     private ArrayList<Schalter> schalter;
-    
+    //Layout
     private Bounds gridB, simB;
     private final double PERCENT_WIDTH_SIM = 0.69;
     private final double PERCENT_WIDTH_CON = 0.29;
     private final double PERCENT_HEIGHT = 0.89;
+    private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
+    public static IntegerProperty initValueProperty = new SimpleIntegerProperty(0);
+    private IntegerProperty finalValueProperty = new SimpleIntegerProperty(1);
     
+    ////////////////////////////Buttons/////////////////////////////////////////
     @FXML
     public void handleSimButtonAction(ActionEvent event)  throws IOException
     {      
@@ -136,8 +145,6 @@ public class FXMLGameController implements Initializable
 //      simPane.setId("light");
 //   }
 //    
-    
-   
    
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
@@ -227,7 +234,7 @@ public class FXMLGameController implements Initializable
                 {
                simGroup.getChildren().add(schalter.get(i));
                 }
-                
+        
                 
                 
                
@@ -259,7 +266,9 @@ public class FXMLGameController implements Initializable
     simPane.getChildren().add(simGroup);
     //simPane.setPrefSize(4, gridPane.getHeight()); 
     
-    //sorgt dafür, dass die SimulationPane sich der Größe des Gris anpasst
+    
+    //Layout
+    //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
     gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
       @Override
       public void changed(ObservableValue<? extends Bounds> observable,
@@ -281,9 +290,25 @@ public class FXMLGameController implements Initializable
     });
       }
     });
-     
-    }
-        
+    
+    //Layout: Observer, der schaut ob eine Bahn ausgewählt ist
+    
+    selectedBahnProp.bind(initValueProperty.isEqualTo(finalValueProperty));
+    
+    selectedBahnProp.addListener(new ChangeListener<Boolean>() {
+
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    // Only if completed
+                    if (newValue) {
+                        System.out.println("Bahn ausgewählt");
+                    }
+                }
+            });
+
+    
+   
+    }    
     //~~~~~~~~~NEW~~~~~~~~
        
     /*
@@ -591,6 +616,8 @@ public class FXMLGameController implements Initializable
             throw new Exception();
         controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
     }
+    
+    
 }
 
         
