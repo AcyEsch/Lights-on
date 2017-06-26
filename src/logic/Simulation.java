@@ -10,55 +10,6 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CircleBuilder;
 import javafx.scene.shape.Rectangle;
-
-
-   public class Simulation 
-    {  
-        //public int formelTyp = 1;              
-    
-        //public double masse = 25;      //Realistischer Wert?
-        public double g = 9.81;         //Schwerkraft
-        //public double a;                //Beschleunigung
-        
-        public double Fg;            //Gewichtskraft
-        public double Fh;              //Hangabtriebskraft
-        public double Fn;               // Normalkraft
-        public double Fr;               // Reibungskraft
-        public double mik = 0.2;              //Reibungszahl      Realistischer Wert?        
-         
-       // public double Vk = 0;  //Geschwindigkeit
-        public double t0;  //Aktuelle Zeit
-        public double deltaT;
-        private double talt = 0;
-        public boolean timeMerker = true;
-        public double time = 0;
-
-        public double Vn;
-        public double s;
-        private double sMerker;
-        //public double winkel = 90;
-        public double winkelBeta;
-        private double winkelMerker;
-        public double strecke;
-        public double deltaX;
-        public double deltaY;        
-               
-        private double reibung = 0.1;
-        private double maxVk = 10;
-        
-        //Größe des Fensters
-        public double fieldWidth;
-        public double fieldHeight;
-       
-        ArrayList<Bahn> bahnen = Bahn.getBahnen();
-        ArrayList<Kugel> kugeln = Kugel.getKugeln();
-        ArrayList<Schalter> schalter = Schalter.getSchalter();
-         
-        Schalter skol;
-        Kugel k;
-        Bahn kolBahn;
-    
-    //public int merker = -1;
         
    public class Simulation 
     {  
