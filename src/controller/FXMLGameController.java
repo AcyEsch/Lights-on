@@ -57,8 +57,8 @@ public class FXMLGameController implements Initializable
     public Button simButton;                    //Lyu
     public Label timer;                         //Lyu
     public Line line;
+    @FXML
     private Button home;
-    private Button schalter;
    
     private Kugel kugel;
     private Button handleSimButtonAction; 
@@ -88,8 +88,9 @@ public class FXMLGameController implements Initializable
     private Timeline tl;
  
     private Group simGroup = new Group();
-    private ArrayList<Bahn> bahnen = Bahn.getBahnen();
-    private ArrayList<Kugel> kugeln = Kugel.getKugeln();
+    private ArrayList<Bahn> bahnen ;
+    private ArrayList<Kugel> kugeln ;
+    private ArrayList<Schalter> schalter;
     
     @FXML
     public void handleSimButtonAction(ActionEvent event)  throws IOException
@@ -167,9 +168,9 @@ public class FXMLGameController implements Initializable
 //       line.setOnMousePressed(circleOnMousePressedEventHandler);
 //       line.setOnMouseDragged(circleOnMouseDraggedEventHandler);
    
-    ArrayList<Bahn> bahnen = Bahn.getBahnen();
-    ArrayList<Kugel> kugeln = Kugel.getKugeln();
-   ArrayList<Schalter> schalter = Schalter.getSchalter();
+    bahnen = Bahn.getBahnen();
+    kugeln = Kugel.getKugeln();
+    schalter = Schalter.getSchalter();
     
 //    
 //    hBox.setOnDragDetected(e -> {
@@ -220,7 +221,7 @@ public class FXMLGameController implements Initializable
                 }
                  for(int i = 0; i < schalter.size(); i++)
                 {
-               simGroup.getChildren().add(schalt);
+               simGroup.getChildren().add(schalter.get(i));
                 }
                 
                 
@@ -546,6 +547,7 @@ public class FXMLGameController implements Initializable
     public void deleteContent(){
         bahnen.clear();
         kugeln.clear();
+        schalter.clear();
     }
 
 //    public void makeZoomable(Pane simPane){
