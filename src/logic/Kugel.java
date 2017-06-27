@@ -154,10 +154,7 @@ import javafx.scene.shape.CircleBuilder;
     {
         winkel = newWinkel;
     }
-    public void setWinkel180(double newWinkel)
-    {
-        winkel = newWinkel;
-    }
+    
     
     public double getMasse()
     {
