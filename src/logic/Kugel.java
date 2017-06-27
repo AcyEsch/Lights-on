@@ -2,7 +2,9 @@ package logic;
 
 import java.util.ArrayList;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -35,6 +37,8 @@ import javafx.scene.shape.CircleBuilder;
         private double winkel =90 ;
           
         public Bahn kolBahn;
+        private DoubleProperty xKugelProp = new SimpleDoubleProperty();
+        private DoubleProperty yKugelProp = new SimpleDoubleProperty();
  
         
     public Kugel(double radius, double x, double y, boolean draged) 
@@ -225,5 +229,21 @@ import javafx.scene.shape.CircleBuilder;
             
         }       return null;
     } 
+    
+    //KugelKoordinatenPropertyGetter     
+    public double getXKugelDouble(){
+        return xKugelProp.get();
+    }
+    public double getYKugelDouble(){
+        return yKugelProp.get();
+    }
+    
+    public DoubleProperty xKugelProp() {
+         return xKugelProp;
+    }
+    
+    public DoubleProperty yKugelProp() {
+         return yKugelProp;
+     }
   }
 

@@ -58,7 +58,7 @@
   
     #light{
         -fx-background-image: url("Pics/light.jpg"); 
-        -fx-background-size: 1055 830;
+        -fx-background-size: stretch;
     }
     
     #elements{
