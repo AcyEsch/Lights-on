@@ -56,30 +56,25 @@ import logic.*;
 
 
 public class FXMLGameController implements Initializable 
-{
-    @FXML   
-    private GridPane gridPane;                  //Lyu
+{ 
+    @FXML private GridPane gridPane;                  //Lyu
     public Button simButton;                    //Lyu
     public Label timer;                         //Lyu
     public Line line;
-    @FXML
-    private Button home;
+    @FXML private Button home;
    
     private Kugel kugel;
     private Button handleSimButtonAction; 
  
     
-    @FXML
-    private Pane simPane;
-    private VBox elementsBox, controllsBox;
+    @FXML private Pane simPane;
+    @FXML private VBox elementsBox, controllsBox;
     private HBox drehen;                         
     private final Integer startTime=60;
     public Integer seconds=startTime;
-    @FXML 
-    private ScrollPane controllPane;
+    @FXML private ScrollPane controllPane;
  
-    @FXML
-    public Button level1;
+    @FXML public Button level1;
  
     public ArrayList<Object> dragList = new ArrayList<Object>();
     public DragDrop drag = new DragDrop();
@@ -154,8 +149,15 @@ public class FXMLGameController implements Initializable
     }
     
     
+//////////////////////////////LÄDT//////////////////////////////////////////////    
+    
     private void load () 
-    { 
+    {   
+        
+    controllsBox.setVisible(false);
+    
+    //!!!!!!!!!!!!!!!!!Spezifische Eigenschaften des Levels!!!!!!!!!!!!!!!!!!
+    
    Bahn bahn4 = new Bahn(300, 450, 450, 650, true);//Negative Steigung   x1 y1 x2 y2   
    // Bahn bahn3= new Bahn(700, 50, 1100, 250, false);//Negative Steigung   x1 y1 x2 y2  
     //Unterschied?
@@ -264,10 +266,10 @@ public class FXMLGameController implements Initializable
        
  
     simPane.getChildren().add(simGroup);
-    //simPane.setPrefSize(4, gridPane.getHeight()); 
     
     
-    //Layout
+/////////////////////////////////////Layout/////////////////////////////////////
+
     //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
     gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
       @Override
@@ -302,12 +304,14 @@ public class FXMLGameController implements Initializable
                     // Only if completed
                     if (newValue) {
                         System.out.println("Bahn ausgewählt");
+                        controllsBox.setVisible(true);
                     }
                 }
-            });
-
+    });
     
    
+    
+    
     }    
     //~~~~~~~~~NEW~~~~~~~~
        
