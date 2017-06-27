@@ -51,6 +51,8 @@ import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.AQUAMARINE;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.*;
@@ -120,12 +122,23 @@ public class FXMLGameController implements Initializable
                     { 
                         sim.move();
                         if(sim.getAn()==true ){
-                            System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
-                            simPane.getStyleClass().add("light");
-                            simPane.setId("light");
-                        }
-                    });
-                    
+                       simPane.getStyleClass().add("light");
+                       simPane.setId("light");
+                        for(int j = 0; j < bahnen.size(); j++){      
+                          Bahn b = bahnen.get(j);
+                         b.setStroke(Color.DARKOLIVEGREEN);
+                         b.setStroke(Color.DARKOLIVEGREEN);
+                     
+                         tl.setDelay(Duration.seconds(6.0));
+                        next();
+                         tl.stop();
+               
+                     }
+                       
+                   
+         }
+                });
+                  
                   Timeline t= new Timeline(kf);
                   t.getCurrentTime();
                   t.setAutoReverse(true);
@@ -133,12 +146,21 @@ public class FXMLGameController implements Initializable
                   
                   tl=t;
                   t.playFromStart();
-                  
                   simButton.setText("Stop");
+                
+                  
         } else {
+                  
                   tl.stop();
                   sim.setTimeMerker(true);
                   drag.setCanDrag(true);
+                     for(int j = 0; j < kugeln.size(); j++){      
+                          Kugel k = kugeln.get(j);
+                          k.setCenterX(100);
+                          k.setCenterY(100);
+                     }
+                   tl.stop();
+                     
                   simButton.setText("Start");
               }
           }
@@ -697,6 +719,17 @@ public class FXMLGameController implements Initializable
 //            throw new Exception();
         controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
     }
+    public void next(){
+         final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Text("Congratulations! "));
+                dialogVbox.getChildren().add(new Button("Next Level "));
+                Scene dialogScene = new Scene(dialogVbox, 500, 400);
+                dialog.setScene(dialogScene);
+                dialog.show();
+    }
+
     
     public void gameOver(){
         tl.stop();
