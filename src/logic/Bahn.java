@@ -1,12 +1,17 @@
 package logic;
 
 import java.util.ArrayList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Bahn extends Line
 {
     private static ArrayList<Bahn> bahnen = new ArrayList<Bahn>();
+//    private static ObservableList<Bahn> watchedBahnen = FXCollections.observableArrayList();
     
     private double x1;
     private double x2;
@@ -21,7 +26,8 @@ public class Bahn extends Line
     private double rot = 0;
     
     private boolean canBeDraged;
-    private boolean isSelected = false;
+//    private boolean isSelected = false;
+    private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
     
      //Für Kollisionserechnung
     private double n_vektor_x;
@@ -61,7 +67,7 @@ public class Bahn extends Line
         werteBerechnen();
         
         bahnen.add(this);
-       
+//        watchedBahnen.add(this);
     }
     
     public void werteBerechnen()
@@ -275,21 +281,23 @@ public class Bahn extends Line
     }
     
     public void setIsSelected(boolean b){
-        isSelected = b;
+        selectedBahnProp.set(b);
     }
     
     public boolean getIsSelected(){
-        return isSelected;
+       return selectedBahnProp.get();
     }
+    
+     public BooleanProperty getSelectedBahnProp() {
+         return selectedBahnProp;
+     }
     
     public static Bahn getSelectedBahn(){
         for (int i = 0; i < bahnen.size(); i++ ){
             if (bahnen.get(i).getIsSelected()){
-                System.out.println("Bahn ausgewählt!!!!");
                 return bahnen.get(i);
             }
-            else
-                return null;
+            
         }       return null;
     }
 }

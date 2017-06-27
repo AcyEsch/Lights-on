@@ -96,9 +96,8 @@ public class FXMLGameController implements Initializable
     private final double PERCENT_WIDTH_SIM = 0.69;
     private final double PERCENT_WIDTH_CON = 0.29;
     private final double PERCENT_HEIGHT = 0.89;
-    private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
-    public static IntegerProperty initValueProperty = new SimpleIntegerProperty(0);
-    private IntegerProperty finalValueProperty = new SimpleIntegerProperty(1);
+//    public static IntegerProperty initValueProperty = new SimpleIntegerProperty(0);
+//    private IntegerProperty finalValueProperty = new SimpleIntegerProperty(1);
     
     ////////////////////////////Buttons/////////////////////////////////////////
     @FXML
@@ -224,14 +223,48 @@ public class FXMLGameController implements Initializable
 //    Schleifen um oben entstandene Elemente hinzuzufügen
 
         for(int i = 0; i < bahnen.size(); i++)
-                {
-           simGroup.getChildren().add(bahnen.get(i));
-                }
+        {
+            Bahn b = bahnen.get(i);
+            simGroup.getChildren().add(b);
+            b.getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue) {
+                            if (Bahn.getSelectedBahn() != null){
+                                System.out.println("Bahn ausgewählt");
+                                controllsBox.setVisible(true);
+                            } else{ 
+                                System.out.println("Bahn abgewählt");
+                                controllsBox.setVisible(false); 
+                             }
+                            
+                        }
+                       
+                    }
+            });
+        }
                 
         for(int i = 0; i < kugeln.size(); i++)
-                {
-             simGroup.getChildren().add(kugeln.get(i));
-                }
+        {
+            Kugel k = kugeln.get(i);
+            simGroup.getChildren().add(k);
+            k.getSelectedKugelProp().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue) {
+                            if (Kugel.getSelectedKugel() != null){
+                                System.out.println("Kugel ausgewählt");
+                                controllsBox.setVisible(false);
+                            } else{ 
+                                System.out.println("Kugel abgewählt");
+                                controllsBox.setVisible(false); 
+                             }
+                            
+                        }
+                       
+                    }
+            });
+        }
         for(int i = 0; i < schalter.size(); i++)
                 {
                simGroup.getChildren().add(schalter.get(i));
@@ -268,46 +301,9 @@ public class FXMLGameController implements Initializable
     simPane.getChildren().add(simGroup);
     
     
-/////////////////////////////////////Layout/////////////////////////////////////
 
-    //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
-    gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-      @Override
-      public void changed(ObservableValue<? extends Bounds> observable,
-          Bounds oldValue, Bounds newValue) {
-          //
-            gridB = newValue;
-            simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-        @Override
-        public void changed(ObservableValue<? extends Bounds> obser,
-            Bounds oldV , Bounds newV) {
-            //
-            simB = newV;
-            try{
-                setTheSizes();
-            }catch(Exception e){
-                System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
-            }
-      }
-    });
-      }
-    });
     
-    //Layout: Observer, der schaut ob eine Bahn ausgewählt ist
     
-    selectedBahnProp.bind(initValueProperty.isEqualTo(finalValueProperty));
-    
-    selectedBahnProp.addListener(new ChangeListener<Boolean>() {
-
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    // Only if completed
-                    if (newValue) {
-                        System.out.println("Bahn ausgewählt");
-                        controllsBox.setVisible(true);
-                    }
-                }
-    });
     
    
     
@@ -603,7 +599,50 @@ public class FXMLGameController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
        //timer();
-       load();
+   
+        /////////////////////////////////////Layout/////////////////////////////////////
+
+        //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
+        //Doesnt work correctly
+        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+          @Override
+          public void changed(ObservableValue<? extends Bounds> observable,
+              Bounds oldValue, Bounds newValue) {
+              //
+                gridB = newValue;
+                simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+            @Override
+            public void changed(ObservableValue<? extends Bounds> obser,
+                Bounds oldV , Bounds newV) {
+                //
+                simB = newV;
+                try{
+                    setTheSizes();
+                }catch(Exception e){
+                    System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
+                }
+          }
+        });
+          }
+        });
+        
+        //Layout: Observer, der schaut ob eine Bahn ausgewählt ist
+//        Bahn.selectedBahnProp().addListener(new ChangeListener<Boolean>(){
+//        @Override 
+//        public void changed(ObservableValue<? extends Boolean> o,Object oldVal, 
+//                 Object newVal){
+//              if (newVal) {
+//                            System.out.println("Bahn ausgewählt");
+//                            controllsBox.setVisible(true);
+//                        }
+//        }
+//      });
+
+        
+        
+     
+        
+        load();
        
     }      
     
