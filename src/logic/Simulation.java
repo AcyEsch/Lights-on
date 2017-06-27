@@ -305,6 +305,23 @@ k.setFill(Color.BLACK);
                 k.setVk(k.getVk() * 0.1);
             }  
         }
+        if(b.getWinkel() == 0)
+        {
+             System.out.println("Winkel Bahn " + b.getWinkel());
+            if(k.getWinkel() == 90)             //Kugel belibt auf Bahn stehen
+            {
+                s=0;
+                k.setVk(0);
+                k.setA(0);
+                 System.out.println("Kugel fällt mit " + k.getWinkel());
+            }
+            else
+            {
+                 System.out.println("Kugel fällt mit Winkel " + k.getWinkel());
+                k.setHRollen(true);
+                k.setVk(k.getVk() * 0.1);
+            }  
+        }
         
         System.out.println("Winkel Kugel " + k.getWinkel() + "  WinkelBeta " + winkelBeta);
         
