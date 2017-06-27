@@ -24,6 +24,12 @@ public class DragDrop
 
       Kugel k = (Kugel) (t.getSource());
       k.toFront();
+      
+      k.setIsSelected(true);
+      if (Bahn.getSelectedBahn() != null)
+          Bahn.getSelectedBahn().setIsSelected(false);
+ 
+
         }
     });
         
@@ -71,10 +77,13 @@ public class DragDrop
       
       b.setStroke(Color.AQUAMARINE);
       b.setIsSelected(true);
-      Bahn.getSelectedBahn();
-      controller.FXMLGameController.initValueProperty = new SimpleIntegerProperty(1);
-        }
+      if (Kugel.getSelectedKugel() != null)
+          Kugel.getSelectedKugel().setIsSelected(false);
+      //Bahn.getSelectedBahn();
+      //controller.FXMLGameController.initValueProperty = new SimpleIntegerProperty(1);
+       }
 });
+
       
      bahn.setOnMouseDragged((t) -> {
         if(canDrag)

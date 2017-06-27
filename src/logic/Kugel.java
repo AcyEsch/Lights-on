@@ -1,6 +1,8 @@
 package logic;
 
 import java.util.ArrayList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
@@ -11,7 +13,8 @@ import javafx.scene.shape.CircleBuilder;
     public class Kugel extends Circle 
     {          
         private static ArrayList<Kugel> kugeln = new ArrayList<Kugel>();
-        
+        private BooleanProperty selectedKugelProp = new SimpleBooleanProperty(false);
+
         private double startX = 100;
         private double startY = 100;
         private boolean canBeDraged;
@@ -133,9 +136,9 @@ import javafx.scene.shape.CircleBuilder;
         return winkel;
     }
     
+    
     public void setWinkel(double newWinkel)
     {
-        //~~~~~~~~~~~~NEW~~~~~~25.06~~~~~
         if(newWinkel < 0)
         {
             newWinkel = 360 + newWinkel;
@@ -146,8 +149,15 @@ import javafx.scene.shape.CircleBuilder;
         }
             
         winkel = newWinkel;
-    }
+    }    
     
+
+    
+    public void setWinkel180(double newWinkel)
+    {
+        winkel = newWinkel;
+    }
+
     public double getMasse()
     {
         return masse;
@@ -193,4 +203,27 @@ import javafx.scene.shape.CircleBuilder;
     {
         return hRollen;
     }
+  
+    //New: 27-06-17
+    public void setIsSelected(boolean b){
+        selectedKugelProp.set(b);
+    }
+    
+    public boolean getIsSelected(){
+       return selectedKugelProp.get();
+    }
+    
+     public BooleanProperty getSelectedKugelProp() {
+         return selectedKugelProp;
+     }
+     
+    public static Kugel getSelectedKugel(){
+        for (int i = 0; i < kugeln.size(); i++ ){
+            if (kugeln.get(i).getIsSelected()){
+                return kugeln.get(i);
+            }
+            
+        }       return null;
+    } 
   }
+

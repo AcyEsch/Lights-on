@@ -1,6 +1,8 @@
 package logic;
 
 import java.util.ArrayList;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -22,6 +24,9 @@ public class Bahn extends Line
     
     private boolean canBeDraged;
     private boolean isSelected = false;
+    private boolean isSchalter;
+    
+    private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
     
      //Für Kollisionserechnung
     private double n_vektor_x;
@@ -35,7 +40,7 @@ public class Bahn extends Line
     
     }
     
-    public Bahn(int px1, int py1, int px2, int py2, boolean draged)
+    public Bahn(int px1, int py1, int px2, int py2, boolean draged, boolean schalt)
     {
         x1 = px1;
         x2 = px2;
@@ -47,6 +52,7 @@ public class Bahn extends Line
         super.setEndX(x2);
         super.setEndY(y2);
         
+        this.isSchalter=schalt;
         this.canBeDraged = draged;
        
        if(canBeDraged)
@@ -127,6 +133,10 @@ public class Bahn extends Line
     public double getSteigung()
     {
         return steigung;
+    }
+    public boolean getIsSchalter()
+    {
+        return isSchalter;
     }
     
     public boolean getCanBeDraged()
@@ -275,21 +285,25 @@ public class Bahn extends Line
     }
     
     public void setIsSelected(boolean b){
-        isSelected = b;
+        selectedBahnProp.set(b);
+
     }
     
     public boolean getIsSelected(){
-        return isSelected;
+        return selectedBahnProp.get();
     }
-    
+    public BooleanProperty getSelectedBahnProp() {
+         return selectedBahnProp;
+     }
+
+   
     public static Bahn getSelectedBahn(){
         for (int i = 0; i < bahnen.size(); i++ ){
             if (bahnen.get(i).getIsSelected()){
-                System.out.println("Bahn ausgewählt!!!!");
                 return bahnen.get(i);
             }
-            else
-                return null;
+            
         }       return null;
     }
+
 }
