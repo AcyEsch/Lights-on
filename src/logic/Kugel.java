@@ -135,7 +135,6 @@ import javafx.scene.shape.CircleBuilder;
     
     public void setWinkel(double newWinkel)
     {
-        //~~~~~~~~~~~~NEW~~~~~~25.06~~~~~
         if(newWinkel < 0)
         {
             newWinkel = 360 + newWinkel;
@@ -145,6 +144,11 @@ import javafx.scene.shape.CircleBuilder;
             newWinkel = newWinkel - 180;          
         }
             
+        winkel = newWinkel;
+    }    
+    
+    public void setWinkel180(double newWinkel)
+    {
         winkel = newWinkel;
     }
     
