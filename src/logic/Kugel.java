@@ -14,7 +14,7 @@ import javafx.scene.shape.CircleBuilder;
     {          
         private static ArrayList<Kugel> kugeln = new ArrayList<Kugel>();
         private BooleanProperty selectedKugelProp = new SimpleBooleanProperty(false);
-        
+
         private double startX = 100;
         private double startY = 100;
         private boolean canBeDraged;
@@ -136,6 +136,7 @@ import javafx.scene.shape.CircleBuilder;
         return winkel;
     }
     
+    
     public void setWinkel(double newWinkel)
     {
         if(newWinkel < 0)
@@ -150,12 +151,13 @@ import javafx.scene.shape.CircleBuilder;
         winkel = newWinkel;
     }    
     
+
+    
     public void setWinkel180(double newWinkel)
     {
         winkel = newWinkel;
     }
-    
-    
+
     public double getMasse()
     {
         return masse;
@@ -201,7 +203,7 @@ import javafx.scene.shape.CircleBuilder;
     {
         return hRollen;
     }
-    
+  
     //New: 27-06-17
     public void setIsSelected(boolean b){
         selectedKugelProp.set(b);
@@ -224,3 +226,4 @@ import javafx.scene.shape.CircleBuilder;
         }       return null;
     } 
   }
+

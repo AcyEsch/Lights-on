@@ -24,11 +24,12 @@ public class DragDrop
 
       Kugel k = (Kugel) (t.getSource());
       k.toFront();
+      
       k.setIsSelected(true);
       if (Bahn.getSelectedBahn() != null)
           Bahn.getSelectedBahn().setIsSelected(false);
  
-       
+
         }
     });
         
@@ -82,6 +83,7 @@ public class DragDrop
       //controller.FXMLGameController.initValueProperty = new SimpleIntegerProperty(1);
        }
 });
+
       
      bahn.setOnMouseDragged((t) -> {
         if(canDrag)

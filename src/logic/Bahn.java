@@ -3,15 +3,12 @@ package logic;
 import java.util.ArrayList;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Bahn extends Line
 {
     private static ArrayList<Bahn> bahnen = new ArrayList<Bahn>();
-//    private static ObservableList<Bahn> watchedBahnen = FXCollections.observableArrayList();
     
     private double x1;
     private double x2;
@@ -26,7 +23,9 @@ public class Bahn extends Line
     private double rot = 0;
     
     private boolean canBeDraged;
-//    private boolean isSelected = false;
+    //private boolean isSelected = false;
+    private boolean isSchalter;
+    
     private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
     
      //Für Kollisionserechnung
@@ -41,7 +40,7 @@ public class Bahn extends Line
     
     }
     
-    public Bahn(int px1, int py1, int px2, int py2, boolean draged)
+    public Bahn(int px1, int py1, int px2, int py2, boolean draged, boolean schalt)
     {
         x1 = px1;
         x2 = px2;
@@ -53,6 +52,7 @@ public class Bahn extends Line
         super.setEndX(x2);
         super.setEndY(y2);
         
+        this.isSchalter=schalt;
         this.canBeDraged = draged;
        
        if(canBeDraged)
@@ -67,7 +67,7 @@ public class Bahn extends Line
         werteBerechnen();
         
         bahnen.add(this);
-//        watchedBahnen.add(this);
+       
     }
     
     public void werteBerechnen()
@@ -133,6 +133,10 @@ public class Bahn extends Line
     public double getSteigung()
     {
         return steigung;
+    }
+    public boolean getIsSchalter()
+    {
+        return isSchalter;
     }
     
     public boolean getCanBeDraged()
@@ -282,16 +286,17 @@ public class Bahn extends Line
     
     public void setIsSelected(boolean b){
         selectedBahnProp.set(b);
+
     }
     
     public boolean getIsSelected(){
-       return selectedBahnProp.get();
+        return selectedBahnProp.get();
     }
-    
-     public BooleanProperty getSelectedBahnProp() {
+    public BooleanProperty getSelectedBahnProp() {
          return selectedBahnProp;
      }
-    
+
+   
     public static Bahn getSelectedBahn(){
         for (int i = 0; i < bahnen.size(); i++ ){
             if (bahnen.get(i).getIsSelected()){
@@ -300,4 +305,5 @@ public class Bahn extends Line
             
         }       return null;
     }
+
 }

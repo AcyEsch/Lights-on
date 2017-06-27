@@ -29,6 +29,10 @@ private static  ArrayList<Schalter> schalter = new ArrayList<Schalter>();
     private  double X2Position;
     private  double Y2Position;
     
+  public Schalter(){
+        
+    }
+    
   public Schalter(double X1Position, double Y1Position, double  X2Position, double  Y2Position){
       super();
       super.setStartX(X1Position);
@@ -36,9 +40,9 @@ private static  ArrayList<Schalter> schalter = new ArrayList<Schalter>();
         super.setEndX(X2Position);
         super.setEndY(Y2Position);
       super.setStrokeWidth(26.0);
-  //   super.setFill(Color.YELLOWGREEN);
-  this.setFill(Color.CADETBLUE);
- schalter.add(this);
+      
+    this.setStroke(Color.LIGHTSLATEGREY);
+    schalter.add(this);
   }
 
    
