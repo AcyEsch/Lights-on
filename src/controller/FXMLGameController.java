@@ -68,6 +68,8 @@ public class FXMLGameController implements Initializable
    @FXML private ToggleButton simButton; 
  
     
+   @FXML private HBox hBox;
+   
     @FXML private Pane simPane;
     @FXML private VBox elementsBox, controllsBox;
     private HBox drehen;                         
@@ -184,10 +186,7 @@ public class FXMLGameController implements Initializable
      bahn3.setStroke(AQUAMARINE);
       Kugel kugel = new Kugel(radius, 100, 100, true);
    
-   
-   
-   
-   
+
   
     sim = new Simulation();   
 
@@ -195,41 +194,7 @@ public class FXMLGameController implements Initializable
     kugeln = Kugel.getKugeln();
     schalter = Schalter.getSchalter();
     
-//    
-//    hBox.setOnDragDetected(e -> {
-//            Dragboard db = bahn.startDragAndDrop(TransferMode.ANY);
-//            db.setDragView(new Bahn().snapshot(null, null), e.getX(), e.getY());
-//            ClipboardContent cc = new ClipboardContent();
-//           cc.clone();
-//            db.setContent(cc);
-//            e.consume();
-//        });
-//    
-//    
-//        hBox.setOnDragDetected(e -> {
-//            Dragboard dbk = kugel.startDragAndDrop(TransferMode.ANY);
-//            dbk.setDragView(new Kugel().snapshot(null, null), e.getX(), e.getY());
-//            ClipboardContent cck = new ClipboardContent();
-//            dbk.setContent(cck);
-//            e.consume();
-//        });
-//   
-//         
-//        hBox.setOnDragEntered(new EventHandler<DragEvent>() {
-//    @Override
-//    public void handle(DragEvent event) {
-//    /* the drag-and-drop gesture entered the target */
-//         System.out.println("onDragEntered");
-//    /* show to the user that it is an actual gesture target */
-//         if (event.getGestureSource() != hBox &&
-//                 event.getDragboard().hasString()) {
-//           
-//         }
-//                
-//         event.consume();
-//    }
-//});
-//    
+   
 //    Schleifen um oben entstandene Elemente hinzuzufügen
 
         for(int i = 0; i < bahnen.size(); i++)
@@ -246,10 +211,8 @@ public class FXMLGameController implements Initializable
                             } else{ 
                                 System.out.println("Bahn abgewählt");
                                 controllsBox.setVisible(false); 
-                             }
-                            
-                        }
-                       
+                             }                            
+                        }                       
                     }
             });
         }
@@ -281,56 +244,82 @@ public class FXMLGameController implements Initializable
         
                 
                 
-               
-        //DragAndDrop Aufrufen       
+
+ 
+ //~~~~~~~~~~~~~~~ NEW 27.06.17 Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+    Bahn bahnT = new Bahn(200, 250, 150, 350, true, false);
+    bahnT.setStrokeWidth(5.0);
+             
+    hBox.getChildren().add(bahnT);
+    
+    
+    hBox.setOnDragDetected(e -> {
+        System.out.println("Drag&Drop");
+            Dragboard db = bahn.startDragAndDrop(TransferMode.COPY);
+            db.setDragView(new Line().snapshot(null, null), e.getX(), e.getY());
+            ClipboardContent cc = new ClipboardContent();
+            cc.putString("Line");
+            db.setContent(cc);
+        });
+    
+    
+    simPane.setOnDragOver(e -> {
+            e.acceptTransferModes(TransferMode.COPY);
+        });
+    
+    
+        
+        simPane.setOnDragDropped(e -> {
+            Dragboard db = e.getDragboard();
+            if (db.hasString()) {
+                
+            Bahn b = bahnT;
+            
+            b.setStartX(b.getStartX() + e.getX());
+            b.setStartY(b.getStartY() + e.getY());
+            
+            b.setEndX(b.getEndX() + e.getX());
+            b.setEndY(b.getEndY() + e.getY());
+                
+            bahnen.add(b);
+            simPane.getChildren().add(bahnT);
+                
+                e.setDropCompleted(true);
+            } else {
+                e.setDropCompleted(false);
+            }
+        });
+    
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+    //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
        {    
-           for(int j = 0; j < bahnen.size(); j++)
-       {      
            Kugel k = kugeln.get(i);
-            Bahn b = bahnen.get(j);
-            
+           
            if(k.getCanBeDraged())
            {
                 drag.dragKugel(k);
            }
+       }
+           for(int j = 0; j < bahnen.size(); j++)
+       {                 
+            Bahn b = bahnen.get(j);
 
            if(b.getCanBeDraged())
            {
             drag.dragBahn(b);
            }
-           
-         
        }  
-       
-       }
-
-           
-       
-    //Drag And Drop END
+        //Drag And Drop END
        
  
     simPane.getChildren().add(simGroup);
- 
-   
- 
-   
     
     
     }    
-    //~~~~~~~~~NEW~~~~~~~~
-       
-    /*
-        Änderungen in
-        FMXLGameController.java
-        DragDrop.java
-        Bahn.java
-        FXMLGame.fxml
-        */
-    
-    
-    
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
