@@ -87,12 +87,12 @@
     -->
     <ScrollPane fx:id="controllPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <content>
-          <VBox id="elements" alignment="TOP_RIGHT" prefHeight="824.0" prefWidth="433.0" spacing="10.0">
+          <VBox alignment="TOP_RIGHT" prefHeight="824.0" prefWidth="433.0" spacing="10.0">
              <children>
-               <VBox id="elements" fx:id="elementsBox" spacing="10.0" />
-               <VBox id="elements" fx:id="controllsBox" prefHeight="60.0" prefWidth="205.0" spacing="10.0">
+               <VBox  fx:id="elementsBox" spacing="10.0" />
+               <VBox  fx:id="controllsBox" prefHeight="60.0" prefWidth="205.0" spacing="10.0">
                   <children>
-                    <HBox id="elements" fx:id="drehen" alignment="CENTER" spacing="10.0">
+                    <HBox fx:id="drehen" alignment="CENTER" spacing="10.0">
                        <children>
                          <Button id="left" fx:id="btn_left" onAction="#handleLeft" prefHeight="53.0" prefWidth="120.0" text="Turn Left">
                                  <HBox.margin>
@@ -106,7 +106,7 @@
                               </Button>
                        </children>
                     </HBox>
-                        <HBox id="elements" fx:id="drehen1" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
+                        <HBox  fx:id="drehen1" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
                            <children>
                               <Button fx:id="btn_plus1" mnemonicParsing="false" onAction="#handlePlus" prefHeight="54.0" prefWidth="60.0" text="+">
                                  <HBox.margin>
@@ -122,7 +122,7 @@
                         </HBox>
                   </children>
                </VBox>
-              <HBox id="elements" fx:id="hBox" spacing="80.0">
+              <HBox fx:id="hBox" spacing="80.0">
                      <children>
                     
                      </children>

@@ -2,6 +2,8 @@ package logic;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -50,13 +52,14 @@ import javafx.scene.shape.Rectangle;
         public double fieldHeight;
         public boolean an = false;
        
-        ArrayList<Bahn> bahnen = Bahn.getBahnen();
-        ArrayList<Kugel> kugeln = Kugel.getKugeln();
-        ArrayList<Schalter> schalter = Schalter.getSchalter();
+        private ArrayList<Bahn> bahnen = Bahn.getBahnen();
+        private ArrayList<Kugel> kugeln = Kugel.getKugeln();
+        private ArrayList<Schalter> schalter = Schalter.getSchalter();
          
         
-        Kugel k;
-        Bahn kolBahn;
+        private Kugel k;
+        private Bahn kolBahn;
+       
         
     
     //public int merker = -1;
@@ -170,7 +173,11 @@ import javafx.scene.shape.Rectangle;
              
              
             k.setCenterX(k.getCenterX() + k.getXDelta());
-            k.setCenterY(k.getCenterY() + k.getYDelta());             
+            k.setCenterY(k.getCenterY() + k.getYDelta());  
+            
+            //setzt die Property, damit von Controller überwacht werden kann
+            k.xKugelProp().set(k.getCenterX());
+            k.yKugelProp().set(k.getCenterY());
         }    
     }
   
@@ -189,8 +196,8 @@ import javafx.scene.shape.Rectangle;
                 if(k.getMerker() != i)//&& formelTyp != 2)
                 {
                     //Kugel rollt Bahn mit Schwung hoch
-                    //k.setHRollen(false);
-                    if((k.getWinkel() > 90 && b.getWinkel() < 90) || (k.getWinkel() < 90 && b.getWinkel() > 90))
+                    // //if((k.getWinkel() > 90 && b.getWinkel() < 90) || (k.getWinkel() < 90 && b.getWinkel() > 90))
+                    if(b.getWinkel() == 0 ||(k.getWinkel() > 90 && b.getWinkel() < 90) || (k.getWinkel() < 90 && b.getWinkel() > 90))
                     {                        
                         kugelRolltHoch(b);                        
                     }                    
@@ -271,7 +278,7 @@ import javafx.scene.shape.Rectangle;
             if(k.getWinkel() > winkelBeta)                                  //Dann rollt die Kugel hoch
             {
                 k.setHRollen(true);
-                k.setVk(k.getVk() * 0.1);   //Energieverlust mÃ¼sste abhÃ¤ngig vom Winkel sein
+                k.setVk(k.getVk() * 0.1);   //Energieverlust müsste abhängig vom Winkel sein
                 System.out.println("HRollen 1");
             }
         }

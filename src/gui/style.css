@@ -6,6 +6,13 @@
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
+    -fx-font-size: 20px;
+}
+.togglebutton {
+    -fx-font-family: "Tw Cen MT Condensed Extra Bold";
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-font-size: 20px;
 }
 
 .button:hover{
@@ -18,7 +25,7 @@
 
 .label{
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
-    -fx-font-size: 23px;
+    -fx-font-size: 27px;
 }
 
 
@@ -58,7 +65,7 @@
   
     #light{
         -fx-background-image: url("Pics/light.jpg"); 
-        -fx-background-size: 1055 830;
+        -fx-background-size: stretch;
     }
     
     #elements{

@@ -23,7 +23,7 @@ public class Bahn extends Line
     private double rot = 0;
     
     private boolean canBeDraged;
-    private boolean isSelected = false;
+    //private boolean isSelected = false;
     private boolean isSchalter;
     
     private BooleanProperty selectedBahnProp = new SimpleBooleanProperty(false);
