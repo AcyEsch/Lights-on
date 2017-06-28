@@ -6,14 +6,10 @@
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
-    -fx-font-size: 20px;
+     -fx-font-size: 20px;
+    
 }
-.togglebutton {
-    -fx-font-family: "Tw Cen MT Condensed Extra Bold";
-    -fx-background-radius: 8,7,6;
-    -fx-background-insets: 0,1,2;
-    -fx-font-size: 20px;
-}
+
 
 .button:hover{
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );

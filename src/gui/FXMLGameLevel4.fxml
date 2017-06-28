@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" hgap="10.0" prefHeight="900.0" prefWidth="1400.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLGameController4">
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+  </padding>
+   <children>
+     <AnchorPane fx:id="anchorPane" prefHeight="20.0" prefWidth="1000.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+       <children>
+         <HBox alignment="CENTER">
+            <children>
+              <Button fx:id="simButton" onAction="#handleSimButtonAction" text="Play" />
+              <Label fx:id="timer" prefHeight="38.0" prefWidth="91.0" textAlignment="CENTER" />
+              <Label prefHeight="38.0" prefWidth="69.0" text="Time">
+                <font>
+                  <Font size="23.0" fx:id="x1" />
+                </font>
+              </Label>
+              <HBox alignment="CENTER_RIGHT" />
+            </children>
+         </HBox>
+        <Button id="tipps" fx:id="btn_tipps" layoutX="830.0" layoutY="7.0" prefHeight="25.0" prefWidth="77.0" text="Tipps">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
+               </font></Button>
+        <Button id="home" fx:id="btn_home" layoutX="949.0" layoutY="7.0" onAction="#home" prefHeight="25.0" prefWidth="77.0" text="Home">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
+               </font></Button>
+        <Button id="save" fx:id="btn_save" layoutX="715.0" layoutY="7.0" prefHeight="25.0" prefWidth="77.0" text="Save">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="15.0" />
+               </font></Button>
+       <Label alignment="CENTER" layoutX="273.0" prefHeight="38.0" prefWidth="145.0" text="Level 1">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
+               </font></Label>
+       </children>
+     </AnchorPane>
+     <Label alignment="CENTER" prefHeight="38.0" prefWidth="316.0" text="Elements  and  Controll" GridPane.columnIndex="1" GridPane.rowIndex="0">
+         <font>
+            <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
+         </font></Label>
+     <!--SimulationsPane!!-->
+     <ScrollPane prefHeight="880.0" prefWidth="1000.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <content>
+            <Pane id="scene" fx:id="simPane" prefHeight="832.0" prefWidth="1058.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="-4.0" layoutY="828.0" stroke="BLACK" strokeType="INSIDE" width="1064.0" />
+                  <Button layoutX="734.0" layoutY="791.0" mnemonicParsing="false" onAction="#schalter" prefHeight="38.0" prefWidth="77.0" text="ON">
+                     <font>
+                        <Font name="Tw Cen MT Condensed Extra Bold" size="23.0" />
+                     </font></Button>
+               </children></Pane> 
+        </content>
+    </ScrollPane>    
+
+     <!-- ControllPane -->
+    <ScrollPane prefHeight="836.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <content>
+          <VBox id="elements" alignment="TOP_RIGHT" prefHeight="824.0" prefWidth="433.0" spacing="10.0">
+             <children>
+               <VBox id="elements" fx:id="elementsBox" spacing="10.0" />
+               <VBox id="elements" fx:id="controllsBox" prefHeight="60.0" prefWidth="205.0" spacing="10.0">
+                  <children>
+                    <HBox id="elements" fx:id="drehen" prefHeight="54.0" prefWidth="362.0" spacing="10.0">
+                       <children>
+                         <Button id="left" fx:id="btn_left" onAction="#handleLeft" prefHeight="53.0" prefWidth="120.0" text="Turn Left">
+                                 <font>
+                                    <Font name="Tw Cen MT Condensed Extra Bold" size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                         <Button fx:id="right" onAction="#handleRight" prefHeight="41.0" prefWidth="120.0" text="Turn Right">
+                                 <font>
+                                    <Font name="Tw Cen MT Condensed Extra Bold" size="22.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                       </children>
+                    </HBox>
+                        <HBox id="elements" fx:id="drehen1" layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btn_plus1" mnemonicParsing="false" onAction="#handlePlus" prefHeight="54.0" prefWidth="60.0" text="+">
+                                 <font>
+                                    <Font name="Tw Cen MT Condensed Extra Bold" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btn_minus1" mnemonicParsing="false" onAction="#handleMinus" prefHeight="54.0" prefWidth="60.0" text="-">
+                                 <font>
+                                    <Font name="Tw Cen MT Condensed Extra Bold" size="30.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                  </children>
+               </VBox>
+              <HBox id="elements" fx:id="hBox" spacing="80.0">
+                     <children>
+                    <Line fx:id="line" endX="300.0" startX="100.0" startY="-50.0" stroke="#504646" strokeWidth="5.0">
+                           <HBox.margin>
+                              <Insets left="50.0" top="50.0" />
+                           </HBox.margin>
+                        </Line>
+                     </children>
+              </HBox>
+             </children>
+          </VBox>
+        </content>
+     </ScrollPane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="1109.0" minWidth="930.0" prefWidth="1064.0" />
+      <ColumnConstraints maxWidth="450.0" minWidth="271.0" prefWidth="316.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
