@@ -119,17 +119,46 @@ public class FXMLGameController implements Initializable
     ////////////////////////////Buttons/////////////////////////////////////////
    
     
-    
+      
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
+     
       simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
-              
               if (selected) {
-                  
-                drag.setCanDrag(false);             
-                 
+                simButton = simStart();
+                
+        } else {
+                  tl.stop();
+                  sim.setTimeMerker(true);
+                  drag.setCanDrag(true);
+                     for(int j = 0; j < kugeln.size(); j++){      
+                          Kugel k = kugeln.get(j);
+                          k.setCenterX(100);
+                          k.setCenterY(100);
+                     }
+                   tl.stop();
+                     
+                  simButton.setText("Start");
+                  deleteContent();        
+              }
+          }
+      });
+      
+      if(mSim)
+     {
+
+         simStart();
+         
+        mSim = false;
+     }
+    return simButton;
+ }
+
+ public ToggleButton simStart()
+ {
+     drag.setCanDrag(false);             
                     KeyFrame kf = new KeyFrame(Duration.millis(10),
                     e->
                     { 
@@ -148,11 +177,8 @@ public class FXMLGameController implements Initializable
                            } catch (IOException ex) {
                                Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
                            }
-                         tl.stop();
-               
-                     }
-                       
-                   
+                         tl.stop();               
+                     }                                          
          }
                 });
                   
@@ -164,27 +190,8 @@ public class FXMLGameController implements Initializable
                   tl=t;
                   t.playFromStart();
                   simButton.setText("Reset");
-                
-                  
-        } else {
-                  
-                  tl.stop();
-                  sim.setTimeMerker(true);
-                  drag.setCanDrag(true);
-                     for(int j = 0; j < kugeln.size(); j++){      
-                          Kugel k = kugeln.get(j);
-                          k.setCenterX(100);
-                          k.setCenterY(100);
-                     }
-                   tl.stop();
-                     
-                  simButton.setText("Start");
-                  deleteContent();
-        
-              }
-          }
-      });
-    return simButton;
+
+                  return simButton;
  }
 
 
