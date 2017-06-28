@@ -323,7 +323,7 @@ import javafx.scene.shape.Rectangle;
             }
             else
             {
-                 System.out.println("Kugel fällt mit Winkel " + k.getWinkel());
+                 System.out.println("Kugel fÃ¤llt mit Winkel " + k.getWinkel());
                 k.setHRollen(true);
                 k.setVk(k.getVk() * 0.1);
             }  
