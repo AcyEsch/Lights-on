@@ -106,9 +106,9 @@ public class FXMLGameController implements Initializable
     
     //Layout
     private Bounds gridB, simB;
-    private final double PERCENT_WIDTH_SIM = 0.695;
+    private final double PERCENT_WIDTH_SIM = 0.693;
     private final double PERCENT_WIDTH_CON = 0.29;
-    private final double PERCENT_HEIGHT = 0.889;
+    private final double PERCENT_HEIGHT = 0.893;
  
     ////////////////////////////Buttons/////////////////////////////////////////
    
@@ -405,11 +405,14 @@ public class FXMLGameController implements Initializable
            {
             drag.dragBahn(b);
            }
-           
-         if(sim.getAn()==true ){
+          //Licht An Effekt 
+         
+          if(sim.getAn()==true ){
              System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
-                       simPane.getStyleClass().add("light");
-                       simPane.setId("light");
+         
+             simPane.getStyleClass().add("light");
+             simPane.setId("sceneLight");
+             gridPane.setId("mainPaneLight");
                    
          }
        }  

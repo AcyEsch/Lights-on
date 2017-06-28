@@ -122,19 +122,8 @@
 }
 
 #scene{
-        -fx-background-image: url("Pics/Dunkel.jpg"); 
+        -fx-background-image: url("Pics/light.jpg"); 
         -fx-background-size: stretch;
        
 }
 
-/*################################################################################*/
-                                /*Light*/
-#sceneLight{
-        -fx-background-image: url("Pics/light.jpg"); 
-        -fx-background-size: stretch;
-       
-} 
-#mainPaneLight{
-       -fx-background-image: url("Pics/DarkBG.jpg");
-       -fx-background-size: auto;
-}

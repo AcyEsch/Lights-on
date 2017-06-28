@@ -18,7 +18,7 @@
 <?import javafx.geometry.*?>
 
 
-<GridPane id="navigation" fx:id="rootPane" alignment="CENTER" gridLinesVisible="false" prefHeight="900.0" prefWidth="1400.0" minHeight="600" minWidth="800" hgap="60.0" vgap="80.0"
+<GridPane id="mainPane" fx:id="rootPane" alignment="CENTER" gridLinesVisible="false" prefHeight="900.0" prefWidth="1400.0" minHeight="600" minWidth="800" hgap="60.0" vgap="80.0"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLLevelsController"> <!-- hgap="60.0" vgap="80.0"-->
     <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
