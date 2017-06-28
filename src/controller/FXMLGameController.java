@@ -119,7 +119,9 @@ public class FXMLGameController implements Initializable
     ////////////////////////////Buttons/////////////////////////////////////////
    
     
-      
+ boolean mSim = true;
+    
+    
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
      
@@ -127,9 +129,34 @@ public class FXMLGameController implements Initializable
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
               if (selected) {
+System.out.println("3");
                 simButton = simStart();
                 
         } else {
+      
+              }
+          }
+      });
+      //Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
+   
+      if(mSim)
+     {
+         simStart();
+         
+        mSim = false;
+     }
+      else
+      {
+          simReset();
+          mSim = true;
+      }
+    return simButton;
+ }
+
+ public ToggleButton simReset()
+ {
+     
+                  System.out.println("4");
                   tl.stop();
                   sim.setTimeMerker(true);
                   drag.setCanDrag(true);
@@ -141,23 +168,14 @@ public class FXMLGameController implements Initializable
                    tl.stop();
                      
                   simButton.setText("Start");
-                  deleteContent();        
-              }
-          }
-      });
-      
-      if(mSim)
-     {
-//Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
-         simStart();
-         
-        mSim = false;
-     }
-    return simButton;
+                  deleteContent();  
+                  
+     return simButton;
  }
-
+ 
  public ToggleButton simStart()
  {
+
      drag.setCanDrag(false);             
                     KeyFrame kf = new KeyFrame(Duration.millis(10),
                     e->
@@ -193,7 +211,6 @@ public class FXMLGameController implements Initializable
 
                   return simButton;
  }
-
 
 //   @FXML
 //   private void schalter(ActionEvent event) throws IOException{
