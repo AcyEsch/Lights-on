@@ -291,18 +291,32 @@ public class FXMLGameController implements Initializable
         
                 
                 
-
  
+
  //~~~~~~~~~~~~~~~ NEW 27.06.17 Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-    Bahn bahnT = new Bahn(200, 250, 150, 350, true, false);
+        
+    int x1 = 50, x2 = 150, y1 = 150, y2 = 50;
+    int merkerT = 0;
+    int maxT = 2;
+
+    Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
     bahnT.setStrokeWidth(5.0);
-             
-    hBox.getChildren().add(bahnT);
+ 
+     Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
+    bahnT2.setStrokeWidth(5.0);
+      System.out.println("Nacher " + bahnen.size());       
+    elementsBox.getChildren().addAll(bahnT,bahnT2);
+
+    merkerT = bahnen.size();
+    merkerT = merkerT - maxT;
+    maxT = maxT + merkerT;
+    System.out.println("Merker 1 " + merkerT);
     
-    
-    hBox.setOnDragDetected(e -> {
+    if(merkerT >= 0)
+    {
+    elementsBox.setOnDragDetected(e -> {
         System.out.println("Drag&Drop");
-            Dragboard db = bahn.startDragAndDrop(TransferMode.COPY);
+            Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
             db.setDragView(new Line().snapshot(null, null), e.getX(), e.getY());
             ClipboardContent cc = new ClipboardContent();
             cc.putString("Line");
@@ -314,13 +328,11 @@ public class FXMLGameController implements Initializable
             e.acceptTransferModes(TransferMode.COPY);
         });
     
-    
-        
         simPane.setOnDragDropped(e -> {
             Dragboard db = e.getDragboard();
             if (db.hasString()) {
-                
-            Bahn b = bahnT;
+                System.out.println("Test");
+            Bahn b = bahnen.get(merkerT);
             
             b.setStartX(b.getStartX() + e.getX());
             b.setStartY(b.getStartY() + e.getY());
@@ -328,18 +340,30 @@ public class FXMLGameController implements Initializable
             b.setEndX(b.getEndX() + e.getX());
             b.setEndY(b.getEndY() + e.getY());
                 
-            bahnen.add(b);
-            simPane.getChildren().add(bahnT);
-                
+            simGroup.getChildren().add(bahnen.get(merkerT));
+            simPane.getChildren().add(bahnen.get(merkerT)); 
+            
+               if(merkerT < maxT) 
+                {
+                    System.out.println("Merker " + merkerT);
+                    merkerT++;                    
+                }
+               else
+                {
+                    merkerT = -1;
+                    System.out.println("Merker -1");
+                }
+               
                 e.setDropCompleted(true);
             } else {
                 e.setDropCompleted(false);
             }
         });
+    }
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
+   
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
