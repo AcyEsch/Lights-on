@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Window;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,9 +29,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -139,7 +143,11 @@ public class FXMLGameController implements Initializable
                          b.setStroke(Color.DARKOLIVEGREEN);
                      
                          tl.setDelay(Duration.seconds(6.0));
-                        next();
+                           try {
+                               next();
+                           } catch (IOException ex) {
+                               Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+                           }
                          tl.stop();
                
                      }
@@ -298,23 +306,23 @@ public class FXMLGameController implements Initializable
             });
      
         }
-       
+
 //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
-
+                
     Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
     bahnT.setStrokeWidth(5.0);
- 
+                
      Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
     bahnT2.setStrokeWidth(5.0);
-    
-    elementsBox.getChildren().addAll(bahnT,bahnT2);
 
+    elementsBox.getChildren().addAll(bahnT,bahnT2);
+ 
     merkerT = bahnen.size();
     merkerT = merkerT - maxT;
     maxT = maxT + merkerT;
-    
+             
     if(merkerT >= 0)
     {
     elementsBox.setOnDragDetected(e -> {
@@ -340,7 +348,7 @@ public class FXMLGameController implements Initializable
         /*
             bahnen.get(merkerT).setStartX(x);
             bahnen.get(merkerT).setStartY(y);
-            
+                
             bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + x);
             bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + y);
        */
@@ -350,9 +358,9 @@ public class FXMLGameController implements Initializable
             bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
             bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
             
-            
+                
             bahnen.get(merkerT).werteBerechnen();
-            
+                
             simGroup.getChildren().add(bahnen.get(merkerT));
             simPane.getChildren().add(bahnen.get(merkerT)); 
             
@@ -388,12 +396,10 @@ public class FXMLGameController implements Initializable
                 e.setDropCompleted(false);
             }
         });
-    }
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                
-     
+    
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
@@ -422,15 +428,15 @@ public class FXMLGameController implements Initializable
              simPane.setId("sceneLight");
              gridPane.setId("mainPaneLight");
                    
-         }
+       }  
        }  
         //Drag And Drop END
        
  
     simPane.getChildren().add(simGroup);
- 
     
-    }    
+    
+    }}    
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
@@ -760,7 +766,7 @@ public class FXMLGameController implements Initializable
         
         simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
          simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
-
+        
 //        //Stellt die Breite der SimPane ein
 //        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
 //            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
@@ -784,14 +790,40 @@ public class FXMLGameController implements Initializable
 //            throw new Exception();
         controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
     }
-    public void next(){
-         final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
+    public void next()  throws IOException{
+  
+      Stage dialog=new Stage();
+                dialog.initModality(Modality.NONE);
                 VBox dialogVbox = new VBox(20);
-                dialogVbox.getChildren().add(new Text("Congratulations! "));
-                dialogVbox.getChildren().add(new Button("Next Level "));
-                Scene dialogScene = new Scene(dialogVbox, 500, 400);
+                dialogVbox.setAlignment(Pos.CENTER);
+               Label text = new Label(" LEVEL  COMPLETED");
+                Button button=new Button("Next Level ");
+                button.setOnAction((new EventHandler<ActionEvent>()  {
+                @Override 
+                public void handle(ActionEvent e) {
+                 Scene scene = simPane.getScene();
+                    try {
+                        scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml")));
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+        
+                          deleteContent();
+                   }
+                }));
+                Button button1=new Button("Repeat");
+                dialogVbox.getChildren().add(text);
+                dialogVbox.getChildren().addAll(button,button1);
+                
+                Scene dialogScene = new Scene(dialogVbox, 500, 300);
+               
+                dialogScene.getStylesheets().addAll(this.getClass().getResource("/gui/style.css").toExternalForm());
+                dialogVbox.getStyleClass().add("konfetti");
+                 dialogVbox.setId("konfetti");
                 dialog.setScene(dialogScene);
+                dialog.isAlwaysOnTop();
+                
+                dialog.showingProperty().asObject();
                 dialog.show();
     }
 
