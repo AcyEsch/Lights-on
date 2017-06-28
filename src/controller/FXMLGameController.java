@@ -296,9 +296,8 @@ public class FXMLGameController implements Initializable
             });
      
         }
-
-        
-                 //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+       
+//~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
 
@@ -336,14 +335,20 @@ public class FXMLGameController implements Initializable
                 Point location = MouseInfo.getPointerInfo().getLocation();
 			double x = location.getX();
 			double y = location.getY();
-                        
-                        
+        /*
             bahnen.get(merkerT).setStartX(x);
             bahnen.get(merkerT).setStartY(y);
             
-            bahnen.get(merkerT).setEndX(Math.abs(bahnen.get(merkerT).getDeltaX()) + x);
-            bahnen.get(merkerT).setEndY(Math.abs(bahnen.get(merkerT).getDeltaY()) + y);
-                
+            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + x);
+            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + y);
+       */
+            bahnen.get(merkerT).setStartX(e.getX());
+            bahnen.get(merkerT).setStartY(e.getY());
+            
+            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
+            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
+            
+            
             bahnen.get(merkerT).werteBerechnen();
             
             simGroup.getChildren().add(bahnen.get(merkerT));
@@ -385,7 +390,6 @@ public class FXMLGameController implements Initializable
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   
                 
      
     //DragAndDrop Aufrufen       
