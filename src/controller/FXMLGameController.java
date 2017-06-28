@@ -299,7 +299,7 @@ public class FXMLGameController implements Initializable
                 
  
 
- //~~~~~~~~~~~~~~~ NEW 27.06.17 Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+ //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
 
@@ -308,20 +308,18 @@ public class FXMLGameController implements Initializable
  
      Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
     bahnT2.setStrokeWidth(5.0);
-      System.out.println("Nacher " + bahnen.size());       
+    
     elementsBox.getChildren().addAll(bahnT,bahnT2);
 
     merkerT = bahnen.size();
     merkerT = merkerT - maxT;
     maxT = maxT + merkerT;
-    System.out.println("Merker 1 " + merkerT);
     
     if(merkerT >= 0)
     {
     elementsBox.setOnDragDetected(e -> {
-        System.out.println("Drag&Drop");
             Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
-            db.setDragView(new Line().snapshot(null, null), e.getX(), e.getY());
+            db.setDragView(new Bahn(x1,y1,x2,y2,true,false).snapshot(null, null), e.getX(), e.getY());
             ClipboardContent cc = new ClipboardContent();
             cc.putString("Line");
             db.setContent(cc);
@@ -334,21 +332,22 @@ public class FXMLGameController implements Initializable
     
         simPane.setOnDragDropped(e -> {
             Dragboard db = e.getDragboard();
-            if (db.hasString()) {
-                System.out.println("Test");
-            Bahn b = bahnen.get(merkerT);
+            if (db.hasString()) 
+            {
+          
+            bahnen.get(merkerT).setStartX(e.getX());
+            bahnen.get(merkerT).setStartY(e.getY());
             
-            b.setStartX(b.getStartX() + e.getX());
-            b.setStartY(b.getStartY() + e.getY());
-            
-            b.setEndX(b.getEndX() + e.getX());
-            b.setEndY(b.getEndY() + e.getY());
+            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
+            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
                 
             bahnen.get(merkerT).werteBerechnen();
             
             simGroup.getChildren().add(bahnen.get(merkerT));
             simPane.getChildren().add(bahnen.get(merkerT)); 
             
+            System.out.println("Werte Maus   x " + e.getX() + "   y " + e.getY());
+            System.out.println("Werte Box  X1 " + bahnen.get(merkerT).getX1() + "   y1 " +bahnen.get(merkerT).getY1() + "   X2 " +bahnen.get(merkerT).getX2() + "  y2 " + bahnen.get(merkerT).getY2());
             
              bahnen.get(merkerT).getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
                     @Override
@@ -365,17 +364,13 @@ public class FXMLGameController implements Initializable
                     }
             });
             
-            
-            
                if(merkerT < maxT) 
                 {
-                    System.out.println("Merker " + merkerT);
                     merkerT++;                    
                 }
                else
                 {
                     merkerT = -1;
-                    System.out.println("Merker -1");
                 }
                
                 e.setDropCompleted(true);
@@ -387,7 +382,7 @@ public class FXMLGameController implements Initializable
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   
+      
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
