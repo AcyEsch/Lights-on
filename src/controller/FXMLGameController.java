@@ -97,6 +97,12 @@ public class FXMLGameController implements Initializable
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
     private ArrayList<Schalter> schalter;
+    
+    
+    
+    int merkerT = 0;
+    int maxT = 2;
+    
     //Layout
     private Bounds gridB, simB;
     private final double PERCENT_WIDTH_SIM = 0.695;
@@ -295,9 +301,7 @@ public class FXMLGameController implements Initializable
 
  //~~~~~~~~~~~~~~~ NEW 27.06.17 Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
-    int x1 = 50, x2 = 150, y1 = 150, y2 = 50;
-    int merkerT = 0;
-    int maxT = 2;
+    int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
 
     Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
     bahnT.setStrokeWidth(5.0);
