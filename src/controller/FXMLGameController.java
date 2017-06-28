@@ -265,7 +265,7 @@ public class FXMLGameController implements Initializable
             k.xKugelProp().addListener(new ChangeListener(){
                 @Override 
                 public void changed(ObservableValue o,Object oldVal, Object newVal){
-                     if((Double)newVal > gridB.getWidth()*PERCENT_WIDTH_SIM){
+                     if((Double)newVal > simPane.getWidth()){
                           gameOver();
                      }
                      if((Double)newVal < 0){
@@ -277,7 +277,7 @@ public class FXMLGameController implements Initializable
             k.yKugelProp().addListener(new ChangeListener(){
                 @Override 
                 public void changed(ObservableValue o,Object oldVal, Object newVal){
-                     if((Double)newVal > gridB.getHeight()*PERCENT_HEIGHT){
+                     if((Double)newVal > simPane.getHeight()){
                         gameOver();
                      }
                      if((Double)newVal < 0){
@@ -650,27 +650,15 @@ public class FXMLGameController implements Initializable
 
         //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
         //Doesnt work correctly
-        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-          @Override
-          public void changed(ObservableValue<? extends Bounds> observable,
-              Bounds oldValue, Bounds newValue) {
-              //
-                gridB = newValue;
-                simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-            @Override
-            public void changed(ObservableValue<? extends Bounds> obser,
-                Bounds oldV , Bounds newV) {
-                //
-                simB = newV;
-                try{
-                    setTheSizes();
-                }catch(Exception e){
-                    System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
-                }
-          }
-        });
-          }
-        });
+//        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+//          @Override
+//          public void changed(ObservableValue<? extends Bounds> observable,
+//              Bounds oldValue, Bounds newValue) {
+//              //
+//                gridB = newValue;
+//               
+//          }
+//        });
         
         gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
           @Override
@@ -685,6 +673,19 @@ public class FXMLGameController implements Initializable
         
        }
         });  
+        
+         simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+            @Override
+            public void changed(ObservableValue<? extends Bounds> obser,
+                Bounds oldV , Bounds newV) {
+                simB = newV;
+                try{
+                    setTheSizes();
+                }catch(Exception e){
+                    System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
+                }
+          }
+        });
      
         
        load();
@@ -693,19 +694,19 @@ public class FXMLGameController implements Initializable
     
     public void setTheSizes() throws Exception{
         
-        simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
-         simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+//        simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+//         simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
 
 //        //Stellt die Breite der SimPane ein
-//        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
-//            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
-//        else
-//            simPane.setPrefWidth(simB.getWidth());
-//        //Stellt die Höhe der SimPane ein
-//        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
-//            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
-//        else
-//            simPane.setPrefHeight(simB.getHeight());
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
+            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+        else
+            simPane.setPrefWidth(simB.getWidth()+3);
+        //Stellt die Höhe der SimPane ein
+        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
+            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+        else
+            simPane.setPrefHeight(simB.getHeight()+3);
         
 //        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
 //             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
