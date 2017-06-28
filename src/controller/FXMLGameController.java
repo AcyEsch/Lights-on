@@ -125,31 +125,37 @@ public class FXMLGameController implements Initializable
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
      
+         /*
       simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
               if (selected) {
                 simButton = simStart();
-                
+                System.out.println("1");
         } else {
                   simButton = simReset();
+                  System.out.println("2");
               }
           }
       });
+      */
       //Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
    
       if(mSim)
      {
+         System.out.println("Start");
          simButton =  simStart();
          
         mSim = false;
      }
       else
       {
+          System.out.println("Reset");
           simButton = simReset();
           mSim = true;
       }
     return simButton;
+ }
  }
 
  public ToggleButton simReset()
