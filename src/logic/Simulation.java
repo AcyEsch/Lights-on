@@ -261,7 +261,7 @@ import javafx.scene.shape.Rectangle;
             k.setKollision(false);
             k.setMerker(-1);
             k.setVk(s);            
-            k.setFill(Color.OLIVE);
+            //k.setFill(Color.OLIVE);
            System.out.println("Runter von der Bahn");
         }   
     }
