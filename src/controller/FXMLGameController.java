@@ -42,6 +42,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -77,7 +78,7 @@ public class FXMLGameController implements Initializable
     private HBox drehen;                         
     private final Integer startTime=60;
     public Integer seconds = startTime;
-    @FXML private ScrollPane controllPane;
+    @FXML private BorderPane controllPane;
  
     @FXML 
     public Button level1;
@@ -152,7 +153,7 @@ public class FXMLGameController implements Initializable
                   
                   tl=t;
                   t.playFromStart();
-                  simButton.setText("Stop");
+                  simButton.setText("Reset");
                 
                   
         } else {
@@ -168,6 +169,8 @@ public class FXMLGameController implements Initializable
                    tl.stop();
                      
                   simButton.setText("Start");
+                  deleteContent();
+        
               }
           }
       });
@@ -749,20 +752,20 @@ public class FXMLGameController implements Initializable
     
     public void setTheSizes() throws Exception{
         
-//        simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
-//         simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+        simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+         simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
 
 //        //Stellt die Breite der SimPane ein
-        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
-            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
-        else
-            simPane.setPrefWidth(simB.getWidth()+3);
-        //Stellt die Höhe der SimPane ein
-        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
-            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
-        else
-            simPane.setPrefHeight(simB.getHeight()+3);
-        
+//        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
+//            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+//        else
+//            simPane.setPrefWidth(simB.getWidth()+3);
+//        //Stellt die Höhe der SimPane ein
+//        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
+//            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+//        else
+//            simPane.setPrefHeight(simB.getHeight()+3);
+//        
 //        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
 //             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
 //        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
