@@ -1,7 +1,5 @@
 package controller;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
-import java.awt.Window;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -55,7 +53,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.*;
@@ -73,11 +70,13 @@ public class FXMLGameController implements Initializable
    @FXML private ToggleButton simButton; 
  
     
+   @FXML private HBox hBox;
+   
     @FXML private Pane simPane;
     @FXML private VBox elementsBox, controllsBox;
     private HBox drehen;                         
     private final Integer startTime=60;
-    public Integer seconds=startTime;
+    public Integer seconds = startTime;
     @FXML private ScrollPane controllPane;
  
     @FXML 
@@ -98,11 +97,17 @@ public class FXMLGameController implements Initializable
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
     private ArrayList<Schalter> schalter;
+    
+    
+    
+    int merkerT = 0;
+    int maxT = 2;
+    
     //Layout
     private Bounds gridB, simB;
-    private final double PERCENT_WIDTH_SIM = 0.69;
+    private final double PERCENT_WIDTH_SIM = 0.695;
     private final double PERCENT_WIDTH_CON = 0.29;
-    private final double PERCENT_HEIGHT = 0.89;
+    private final double PERCENT_HEIGHT = 0.889;
  
     ////////////////////////////Buttons/////////////////////////////////////////
    
@@ -113,17 +118,16 @@ public class FXMLGameController implements Initializable
       simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
-            
+              
               if (selected) {
                   
-                 drag.setCanDrag(false);             // Jasmin
+                drag.setCanDrag(false);             
                  
-                  KeyFrame kf = new KeyFrame(Duration.millis(10),
+                    KeyFrame kf = new KeyFrame(Duration.millis(10),
                     e->
-                      { 
-                          sim.move();
-                                     
-                         if(sim.getAn()==true ){
+                    { 
+                        sim.move();
+                        if(sim.getAn()==true ){
                        simPane.getStyleClass().add("light");
                        simPane.setId("light");
                         for(int j = 0; j < bahnen.size(); j++){      
@@ -166,13 +170,19 @@ public class FXMLGameController implements Initializable
                   simButton.setText("Start");
               }
           }
-
-      
       });
     return simButton;
  }
 
 
+//   @FXML
+//   private void schalter(ActionEvent event) throws IOException{
+//      
+//      simPane.getStyleClass().add("light");
+//      simPane.setId("light");
+//   }
+//    
+   
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
         Scene scene = simPane.getScene();
@@ -203,10 +213,7 @@ public class FXMLGameController implements Initializable
      bahn3.setStroke(AQUAMARINE);
       Kugel kugel = new Kugel(radius, 100, 100, true);
    
-   
-   
-   
-   
+
   
     sim = new Simulation();   
 
@@ -214,49 +221,13 @@ public class FXMLGameController implements Initializable
     kugeln = Kugel.getKugeln();
     schalter = Schalter.getSchalter();
     
-//    
-//    hBox.setOnDragDetected(e -> {
-//            Dragboard db = bahn.startDragAndDrop(TransferMode.ANY);
-//            db.setDragView(new Bahn().snapshot(null, null), e.getX(), e.getY());
-//            ClipboardContent cc = new ClipboardContent();
-//           cc.clone();
-//            db.setContent(cc);
-//            e.consume();
-//        });
-//    
-//    
-//        hBox.setOnDragDetected(e -> {
-//            Dragboard dbk = kugel.startDragAndDrop(TransferMode.ANY);
-//            dbk.setDragView(new Kugel().snapshot(null, null), e.getX(), e.getY());
-//            ClipboardContent cck = new ClipboardContent();
-//            dbk.setContent(cck);
-//            e.consume();
-//        });
-//   
-//         
-//        hBox.setOnDragEntered(new EventHandler<DragEvent>() {
-//    @Override
-//    public void handle(DragEvent event) {
-//    /* the drag-and-drop gesture entered the target */
-//         System.out.println("onDragEntered");
-//    /* show to the user that it is an actual gesture target */
-//         if (event.getGestureSource() != hBox &&
-//                 event.getDragboard().hasString()) {
-//           
-//         }
-//                
-//         event.consume();
-//    }
-//});
-//    
+   
 //    Schleifen um oben entstandene Elemente hinzuzufügen
 
         for(int i = 0; i < bahnen.size(); i++)
                 {
                     Bahn b = bahnen.get(i);
-
-           simGroup.getChildren().add(bahnen.get(i));
-           
+            simGroup.getChildren().add(b);
             b.getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -267,10 +238,8 @@ public class FXMLGameController implements Initializable
                             } else{ 
                                 System.out.println("Bahn abgewählt");
                                 controllsBox.setVisible(false); 
-                             }
-                            
-                        }
-                       
+                             }                            
+                        }                       
                     }
             });
         }
@@ -286,10 +255,10 @@ public class FXMLGameController implements Initializable
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                         if (newValue) {
                             if (Kugel.getSelectedKugel() != null){
-                                System.out.println("Kugel ausgewÃ¤hlt");
+                                System.out.println("Kugel ausgewählt");
                                 controllsBox.setVisible(false);
                             } else{ 
-                                System.out.println("Kugel abgewÃ¤hlt");
+                                System.out.println("Kugel abgewählt");
                                 controllsBox.setVisible(false); 
                              }
                             
@@ -297,92 +266,162 @@ public class FXMLGameController implements Initializable
                        
                     }
             });
+        //Checkt, ob die Kugeln immer noch in der simPane sind
+        
+            k.xKugelProp().addListener(new ChangeListener(){
+                @Override 
+                public void changed(ObservableValue o,Object oldVal, Object newVal){
+                     if((Double)newVal > simPane.getWidth()){
+                          gameOver();
+                     }
+                     if((Double)newVal < 0){
+                          gameOver();
+                     }
+                }
+            });
+            
+            k.yKugelProp().addListener(new ChangeListener(){
+                @Override 
+                public void changed(ObservableValue o,Object oldVal, Object newVal){
+                     if((Double)newVal > simPane.getHeight()){
+                        gameOver();
+                     }
+                     if((Double)newVal < 0){
+                          gameOver();
+                     }
+                }
+            });
+     
         }
 
         
                 
                 
+ 
+
+ //~~~~~~~~~~~~~~~ NEW 27.06.17 Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+        
+    int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
+
+    Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
+    bahnT.setStrokeWidth(5.0);
+ 
+     Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
+    bahnT2.setStrokeWidth(5.0);
+      System.out.println("Nacher " + bahnen.size());       
+    elementsBox.getChildren().addAll(bahnT,bahnT2);
+
+    merkerT = bahnen.size();
+    merkerT = merkerT - maxT;
+    maxT = maxT + merkerT;
+    System.out.println("Merker 1 " + merkerT);
+    
+    if(merkerT >= 0)
+    {
+    elementsBox.setOnDragDetected(e -> {
+        System.out.println("Drag&Drop");
+            Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
+            db.setDragView(new Line().snapshot(null, null), e.getX(), e.getY());
+            ClipboardContent cc = new ClipboardContent();
+            cc.putString("Line");
+            db.setContent(cc);
+        });
+    
+    
+    simPane.setOnDragOver(e -> {
+            e.acceptTransferModes(TransferMode.COPY);
+        });
+    
+        simPane.setOnDragDropped(e -> {
+            Dragboard db = e.getDragboard();
+            if (db.hasString()) {
+                System.out.println("Test");
+            Bahn b = bahnen.get(merkerT);
+            
+            b.setStartX(b.getStartX() + e.getX());
+            b.setStartY(b.getStartY() + e.getY());
+            
+            b.setEndX(b.getEndX() + e.getX());
+            b.setEndY(b.getEndY() + e.getY());
+                
+            bahnen.get(merkerT).werteBerechnen();
+            
+            simGroup.getChildren().add(bahnen.get(merkerT));
+            simPane.getChildren().add(bahnen.get(merkerT)); 
+            
+            
+             bahnen.get(merkerT).getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue) {
+                            if (Bahn.getSelectedBahn() != null){
+                                System.out.println("Bahn ausgewählt");
+                                controllsBox.setVisible(true);
+                            } else{ 
+                                System.out.println("Bahn abgewählt");
+                                controllsBox.setVisible(false); 
+                             }                            
+                        }                       
+                    }
+            });
+            
+            
+            
+               if(merkerT < maxT) 
+                {
+                    System.out.println("Merker " + merkerT);
+                    merkerT++;                    
+                }
+               else
+                {
+                    merkerT = -1;
+                    System.out.println("Merker -1");
+                }
                
-        //DragAndDrop Aufrufen       
+                e.setDropCompleted(true);
+            } else {
+                e.setDropCompleted(false);
+            }
+        });
+    }
+    
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   
+    //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
        {    
-           for(int j = 0; j < bahnen.size(); j++)
-       {      
            Kugel k = kugeln.get(i);
-            Bahn b = bahnen.get(j);
-            
+           
            if(k.getCanBeDraged())
            {
                 drag.dragKugel(k);
            }
+       }
+           for(int j = 0; j < bahnen.size(); j++)
+       {                 
+            Bahn b = bahnen.get(j);
 
            if(b.getCanBeDraged())
            {
             drag.dragBahn(b);
            }
-//           
-//         if(sim.getAn()==true ){
-//             System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
-//                       simPane.getStyleClass().add("light");
-//                       simPane.setId("light");
-//                   
-//         }
-       }  
-       
-       }
-
            
-       
-    //Drag And Drop END
+         if(sim.getAn()==true ){
+             System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
+                       simPane.getStyleClass().add("light");
+                       simPane.setId("light");
+                   
+         }
+       }  
+        //Drag And Drop END
        
  
     simPane.getChildren().add(simGroup);
  
     
-/////////////////////////////////////Layout/////////////////////////////////////
-
-    //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
-    gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-      @Override
-      public void changed(ObservableValue<? extends Bounds> observable,
-          Bounds oldValue, Bounds newValue) {
-          //
-            gridB = newValue;
-            simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-        @Override
-        public void changed(ObservableValue<? extends Bounds> obser,
-            Bounds oldV , Bounds newV) {
-            //
-            simB = newV;
-            try{
-                setTheSizes();
-            }catch(Exception e){
-                System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
-            }
-      }
-    });
-      }
-    });
-    
-    //Layout: Observer, der schaut ob eine Bahn ausgewählt ist
- 
-   
-    
-    
     }    
-    //~~~~~~~~~NEW~~~~~~~~
-       
-    /*
-        Änderungen in
-        FMXLGameController.java
-        DragDrop.java
-        Bahn.java
-        FXMLGame.fxml
-        */
-    
-    
-    
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
@@ -655,7 +694,87 @@ public class FXMLGameController implements Initializable
         kugeln.clear();
         schalter.clear();
     }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+       //timer();
+   
+        /////////////////////////////////////Layout/////////////////////////////////////
+
+        //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
+        //Doesnt work correctly
+//        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+//          @Override
+//          public void changed(ObservableValue<? extends Bounds> observable,
+//              Bounds oldValue, Bounds newValue) {
+//              //
+//                gridB = newValue;
+//               
+//          }
+//        });
+        
+        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+          @Override
+          public void changed(ObservableValue<? extends Bounds> observable,
+              Bounds oldValue, Bounds newValue) {
+                gridB = newValue;
+                try{
+                    setTheSizes();
+                }catch(Exception e){
+                    System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
+                }
+        
+       }
+        });  
+        
+         simGroup.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
+            @Override
+            public void changed(ObservableValue<? extends Bounds> obser,
+                Bounds oldV , Bounds newV) {
+                simB = newV;
+                try{
+                    setTheSizes();
+                }catch(Exception e){
+                    System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
+                }
+          }
+        });
+     
+        
+       load();
+       
+    }      
     
+    public void setTheSizes() throws Exception{
+        
+//        simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+//         simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+
+//        //Stellt die Breite der SimPane ein
+        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
+            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
+        else
+            simPane.setPrefWidth(simB.getWidth()+3);
+        //Stellt die Höhe der SimPane ein
+        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
+            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
+        else
+            simPane.setPrefHeight(simB.getHeight()+3);
+        
+//        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
+//             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
+//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
+//             simPane.setPrefSize(simB.getWidth(), gridB.getHeight()*PERCENT_HEIGHT);
+//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
+//             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, simB.getHeight());
+//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
+//             simPane.setPrefSize(simB.getWidth(), simB.getHeight());
+//        else
+//            throw new Exception();
+        controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
+    }
     public void next(){
          final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
@@ -667,32 +786,18 @@ public class FXMLGameController implements Initializable
                 dialog.show();
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) 
-    {
-       //timer();
-       load();
-       
-    }      
     
-  
-    public void setTheSizes() throws Exception{
-        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
-             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
-        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
-             simPane.setPrefSize(simB.getWidth(), gridB.getHeight()*PERCENT_HEIGHT);
-        else if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
-             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, simB.getHeight());
-        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
-             simPane.setPrefSize(simB.getWidth(), simB.getHeight());
-        else
-            throw new Exception();
-        controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
+    public void gameOver(){
+        tl.stop();
+        System.out.println("Game Over");
+        deleteContent();
+        Scene scene = gridPane.getScene();
+         try {
+             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml")));
+         } catch (IOException ex) {
+             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
-    
-
-    
     
 }
 
