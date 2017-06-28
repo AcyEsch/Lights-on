@@ -1,0 +1,164 @@
+/*CSS-Datei*/
+  
+/*General Designs*/
+
+.button {
+    -fx-font-family: "Tw Cen MT Condensed Extra Bold";
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-font-size: 20px;
+}
+.togglebutton {
+    -fx-font-family: "Tw Cen MT Condensed Extra Bold";
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-font-size: 20px;
+}
+
+.button:hover{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:pressed{
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+.label{
+    -fx-font-family: "Tw Cen MT Condensed Extra Bold";
+    -fx-font-size: 27px;
+}
+
+
+/* Menu*/
+
+#menuUberschrift{
+    /*-fx-font-family: "Berlin Sans FB Demi Bold";*/
+    -fx-font-size: 112px;
+    -fx-text-fill: #f2c40d;
+    -fx-font-weight: bold;
+}
+
+#label_challenge{
+        -fx-font-size: 30px;
+}
+    
+#label_edit{
+        -fx-font-size: 30px;
+}
+  
+/*noch nicht sortiert*/  
+#pane{
+        -fx-background-image: url("Pics/SpeilSegmentMenu.png");  
+         -fx-background-position: 52 -93; 
+         -fx-background-repeat: stretch;
+    
+        -fx-background-size: 840 900;
+       
+    }
+
+    #mainPane{
+      -fx-background-image: url("Pics/DunkelmitGlühbirne.jpg"); 
+      -fx-background-size: auto;
+        
+    }
+    
+  
+    #light{
+        -fx-background-image: url("Pics/light.jpg"); 
+        -fx-background-size: stretch;
+    }
+    
+    #elements{
+        -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
+        -fx-background-repeat: no-repeat;
+        -fx-background-size: auto;
+    }
+    
+    #scene{
+        -fx-background-image: url("Pics/Dunkel.jpg"); 
+        -fx-background-size: stretch;
+       
+    }
+    
+     #newAnchorPane{
+        -fx-background-image: url("Pics/DunkelmitGlühbirne.jpg"); 
+        -fx-background-position: 52 -93; 
+       -fx-background-size: 1180 910;
+     }
+    
+    #navigation{
+       -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
+    
+    }
+    
+      #level1{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level1PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+      
+      #level2{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level2PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+      
+      #level3{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level3PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+
+       
+      #level4{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level4PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+
+       
+      #level5{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level5PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+
+       
+      #level6{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/Level6PNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+
+       
+      #newLevel{
+          -fx-background-color: transparent;
+       -fx-background-image: url("Pics/newLevelPNG.png");
+        -fx-background-size:150 150;
+        -fx-background-repeat: no-repeat;
+      }
+      
+      #elementsPane{
+          -fx-background-image: url("Pics/SpeilSegmentMenuButtons.jpg");
+          -fx-background-repeat: no-repeat;
+          -fx-background-size: auto;
+      }
+      
+      #auswahl{
+             -fx-background-image: url("Pics/SpeilSegmentMenu.png");  
+         -fx-background-position: 360 -93; 
+         -fx-background-repeat: stretch;
+    
+        -fx-background-size: 840 900;
+      }
+ /*     //Um Scrollpane unsichtbar zumachen
+    #scroll-pane .viewport {
+        -fx-background-color: transparent;
+    }
+    */
