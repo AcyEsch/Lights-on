@@ -129,11 +129,10 @@ public class FXMLGameController implements Initializable
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
               if (selected) {
-System.out.println("3");
                 simButton = simStart();
                 
         } else {
-      
+                  simButton = simReset();
               }
           }
       });
@@ -141,13 +140,13 @@ System.out.println("3");
    
       if(mSim)
      {
-         simStart();
+         simButton =  simStart();
          
         mSim = false;
      }
       else
       {
-          simReset();
+          simButton = simReset();
           mSim = true;
       }
     return simButton;
