@@ -298,11 +298,7 @@ public class FXMLGameController implements Initializable
         }
 
         
-                
-                
- 
-
- //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+                 //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
 
@@ -322,7 +318,7 @@ public class FXMLGameController implements Initializable
     {
     elementsBox.setOnDragDetected(e -> {
             Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
-            db.setDragView(new Bahn(x1,y1,x2,y2,true,false).snapshot(null, null), e.getX(), e.getY());
+            db.setDragView(bahnen.get(merkerT).snapshot(null, null), e.getX(), e.getY());
             ClipboardContent cc = new ClipboardContent();
             cc.putString("Line");
             db.setContent(cc);
@@ -336,13 +332,17 @@ public class FXMLGameController implements Initializable
         simPane.setOnDragDropped(e -> {
             Dragboard db = e.getDragboard();
             if (db.hasString()) 
-            {
-          
-            bahnen.get(merkerT).setStartX(e.getX());
-            bahnen.get(merkerT).setStartY(e.getY());
+            {                
+                Point location = MouseInfo.getPointerInfo().getLocation();
+			double x = location.getX();
+			double y = location.getY();
+                        
+                        
+            bahnen.get(merkerT).setStartX(x);
+            bahnen.get(merkerT).setStartY(y);
             
-            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
-            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
+            bahnen.get(merkerT).setEndX(Math.abs(bahnen.get(merkerT).getDeltaX()) + x);
+            bahnen.get(merkerT).setEndY(Math.abs(bahnen.get(merkerT).getDeltaY()) + y);
                 
             bahnen.get(merkerT).werteBerechnen();
             
@@ -385,7 +385,9 @@ public class FXMLGameController implements Initializable
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      
+   
+                
+     
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
