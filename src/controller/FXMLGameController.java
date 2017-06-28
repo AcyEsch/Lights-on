@@ -173,7 +173,7 @@ public class FXMLGameController implements Initializable
                    tl.stop();
                      
                   simButton.setText("Start");
-                  deleteContent();  
+                 // deleteContent();  
                   
      return simButton;
  }
