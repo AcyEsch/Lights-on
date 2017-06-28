@@ -148,7 +148,7 @@ public class FXMLGameController implements Initializable
       
       if(mSim)
      {
-
+//Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
          simStart();
          
         mSim = false;
