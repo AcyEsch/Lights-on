@@ -85,26 +85,31 @@
     -->
     <ScrollPane fx:id="controllPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <content>
-          <VBox alignment="TOP_RIGHT" prefHeight="824.0" prefWidth="433.0" spacing="10.0">
+          <VBox alignment="CENTER" prefHeight="824.0" prefWidth="433.0" spacing="10.0">
              <children>
-               <VBox  fx:id="elementsBox" spacing="10.0" />
-               <VBox  fx:id="controllsBox" prefHeight="60.0" prefWidth="205.0" spacing="10.0">
+               <!-- FÜR d&d Elemente -->  
+               <VBox  alignment="CENTER" fx:id="elementsBox" spacing="10.0">
+                    <HBox alignment="CENTER" fx:id="hBox" spacing="80.0"> 
+                    </HBox>
+                 </VBox>     
+                    <!-- Für die Controlls -->
+               <VBox alignment="CENTER" fx:id="controllsBox" prefHeight="60.0" prefWidth="205.0" spacing="10.0">
                   <children>
-                    <HBox fx:id="drehen" alignment="CENTER" spacing="10.0">
+                    <HBox alignment="CENTER" fx:id="drehen" spacing="10.0">
                        <children>
                          <Button id="left" fx:id="btn_left" onAction="#handleLeft" prefHeight="53.0" prefWidth="120.0" text="Turn Left">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
-                         <Button fx:id="right" onAction="#handleRight" prefHeight="41.0" prefWidth="120.0" text="Turn Right">
+                         <Button fx:id="right" onAction="#handleRight"  prefHeight="53.0" prefWidth="120.0" text="Turn Right">
                                  <HBox.margin>
                                     <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
                                  </HBox.margin>
                               </Button>
                        </children>
                     </HBox>
-                        <HBox  fx:id="drehen1" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
+                        <HBox alignment="CENTER" fx:id="drehen1" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
                            <children>
                               <Button fx:id="btn_plus1" mnemonicParsing="false" onAction="#handlePlus" prefHeight="54.0" prefWidth="60.0" text="+">
                                  <HBox.margin>
@@ -120,11 +125,7 @@
                         </HBox>
                   </children>
                </VBox>
-              <HBox fx:id="hBox" spacing="80.0">
-                     <children>
-                    
-                     </children>
-              </HBox>
+              
              </children>
           </VBox>
         </content>
