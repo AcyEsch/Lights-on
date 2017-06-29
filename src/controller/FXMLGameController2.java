@@ -109,7 +109,7 @@ public class FXMLGameController2 implements Initializable
     private Group simGroup = new Group();
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
-    private ArrayList<Schalter> schalter;
+
     
     
     
@@ -251,7 +251,7 @@ public class FXMLGameController2 implements Initializable
 
     bahnen = Bahn.getBahnen();
     kugeln = Kugel.getKugeln();
-    schalter = Schalter.getSchalter();
+
     
    
 //    Schleifen um oben entstandene Elemente hinzuzufügen

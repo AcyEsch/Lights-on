@@ -65,7 +65,10 @@ import javafx.scene.shape.CircleBuilder;
        //Start Position der Kugel
        super.setCenterX(startX);                                            
        super.setCenterY(startY);          
-
+       if(draged)
+        this.setFill(Color.AQUAMARINE);
+       else
+          this.setFill(Color.AQUA);
        kugeln.add(this);
        System.out.println("kugel   " + this);
 

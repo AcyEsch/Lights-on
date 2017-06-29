@@ -27,9 +27,7 @@ public class DragDrop
       
       k.setIsSelected(true);
       if (Bahn.getSelectedBahn() != null)
-          Bahn.getSelectedBahn().setIsSelected(false);
- 
-
+          Bahn.getSelectedBahn().setIsSelected(false); 
         }
     });
         
@@ -49,9 +47,7 @@ public class DragDrop
       orgSceneY = t.getSceneY();     
         }
     });
-    }
-    
-
+    }    
     
     public void dragBahn(Bahn bahn)
     {
@@ -79,11 +75,8 @@ public class DragDrop
       b.setIsSelected(true);
       if (Kugel.getSelectedKugel() != null)
           Kugel.getSelectedKugel().setIsSelected(false);
-      //Bahn.getSelectedBahn();
-      //controller.FXMLGameController.initValueProperty = new SimpleIntegerProperty(1);
        }
 });
-
       
      bahn.setOnMouseDragged((t) -> {
         if(canDrag)
