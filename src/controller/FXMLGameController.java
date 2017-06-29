@@ -353,7 +353,6 @@ public class FXMLGameController implements Initializable
     strLabel = "" + maxT;
     lBahn.setText(strLabel);
     
-    dragLabel();
     
     elementsBox.getChildren().addAll(lBahn, bahnT);
      
@@ -391,7 +390,6 @@ public class FXMLGameController implements Initializable
             
             maxT--;
             if(maxT == 0)elementsBox.getChildren().remove(bahnen.get(merkerT));
-            //dragLabel();
             strLabel = "" + maxT;
             lBahn.setText(strLabel);
             
@@ -476,12 +474,7 @@ for(int j = 0; j < bahnen.size(); j++)
     
     
     }
-    }    
-    
-    public void dragLabel()
-    {                       
-        strLabel = "" + maxT;
-    }
+    }       
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
