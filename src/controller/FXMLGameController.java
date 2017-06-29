@@ -65,7 +65,6 @@ import javafx.util.Duration;
 import logic.*;
 
 
-
 public class FXMLGameController implements Initializable 
 { 
     @FXML private GridPane gridPane;                //Lyu
@@ -103,12 +102,14 @@ public class FXMLGameController implements Initializable
     private Group simGroup = new Group();
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
-    private ArrayList<Schalter> schalter;
-    
-    
+    private ArrayList<Schalter> schalter;           
+
     
     int merkerT = 0;
     int maxT = 2;
+    
+    private String strLabel;                   
+   private Label lBahn = new Label();
     
     //Layout
     private Bounds gridB, simB;
@@ -117,15 +118,12 @@ public class FXMLGameController implements Initializable
     private final double PERCENT_HEIGHT = 0.893;
  
     ////////////////////////////Buttons/////////////////////////////////////////
-   
-    
- boolean mSim = true;
+   boolean mSim = true;
     
     
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
-     
-         /*
+     /*
       simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
@@ -156,12 +154,9 @@ public class FXMLGameController implements Initializable
       }
     return simButton;
  }
- }
 
  public ToggleButton simReset()
  {
-     
-                  System.out.println("4");
                   tl.stop();
                   sim.setTimeMerker(true);
                   drag.setCanDrag(true);
@@ -172,9 +167,17 @@ public class FXMLGameController implements Initializable
                      }
                    tl.stop();
                      
-                  simButton.setText("Start");
-                 // deleteContent();  
                   
+                  deleteContent();  
+                 
+                 Scene scene = gridPane.getScene();
+         try {
+             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml")));
+         } catch (IOException ex) {
+             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         simButton.setText("Start");
+    
      return simButton;
  }
  
@@ -216,6 +219,8 @@ public class FXMLGameController implements Initializable
 
                   return simButton;
  }
+ 
+ 
 
 //   @FXML
 //   private void schalter(ActionEvent event) throws IOException{
@@ -339,21 +344,21 @@ public class FXMLGameController implements Initializable
 //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
-                
+                    
+    merkerT = bahnen.size();
     Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
     bahnT.setStrokeWidth(5.0);
-                
-     Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
-    bahnT2.setStrokeWidth(5.0);
-
     
-    elementsBox.getChildren().addAll(bahnT,bahnT2);
- 
-    merkerT = bahnen.size();
-    merkerT = merkerT - maxT;
-    maxT = maxT + merkerT;
-             
-    if(merkerT >= 0)
+
+    strLabel = "" + maxT;
+    lBahn.setText(strLabel);
+    
+    dragLabel();
+    
+    elementsBox.getChildren().addAll(lBahn, bahnT);
+     
+            
+    if(maxT > 0)
     {
     elementsBox.setOnDragDetected(e -> {
             Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
@@ -382,8 +387,13 @@ public class FXMLGameController implements Initializable
                 
             simGroup.getChildren().add(b1);
             simPane.getChildren().add(b1); 
+                        
             
-            elementsBox.getChildren().remove(bahnen.get(merkerT));
+            maxT--;
+            if(maxT == 0)elementsBox.getChildren().remove(bahnen.get(merkerT));
+            //dragLabel();
+            strLabel = "" + maxT;
+            lBahn.setText(strLabel);
             
 for(int j = 0; j < bahnen.size(); j++)
        {                 
@@ -418,16 +428,7 @@ for(int j = 0; j < bahnen.size(); j++)
                              }                            
                         }                       
                     }
-            });
-            
-               if(merkerT < maxT) 
-                {
-                    merkerT++;                    
-                }
-               else
-                {
-                    merkerT = -1;
-                }
+            });            
                
                 e.setDropCompleted(true);
             } else {
@@ -437,7 +438,7 @@ for(int j = 0; j < bahnen.size(); j++)
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
+    
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
@@ -474,7 +475,13 @@ for(int j = 0; j < bahnen.size(); j++)
     simPane.getChildren().add(simGroup);
     
     
-    }}    
+    }
+    }    
+    
+    public void dragLabel()
+    {                       
+        strLabel = "" + maxT;
+    }
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
