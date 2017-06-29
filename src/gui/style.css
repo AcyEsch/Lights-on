@@ -31,6 +31,7 @@
     -fx-text-fill: #ccffff;
     -fx-z-index: 100;
 }
+
 /*Hintergrund generell */
 #mainPane{
        -fx-background-image: url("Pics/DarkBG.jpg");

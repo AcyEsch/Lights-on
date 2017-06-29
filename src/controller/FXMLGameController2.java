@@ -1,5 +1,6 @@
 package controller;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Root;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Window;
@@ -16,6 +17,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -36,6 +38,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
@@ -57,6 +60,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.AQUAMARINE;
+import static javafx.scene.paint.Color.BLACK;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -67,7 +71,8 @@ import javafx.util.Duration;
 import logic.*;
 
 
-public class FXMLGameController implements Initializable 
+
+public class FXMLGameController2 implements Initializable 
 { 
     @FXML private GridPane gridPane;                //Lyu
     public Label timer;                         //Lyu
@@ -104,14 +109,12 @@ public class FXMLGameController implements Initializable
     private Group simGroup = new Group();
     private ArrayList<Bahn> bahnen ;
     private ArrayList<Kugel> kugeln ;
-    private ArrayList<Schalter> schalter;           
-
+    private ArrayList<Schalter> schalter;
+    
+    
     
     int merkerT = 0;
     int maxT = 2;
-    
-    private String strLabel;                   
-   private Label lBahn = new Label();
     
     //Layout
     private Bounds gridB, simB;
@@ -120,79 +123,25 @@ public class FXMLGameController implements Initializable
     private final double PERCENT_HEIGHT = 0.893;
  
     ////////////////////////////Buttons/////////////////////////////////////////
-   boolean mSim = true;
+   
     
     
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
-     /*
       simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
           @Override
           public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
+              
               if (selected) {
-                simButton = simStart();
-                System.out.println("1");
-        } else {
-                  simButton = simReset();
-                  System.out.println("2");
-              }
-          }
-      });
-      */
-      //Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
-   
-      if(mSim)
-     {
-         System.out.println("Start");
-         simButton =  simStart();
-         
-        mSim = false;
-     }
-      else
-      {
-          System.out.println("Reset");
-          simButton = simReset();
-          mSim = true;
-      }
-    return simButton;
- }
-
- public ToggleButton simReset()
- {
-                  tl.stop();
-                  sim.setTimeMerker(true);
-                  drag.setCanDrag(true);
-                     for(int j = 0; j < kugeln.size(); j++){      
-                          Kugel k = kugeln.get(j);
-                          k.setCenterX(100);
-                          k.setCenterY(100);
-                     }
-                   tl.stop();
-                     
                   
-                  deleteContent();  
+                drag.setCanDrag(false);             
                  
-                 Scene scene = gridPane.getScene();
-         try {
-             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml")));
-         } catch (IOException ex) {
-             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         simButton.setText("Start");
-    
-     return simButton;
- }
- 
- public ToggleButton simStart()
- {
-
-     drag.setCanDrag(false);             
                     KeyFrame kf = new KeyFrame(Duration.millis(10),
                     e->
                     { 
                         sim.move();
-                        if(sim.getAn()==true ){            
-                        gridPane.getStylesheets().addAll(this.getClass().getResource("/gui/style_light.css").toExternalForm());
+                                      if(sim.getAn()==true ){            
+                      gridPane.getStylesheets().addAll(this.getClass().getResource("/gui/style_light.css").toExternalForm());
                        simPane.setId("scene");
                        gridPane.setId("mainPaneLight");
                        controllPane.setId("controllPane");
@@ -202,17 +151,21 @@ public class FXMLGameController implements Initializable
                          b.setStroke(Color.DARKOLIVEGREEN);
                         }
                          tl.setDelay(Duration.seconds(1.0));
-                          tl.stop();  
+                          tl.stop();
                            try {
                                next();
                            } catch (IOException ex) {
-                               Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+                               Logger.getLogger(FXMLGameController2.class.getName()).log(Level.SEVERE, null, ex);
                            }
-                                     
-                                                             
+                        
+               
+                     
+                       
+                   
          }
+                       
                 });
-                  
+     
                   Timeline t= new Timeline(kf);
                   t.getCurrentTime();
                   t.setAutoReverse(true);
@@ -221,11 +174,29 @@ public class FXMLGameController implements Initializable
                   tl=t;
                   t.playFromStart();
                   simButton.setText("Reset");
-
-                  return simButton;
+                
+                  
+        } else {
+                  
+                  tl.stop();
+                //  sim.setTimeMerker(true);
+                  drag.setCanDrag(true);
+                     for(int j = 0; j < kugeln.size(); j++){      
+                          Kugel k = kugeln.get(j);
+                          k.setCenterX(100);
+                          k.setCenterY(100);
+                     }
+                   tl.stop();
+                     
+                  simButton.setText("Start");
+                  deleteContent();
+        
+              }
+          }
+      });
+    return simButton;
  }
- 
- 
+
 
 //   @FXML
 //   private void schalter(ActionEvent event) throws IOException{
@@ -254,15 +225,24 @@ public class FXMLGameController implements Initializable
     
     //!!!!!!!!!!!!!!!!!Spezifische Eigenschaften des Levels!!!!!!!!!!!!!!!!!!
     
-   Bahn bahn4 = new Bahn(300, 450, 450, 650, true, false);//Negative Steigung   x1 y1 x2 y2 
-    Bahn bahn = new Bahn(250, 250, 50, 150, true, false);//Negative Steigung   x1 y1 x2 y2 
-    Bahn bahn2 = new Bahn(400, 250, 150, 350, true, false);
-    bahn.setStrokeWidth(5.0);
+   Bahn bahn1 = new Bahn(600, 650, 820, 750, true, false);//Negative Steigung   x1 y1 x2 y2 
+ //   Bahn bahn = new Bahn(250, 250, 50, 150, true, false);//Negative Steigung   x1 y1 x2 y2 
+    Bahn bahn2 = new Bahn(300, 250, 750, 550, true, false);
+  //  bahn.setStrokeWidth(5.0);
     bahn2.setStrokeWidth(5.0);
-    bahn4.setStrokeWidth(5.0);
+    bahn1.setStrokeWidth(5.0);
      Bahn bahn3 = new Bahn(750,920,830,920, false, true);    
-     bahn3.setStrokeWidth(20.0);
+     Bahn bahn4 = new Bahn(750,925,830,925, false, true); 
+      Bahn bahn5 = new Bahn(750,930,830,930, false, true); 
+       Bahn bahn6 = new Bahn(750,935,830,935, false, true); 
+      bahn3.setStrokeWidth(5.0);
+      bahn4.setStrokeWidth(5.0);
+      bahn5.setStrokeWidth(5.0);
+      bahn6.setStrokeWidth(5.0);
      bahn3.setStroke(AQUAMARINE);
+     bahn4.setStroke(AQUAMARINE);
+     bahn5.setStroke(AQUAMARINE);
+     bahn6.setStroke(AQUAMARINE);
       Kugel kugel = new Kugel(radius, 100, 100, true);
    
 
@@ -349,20 +329,20 @@ public class FXMLGameController implements Initializable
 //~~~~~~~~~~~~~~~Drag&Drop~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
         
     int x1 = 50, x2 = 150, y1 = 150, y2 = 50;    
-                    
-    merkerT = bahnen.size();
+                
     Bahn bahnT = new Bahn(x1, y1, x2, y2, true, false);
     bahnT.setStrokeWidth(5.0);
-    
+                
+     Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
+    bahnT2.setStrokeWidth(5.0);
 
-    strLabel = "" + maxT;
-    lBahn.setText(strLabel);
-    
-    
-    elementsBox.getChildren().addAll(lBahn, bahnT);
-     
-            
-    if(maxT > 0)
+    elementsBox.getChildren().addAll(bahnT,bahnT2);
+ 
+    merkerT = bahnen.size();
+    merkerT = merkerT - maxT;
+    maxT = maxT + merkerT;
+             
+    if(merkerT >= 0)
     {
     elementsBox.setOnDragDetected(e -> {
             Dragboard db = bahnen.get(merkerT).startDragAndDrop(TransferMode.COPY);
@@ -381,44 +361,32 @@ public class FXMLGameController implements Initializable
             Dragboard db = e.getDragboard();
             if (db.hasString()) 
             {                
-                int endX = (int)e.getX() + (int)bahnen.get(merkerT).getDeltaX();
-                int endY = (int)e.getY() + (int)bahnen.get(merkerT).getDeltaY();
+                Point location = MouseInfo.getPointerInfo().getLocation();
+			double x = location.getX();
+			double y = location.getY();
+        /*
+            bahnen.get(merkerT).setStartX(x);
+            bahnen.get(merkerT).setStartY(y);
                 
-                Bahn b1 = new Bahn((int)e.getX(),(int)e.getY(), endX,endY,true,false);
-                b1.setStrokeWidth(5.0);
+            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + x);
+            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + y);
+       */
+            bahnen.get(merkerT).setStartX(e.getX());
+            bahnen.get(merkerT).setStartY(e.getY());
+            
+            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
+            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
+            
                 
-            b1.werteBerechnen();
+            bahnen.get(merkerT).werteBerechnen();
                 
-            simGroup.getChildren().add(b1);
-            simPane.getChildren().add(b1); 
-                        
+            simGroup.getChildren().add(bahnen.get(merkerT));
+            simPane.getChildren().add(bahnen.get(merkerT)); 
             
-            maxT--;
-            if(maxT == 0)elementsBox.getChildren().remove(bahnen.get(merkerT));
-            strLabel = "" + maxT;
-            lBahn.setText(strLabel);
+            System.out.println("Werte Maus   x " + e.getX() + "   y " + e.getY());
+            System.out.println("Werte Box  X1 " + bahnen.get(merkerT).getX1() + "   y1 " +bahnen.get(merkerT).getY1() + "   X2 " +bahnen.get(merkerT).getX2() + "  y2 " + bahnen.get(merkerT).getY2());
             
-for(int j = 0; j < bahnen.size(); j++)
-       {                 
-            Bahn b = bahnen.get(j);
-
-           if(b.getCanBeDraged())
-           {
-            drag.dragBahn(b);
-           }
-          //Licht An Effekt 
-         
-          if(sim.getAn()==true ){
-             System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
-         
-             simPane.getStyleClass().add("light");
-             simPane.setId("sceneLight");
-             gridPane.setId("mainPaneLight");
-                   
-       }  
-       } 
-            
-             b1.getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
+             bahnen.get(merkerT).getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                         if (newValue) {
@@ -431,7 +399,16 @@ for(int j = 0; j < bahnen.size(); j++)
                              }                            
                         }                       
                     }
-            });            
+            });
+            
+               if(merkerT < maxT) 
+                {
+                    merkerT++;                    
+                }
+               else
+                {
+                    merkerT = -1;
+                }
                
                 e.setDropCompleted(true);
             } else {
@@ -463,14 +440,7 @@ for(int j = 0; j < bahnen.size(); j++)
            }
           //Licht An Effekt 
          
-          if(sim.getAn()==true ){
-             System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
-         
-             simPane.getStyleClass().add("light");
-             simPane.setId("sceneLight");
-             gridPane.setId("mainPaneLight");
-                   
-       }  
+        
        }  
         //Drag And Drop END
        
@@ -478,8 +448,7 @@ for(int j = 0; j < bahnen.size(); j++)
     simPane.getChildren().add(simGroup);
     
     
-    }
-    }       
+    }}    
     
 //     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
 //        new EventHandler<MouseEvent>() {
@@ -750,7 +719,7 @@ for(int j = 0; j < bahnen.size(); j++)
     public void deleteContent(){
         bahnen.clear();
         kugeln.clear();
-        schalter.clear();
+      
     }
 
 
@@ -833,6 +802,7 @@ for(int j = 0; j < bahnen.size(); j++)
 //            throw new Exception();
         controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
     }
+    @FXML
     public void next()  throws IOException{
   
       Stage dialog=new Stage();
@@ -873,9 +843,9 @@ for(int j = 0; j < bahnen.size(); j++)
                  deleteContent();
                  Scene scene = gridPane.getScene();
                     try {
-                        scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml")));
+                        scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel3.fxml")));
                     } catch (IOException ex) {
-                        Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(FXMLGameController2.class.getName()).log(Level.SEVERE, null, ex);
                     }
                    dialog.close();
                    }
@@ -904,16 +874,14 @@ for(int j = 0; j < bahnen.size(); j++)
                 dialog.show();
     }
 
-    
     public void gameOver(){
         tl.stop();
-        System.out.println("Game Over");
-        deleteContent();
+         deleteContent();
         Scene scene = gridPane.getScene();
          try {
-             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml")));
+             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml")));
          } catch (IOException ex) {
-             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(FXMLGameController2.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
     
@@ -938,9 +906,9 @@ for(int j = 0; j < bahnen.size(); j++)
         deleteContent();
         Scene scene = gridPane.getScene();
          try {
-             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGame.fxml")));
+             scene.setRoot(FXMLLoader.load(getClass().getResource("/gui/FXMLGameLevel2.fxml")));
          } catch (IOException ex) {
-             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(FXMLGameController2.class.getName()).log(Level.SEVERE, null, ex);
          }
                     gameOver.close();
                 }
@@ -956,8 +924,10 @@ for(int j = 0; j < bahnen.size(); j++)
                 gameOver.setScene(dialogScene);
                 gameOver.show();
         }
+           
+  
     
-}
+    }
 
         
 //  @FXML           

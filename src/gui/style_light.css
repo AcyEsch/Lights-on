@@ -5,9 +5,9 @@
 .button {
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
     -fx-font-size: 20px;
-    -fx-background-image: url("Pics/DarkBG.jpg");
+    -fx-background-image: url("Pics/lightBG.jpg");
     -fx-background-size: auto;
-    -fx-text-fill: #ccffff;
+    -fx-text-fill: black;
     
 }
 .togglebutton {
@@ -15,6 +15,7 @@
     -fx-background-radius: 8,7,6;
     -fx-background-insets: 0,1,2;
     -fx-font-size: 20px;
+    -fx-text-fill: black;
 }
 
 .button:hover{
@@ -28,12 +29,18 @@
 .label{
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
     -fx-font-size: 27px;
-    -fx-text-fill: #ccffff;
+    -fx-text-fill: black;
     -fx-z-index: 100;
 }
+/* Pop up message */
+#konfetti{
+      -fx-background-image: url("Pics/konfetti.gif");
+      -fx-background-size: 500 300;
+}
+
 /*Hintergrund generell */
-#mainPane{
-       -fx-background-image: url("Pics/DarkBG.jpg");
+#mainPaneLight{
+       -fx-background-image: url("Pics/lightBG.jpg");
        -fx-background-size: auto;
 }
 /*############################################################################*/
@@ -115,9 +122,9 @@
 #playButton {
     -fx-font-family: "Tw Cen MT Condensed Extra Bold";
     -fx-font-size: 20px;
-    -fx-background-image: url("Pics/DarkBG.jpg");
+    -fx-background-image: url("Pics/lightBG.jpg");
     -fx-background-size: auto;
-    -fx-text-fill: #ccffff;
+    -fx-text-fill: black;
     
 }
 

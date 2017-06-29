@@ -28,7 +28,7 @@ public class Main  extends Application {
         
        Parent root = FXMLLoader.load(getClass().getResource("/gui/LevelsFXML.fxml"));
       
-        
+        this.stage=stage;
     
         
         

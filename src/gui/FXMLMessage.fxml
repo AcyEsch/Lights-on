@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane id="konfetti" fx:id="mPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="263.0" layoutY="129.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="87.0" text="Next Level" />
+      <Button layoutX="136.0" layoutY="129.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="87.0" text="Replay" />
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="57.0" layoutY="10.0" prefHeight="119.0" prefWidth="412.0" text="LEVEL  COMPLETED!" textFill="#599a04" textOverrun="LEADING_ELLIPSIS">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <effect>
+            <Glow level="0.86" />
+         </effect>
+      </Label>
+   </children>
+</Pane>

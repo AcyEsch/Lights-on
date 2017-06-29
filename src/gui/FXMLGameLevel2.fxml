@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="gridPane" id="mainPane" alignment="CENTER" gridLinesVisible="false" hgap="10" minHeight="600" minWidth="800" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLGameController2">
+  <padding>
+    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+  </padding>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="70" />
+        <ColumnConstraints hgrow="ALWAYS" percentWidth="30" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="10" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="90" vgrow="ALWAYS" />
+    </rowConstraints>
+   <children>
+            <!-- 
+            TopPane
+            -->
+            <BorderPane fx:id="anchorPane" prefHeight="1080.0" prefWidth="1920.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                 <padding>
+                    <Insets top="0" right="30" bottom="0" left="30"/>
+                 </padding>
+                <left>
+                    <HBox alignment="CENTER" spacing="15">
+                       <children>       
+                           <!-- PlayButton, Zeitangabe -->                
+                           <ToggleButton fx:id="simButton" id="playButton" onAction="#handleSimButtonAction"   prefHeight="80.0" prefWidth="80.0" text="Play" />
+                       </children>
+         </HBox>
+                </left>
+                <center>
+                    <HBox alignment="CENTER" spacing="15">
+                       <children>  
+                           <!-- Name des Levels -->                     
+                           <Label prefHeight="38.0" prefWidth="145.0" text="Level 1" />
+                       </children>
+                    </HBox>
+                </center>
+                <right>
+                    <HBox alignment="CENTER" spacing="15">
+                       <children> 
+                           <!-- Buttons Tipps und Home -->
+                           <Button id="tipps" fx:id="btn_tipps" prefHeight="80.0" prefWidth="80.0" text="Tipps" />
+                           <Button id="home" fx:id="home" onAction="#home" prefHeight="80.0" prefWidth="80.0" text="Home" />
+                       </children>
+                    </HBox>
+                </right>
+     </BorderPane>
+     
+     
+         <!--
+     Elements und Controll Label
+         -->
+     <HBox alignment="CENTER"  id="controllPane" spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <children> 
+           <Label text="Elements  and  Controll" />
+        </children>
+     </HBox>
+     <!--
+     SimulationsPane
+     -->
+     <ScrollPane fx:id="zoomPane" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <content>
+            <Pane id="scene" fx:id="simPane">
+               <children>
+                   <!--
+                   Simulationsszene wird vom Controller hinzugefügt
+                   -->
+               </children>
+            </Pane> 
+        </content>
+    </ScrollPane>    
+
+     <!-- 
+    ControllPane
+    -->
+    <BorderPane fx:id="controllPane" id="controllPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+        <top>
+        <!-- D&D Elemente -->
+            <VBox  alignment="TOP_CENTER" fx:id="elementsBox" spacing="30.0">
+                <children>
+                    <HBox fx:id="hBox" alignment="CENTER" spacing="80.0">
+
+                    </HBox>
+                </children>
+            </VBox>
+        </top>
+        <center>
+            <VBox  alignment="TOP_CENTER" fx:id="controllsBox"  spacing="10.0">
+                <children>
+                    <HBox fx:id="drehen" alignment="TOP_CENTER" spacing="10.0">
+                        <children>
+                            <Button id="left" fx:id="btn_left" onAction="#handleLeft" prefHeight="50.0" prefWidth="120.0" text="Turn Left">
+              <!--                    <HBox.margin>
+                                    <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
+                                 </HBox.margin>                                                                                                 -->
+                            </Button>
+                            <Button fx:id="right" onAction="#handleRight" prefHeight="50.0" prefWidth="120.0" text="Turn Right">
+                 <!--                 <HBox.margin>
+                                    <Insets bottom="20.0" left="15.0" right="20.0" top="20.0" />
+                                 </HBox.margin>                                                                                                 -->
+                            </Button>
+                        </children>
+                    </HBox>
+                    <HBox alignment="TOP_CENTER" spacing="10.0">
+                        <Label text="Lenght:" />
+                    </HBox>
+                    <HBox alignment="TOP_CENTER" fx:id="drehen1" prefHeight="54.0" prefWidth="20.0" spacing="10.0">
+                        <children>
+                            <Button fx:id="btn_plus1" mnemonicParsing="false" onAction="#handlePlus" prefHeight="54.0" prefWidth="60.0" text="+">
+                   <!--           <HBox.margin>
+                                <Insets bottom="20.0" left="80.0" right="20.0" top="20.0" />
+                             </HBox.margin>                                                                                                             -->
+                            </Button>
+                            <Button fx:id="btn_minus1" mnemonicParsing="false" onAction="#handleMinus" prefHeight="54.0" prefWidth="60.0" text="-">
+               <!--               <HBox.margin>
+                                <Insets bottom="20.0" right="20.0" top="20.0" />
+                             </HBox.margin>                                                                                                                 -->
+                            </Button>
+                        </children>
+                    </HBox>
+                    </children>
+                </VBox>
+        </center>
+     </BorderPane>
+   </children>
+</GridPane>
