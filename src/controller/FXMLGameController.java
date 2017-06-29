@@ -123,22 +123,6 @@ public class FXMLGameController implements Initializable
     
 @FXML
  protected ToggleButton handleSimButtonAction(ActionEvent event) throws IOException, Exception{
-     /*
-      simButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
-          @Override
-          public void changed(ObservableValue<?extends Boolean> oValue ,Boolean selected, Boolean wasSelected) {
-              if (selected) {
-                simButton = simStart();
-                System.out.println("1");
-        } else {
-                  simButton = simReset();
-                  System.out.println("2");
-              }
-          }
-      });
-      */
-      //Sonst muss 2 mal auf Start geklickt werden, damit die Simulation startet
-   
       if(mSim)
      {
          System.out.println("Start");
@@ -219,16 +203,6 @@ public class FXMLGameController implements Initializable
 
                   return simButton;
  }
- 
- 
-
-//   @FXML
-//   private void schalter(ActionEvent event) throws IOException{
-//      
-//      simPane.getStyleClass().add("light");
-//      simPane.setId("light");
-//   }
-//    
    
     @FXML  
     private void home(ActionEvent event) throws IOException, Exception{
@@ -474,73 +448,7 @@ for(int j = 0; j < bahnen.size(); j++)
     
     
     }
-    }       
-    
-//     EventHandler<MouseEvent> circleOnMousePressedEventHandler = 
-//        new EventHandler<MouseEvent>() {
-// 
-//        @Override
-//        public void handle(MouseEvent t) {
-//            orgSceneX = t.getSceneX();
-//            orgSceneY = t.getSceneY();
-//            orgTranslateX = ((Line)(t.getSource())).getTranslateX();
-//            orgTranslateY = ((Line)(t.getSource())).getTranslateY();
-//        }
-//    };
-//     
-//    EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = 
-//        new EventHandler<MouseEvent>() {
-// 
-//        @Override
-//        public void handle(MouseEvent t) {
-//            double offsetX = t.getSceneX() - orgSceneX;
-//            double offsetY = t.getSceneY() - orgSceneY;
-//            double newTranslateX = orgTranslateX + offsetX;
-//            double newTranslateY = orgTranslateY + offsetY;
-//             
-//            ((Line)(t.getSource())).setTranslateX(newTranslateX);
-//            ((Line)(t.getSource())).setTranslateY(newTranslateY);
-//        }
-//    };
-//    
-    
-    
-   
-    
-   
-    
-    
-    
- 
-    
-    
-//    
-//  @FXML
-//   private void lichtAn(Kugel k, Label l){
-//       System.out.println("lichtAnlichtAnlichtAnlichtAnlichtAnlichtAn");
-//      
-//              k.getCenterX();
-//              k.getCenterY();
-//
-//    
-//    
-//      l.getLayoutX();
-//      l.getLayoutY();
-//      if (k.getCenterY()<=l.getLayoutY() || k.getCenterX()>=l.getLayoutX()){
-//          System.out.println("yes yes yes yes   lichtAnlichtAnlichtAnlichtAnlichtAn");
-//          simPane.getStyleClass().add("light");
-//           simPane.setId("light");
-//      }else{
-//          System.out.println("kein kein kein kein lichtAnlichtAnlichtAnlichtAnlichtAn");
-//      }
-//       
-//       
-//   }
-  
-   
-    
-    
-    
+ }          
            
     @FXML
     private void handlePlus(ActionEvent event)
@@ -623,13 +531,6 @@ for(int j = 0; j < bahnen.size(); j++)
             lr = -8;
         }
         
-       /*
-       //Rotieren
-       
-       b.setRot(b.getRot() - 5);
-       b.setRotate(b.getRot());            
-       ///Berechnet die Punkte nicht!!!!
-*/
        
 //Bahn in den Ursprung verschieben
        xM = (Math.abs(b.getDeltaX()) / 2) + b.getKleineresX();
@@ -738,9 +639,7 @@ for(int j = 0; j < bahnen.size(); j++)
         
        b.werteBerechnen();      
     }
-    
-  
-    //~~~~~~~~~~~END~~~~~~~~~~~~~
+     
     
     public void deleteContent(){
         bahnen.clear();
@@ -751,23 +650,7 @@ for(int j = 0; j < bahnen.size(); j++)
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
-    {
-       //timer();
-   
-        /////////////////////////////////////Layout/////////////////////////////////////
-
-        //Sorgt dafür, dass die SimulationPane sich der Größe des Grid anpasst
-        //Doesnt work correctly
-//        gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
-//          @Override
-//          public void changed(ObservableValue<? extends Bounds> observable,
-//              Bounds oldValue, Bounds newValue) {
-//              //
-//                gridB = newValue;
-//               
-//          }
-//        });
-        
+    {       
         gridPane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>(){
           @Override
           public void changed(ObservableValue<? extends Bounds> observable,
@@ -777,8 +660,7 @@ for(int j = 0; j < bahnen.size(); j++)
                     setTheSizes();
                 }catch(Exception e){
                     System.out.println("Preferierte Größen können nicht gesetzt werden in der SimPane");
-                }
-        
+                }        
        }
         });  
         
@@ -794,8 +676,7 @@ for(int j = 0; j < bahnen.size(); j++)
                 }
           }
         });
-     
-        
+             
        load();
        
     }      
@@ -805,27 +686,6 @@ for(int j = 0; j < bahnen.size(); j++)
         simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
          simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
         
-//        //Stellt die Breite der SimPane ein
-//        if (gridB.getWidth()*PERCENT_WIDTH_SIM > simB.getWidth() )
-//            simPane.setPrefWidth(gridB.getWidth()*PERCENT_WIDTH_SIM);
-//        else
-//            simPane.setPrefWidth(simB.getWidth()+3);
-//        //Stellt die Höhe der SimPane ein
-//        if (gridB.getHeight()*PERCENT_HEIGHT > simB.getHeight())
-//            simPane.setPrefHeight(gridB.getHeight()*PERCENT_HEIGHT);
-//        else
-//            simPane.setPrefHeight(simB.getHeight()+3);
-//        
-//        if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
-//             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, gridB.getHeight()*PERCENT_HEIGHT);
-//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT >= simB.getHeight())
-//             simPane.setPrefSize(simB.getWidth(), gridB.getHeight()*PERCENT_HEIGHT);
-//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM >= simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
-//             simPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_SIM, simB.getHeight());
-//        else if (gridB.getWidth()*PERCENT_WIDTH_SIM < simB.getWidth() && gridB.getHeight()*PERCENT_HEIGHT < simB.getHeight())
-//             simPane.setPrefSize(simB.getWidth(), simB.getHeight());
-//        else
-//            throw new Exception();
         controllPane.setPrefSize(gridB.getWidth()*PERCENT_WIDTH_CON, gridB.getHeight()*PERCENT_HEIGHT);
     }
     public void next()  throws IOException{
@@ -864,7 +724,6 @@ for(int j = 0; j < bahnen.size(); j++)
                 dialog.showingProperty().asObject();
                 dialog.show();
     }
-
     
     public void gameOver(){
         tl.stop();
@@ -876,25 +735,5 @@ for(int j = 0; j < bahnen.size(); j++)
          } catch (IOException ex) {
              Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
          }
-    }
-    
+    }    
 }
-
-        
-//  @FXML           
-//    public void timer() {
-//        Timeline time = new Timeline();
-//        time.setCycleCount(Timeline.INDEFINITE);
-//      
-//       
-//       KeyFrame frame=new KeyFrame(Duration.seconds(1), (ActionEvent event) -> {
-//           seconds--;
-//           timer.setText(seconds.toString());
-//           if(seconds<=0){
-//               time.stop();
-//           }
-//        });
-//        
-//    time.playFromStart();
-//    
-//}
