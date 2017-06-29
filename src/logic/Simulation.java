@@ -13,12 +13,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.CircleBuilder;
 import javafx.scene.shape.Rectangle;
       public class Simulation 
-    {  
-        //public int formelTyp = 1;              
+    {             
     
-        //public double masse = 25;      //Realistischer Wert?
         public double g = 9.81;         //Schwerkraft
-        //public double a;                //Beschleunigung
         
         public double Fg;            //Gewichtskraft
         public double Fh;              //Hangabtriebskraft
@@ -26,7 +23,6 @@ import javafx.scene.shape.Rectangle;
         public double Fr;               // Reibungskraft
         public double mik = 0.2;              //Reibungszahl      Realistischer Wert?        
          
-       // public double Vk = 0;  //Geschwindigkeit
         public double t0;  //Aktuelle Zeit
         public double deltaT;
         private double talt = 0;
@@ -36,7 +32,6 @@ import javafx.scene.shape.Rectangle;
         public double Vn;
         public double s;
         private double sMerker;
-        //public double winkel = 90;
         public double winkelBeta;
         private double winkelMerker;
         public double strecke;
@@ -58,10 +53,7 @@ import javafx.scene.shape.Rectangle;
         
         private Kugel k;
         private Bahn kolBahn;
-       
-        
-    
-    //public int merker = -1;
+                   
         
     public Simulation() 
     {        
@@ -106,7 +98,7 @@ import javafx.scene.shape.Rectangle;
             k.setYDelta(-1 *(s / Math.sin(90 * Math.PI/180)) * Math.sin(k.getWinkel() * Math.PI/180));           
                 }
                 
-            if(s < 0.01)//(s <= 0)
+            if(s < 0.01)
             {
                 k.setHRollen(false);
                 k.setVk(0);
@@ -146,14 +138,12 @@ import javafx.scene.shape.Rectangle;
                 if(k.getWinkel() > 90) k.setWinkel(k.getWinkel() - g * time);//Math.pow(g * time, 2));                                            
            }
           
-          //Test           
+                
            if((k.getWinkel() != 0 && k.getWinkel() != 180)&&(k.getHRollen() && (k.getXDelta() == 0)))
            {
                k.setHRollen(false);
            }
-          
 
-            //checkForEnd(kolBahn); 
                         
             
             Bahn b = kollisionBahnen(bahnen, i);
@@ -170,9 +160,7 @@ import javafx.scene.shape.Rectangle;
                checkForEnd(kolBahn);
             }
 
-      
-             
-             
+
             k.setCenterX(k.getCenterX() + k.getXDelta());
             k.setCenterY(k.getCenterY() + k.getYDelta());  
             
@@ -194,10 +182,9 @@ import javafx.scene.shape.Rectangle;
             if (b.getOldDistanz() > 0 && b.getDistanz() <= 0 && k.getCenterX() < b.getGroeseresX() + k.getRadius() && k.getCenterX() > b.getKleineresX() - k.getRadius())
             {
                
-                if(k.getMerker() != i)//&& formelTyp != 2)
+                if(k.getMerker() != i)
                 {
                     //Kugel rollt Bahn mit Schwung hoch
-                    // //if((k.getWinkel() > 90 && b.getWinkel() < 90) || (k.getWinkel() < 90 && b.getWinkel() > 90))
                     if(b.getWinkel() == 0 ||(k.getWinkel() > 90 && b.getWinkel() < 90) || (k.getWinkel() < 90 && b.getWinkel() > 90))
                     {                        
                         kugelRolltHoch(b);                        
@@ -246,7 +233,6 @@ import javafx.scene.shape.Rectangle;
             k.setKollision(false);
             k.setMerker(-1);
             k.setVk(s);            
-          //  k.setFill(Color.OLIVE);
            System.out.println("Runter von der Bahn");
         }   
     }
