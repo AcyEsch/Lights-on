@@ -346,6 +346,7 @@ public class FXMLGameController implements Initializable
      Bahn bahnT2 = new Bahn(x1, y1, x2, y2, true, false);
     bahnT2.setStrokeWidth(5.0);
 
+    
     elementsBox.getChildren().addAll(bahnT,bahnT2);
  
     merkerT = bahnen.size();
@@ -371,32 +372,40 @@ public class FXMLGameController implements Initializable
             Dragboard db = e.getDragboard();
             if (db.hasString()) 
             {                
-                Point location = MouseInfo.getPointerInfo().getLocation();
-			double x = location.getX();
-			double y = location.getY();
-        /*
-            bahnen.get(merkerT).setStartX(x);
-            bahnen.get(merkerT).setStartY(y);
+                int endX = (int)e.getX() + (int)bahnen.get(merkerT).getDeltaX();
+                int endY = (int)e.getY() + (int)bahnen.get(merkerT).getDeltaY();
                 
-            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + x);
-            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + y);
-       */
-            bahnen.get(merkerT).setStartX(e.getX());
-            bahnen.get(merkerT).setStartY(e.getY());
-            
-            bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
-            bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
-            
+                Bahn b1 = new Bahn((int)e.getX(),(int)e.getY(), endX,endY,true,false);
+                b1.setStrokeWidth(5.0);
                 
-            bahnen.get(merkerT).werteBerechnen();
+            b1.werteBerechnen();
                 
-            simGroup.getChildren().add(bahnen.get(merkerT));
-            simPane.getChildren().add(bahnen.get(merkerT)); 
+            simGroup.getChildren().add(b1);
+            simPane.getChildren().add(b1); 
             
-            System.out.println("Werte Maus   x " + e.getX() + "   y " + e.getY());
-            System.out.println("Werte Box  X1 " + bahnen.get(merkerT).getX1() + "   y1 " +bahnen.get(merkerT).getY1() + "   X2 " +bahnen.get(merkerT).getX2() + "  y2 " + bahnen.get(merkerT).getY2());
+            elementsBox.getChildren().remove(bahnen.get(merkerT));
             
-             bahnen.get(merkerT).getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
+for(int j = 0; j < bahnen.size(); j++)
+       {                 
+            Bahn b = bahnen.get(j);
+
+           if(b.getCanBeDraged())
+           {
+            drag.dragBahn(b);
+           }
+          //Licht An Effekt 
+         
+          if(sim.getAn()==true ){
+             System.out.println("k.getKollision()k.getKollision()k.getKollision()k.getKollision()" + sim.getAn()); 
+         
+             simPane.getStyleClass().add("light");
+             simPane.setId("sceneLight");
+             gridPane.setId("mainPaneLight");
+                   
+       }  
+       } 
+            
+             b1.getSelectedBahnProp().addListener(new ChangeListener<Boolean>() {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                         if (newValue) {
@@ -428,7 +437,7 @@ public class FXMLGameController implements Initializable
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
+        
     //DragAndDrop Aufrufen       
        //Objekte die ROT sind können nicht bewegt werden!!
        for(int i = 0; i < kugeln.size(); i++)
