@@ -348,17 +348,17 @@ public class FXMLGameController implements Initializable
         /*
             bahnen.get(merkerT).setStartX(x);
             bahnen.get(merkerT).setStartY(y);
-                
+                        
             bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + x);
             bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + y);
        */
             bahnen.get(merkerT).setStartX(e.getX());
             bahnen.get(merkerT).setStartY(e.getY());
-            
+                        
             bahnen.get(merkerT).setEndX(bahnen.get(merkerT).getDeltaX() + e.getX());
             bahnen.get(merkerT).setEndY(bahnen.get(merkerT).getDeltaY() + e.getY());
+       
             
-                
             bahnen.get(merkerT).werteBerechnen();
                 
             simGroup.getChildren().add(bahnen.get(merkerT));
